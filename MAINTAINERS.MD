@@ -1,3 +1,6 @@
 | Org                    | Name                                                |
 | -----------------------| ----------------------------------------------------|
-| §company§ | $name§ |
+| China Telecom | Dan Xu |
+| KDDI | Tetsuya Chiba |
+| KDDI | Toshi Wakayama |
+| Telefonica | Fernando Prado |
