@@ -23,5 +23,5 @@ Repository to describe, develop, document and test the KnowYourCustomer API fami
 * Meeting link: tbd
 
 ## Contributorship and mailing list
-* To subscribe / unsubscribe to the mailing list of this Sub Project and thus be / resign as Contributor please visit <https://lists.camaraproject.org/g/sp-§api_family_abbreviation§>.
-* A message to all Contributors of this Sub Project can be sent using <sp-§api_family_abbreviation§@lists.camaraproject.org>.
+* To subscribe / unsubscribe to the mailing list of this Sub Project and thus be / resign as Contributor please visit <https://lists.camaraproject.org/g/sp-kyc>.
+* A message to all Contributors of this Sub Project can be sent using <sp-kyc@lists.camaraproject.org>.
