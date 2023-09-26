@@ -1,20 +1,20 @@
-<a href="https://github.com/camaraproject/§repo_name§/commits/" title="Last Commit"><img src="https://img.shields.io/github/last-commit/camaraproject/§repo_name§?style=plastic"></a>
-<a href="https://github.com/camaraproject/§repo_name§/issues" title="Open Issues"><img src="https://img.shields.io/github/issues/camaraproject/§repo_name§?style=plastic"></a>
-<a href="https://github.com/camaraproject/§repo_name§/pulls" title="Open Pull Requests"><img src="https://img.shields.io/github/issues-pr/camaraproject/§repo_name§?style=plastic"></a>
-<a href="https://github.com/camaraproject/§repo_name§/graphs/contributors" title="Contributors"><img src="https://img.shields.io/github/contributors/camaraproject/§repo_name§?style=plastic"></a>
-<a href="https://github.com/camaraproject/§repo_name§" title="Repo Size"><img src="https://img.shields.io/github/repo-size/camaraproject/§repo_name§?style=plastic"></a>
-<a href="https://github.com/camaraproject/§repo_name§/blob/main/LICENSE" title="License"><img src="https://img.shields.io/badge/License-Apache%202.0-green.svg?style=plastic"></a>
+<a href="https://github.com/camaraproject/KnowYourCustomer/commits/" title="Last Commit"><img src="https://img.shields.io/github/last-commit/camaraproject/KnowYourCustomer?style=plastic"></a>
+<a href="https://github.com/camaraproject/KnowYourCustomer/issues" title="Open Issues"><img src="https://img.shields.io/github/issues/camaraproject/KnowYourCustomer?style=plastic"></a>
+<a href="https://github.com/camaraproject/KnowYourCustomer/pulls" title="Open Pull Requests"><img src="https://img.shields.io/github/issues-pr/camaraproject/KnowYourCustomer?style=plastic"></a>
+<a href="https://github.com/camaraproject/KnowYourCustomer/graphs/contributors" title="Contributors"><img src="https://img.shields.io/github/contributors/camaraproject/KnowYourCustomer?style=plastic"></a>
+<a href="https://github.com/camaraproject/KnowYourCustomer" title="Repo Size"><img src="https://img.shields.io/github/repo-size/camaraproject/KnowYourCustomer?style=plastic"></a>
+<a href="https://github.com/camaraproject/KnowYourCustomer/blob/main/LICENSE" title="License"><img src="https://img.shields.io/badge/License-Apache%202.0-green.svg?style=plastic"></a>
 
-# §repo_name§
-Repository to describe, develop, document and test the §repo_name§ API family
+# KnowYourCustomer
+Repository to describe, develop, document and test the KnowYourCustomer API family
 
 ## Scope
-* Service APIs for “§repo_name§” (see APIBacklog.md)  
+* Service APIs for “KnowYourCustomer” (see APIBacklog.md)  
 * It provides the customer with the ability to:  
-  * §API family description§.
+  * Enables Service Providers (SPs) to compare the information they have on file for a particular user with that on file (and verified) by the user’s Operator in their own KYC1 records (name, address)..
   * NOTE: The scope of this API family should be limited (at least at a first stage) to 4G and 5G.  
 * Describe, develop, document and test the APIs (with 1-2 Telcos)  
-* Started: §start date§
+* Started: September 2023
 * Location: virtually  
 
 ## Meetings
