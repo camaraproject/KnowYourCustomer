@@ -11,7 +11,7 @@ Repository to describe, develop, document and test the KnowYourCustomer API fami
 ## Scope
 * Service APIs for “KnowYourCustomer” (see APIBacklog.md)  
 * It provides the customer with the ability to:  
-  * Enables Service Providers (SPs) to compare the information they have on file for a particular user with that on file (and verified) by the user’s Operator in their own KYC1 records (name, address)..
+  * Enables Service Providers (SPs) to compare the information they have on file for a particular user with that on file (and verified) by the user’s Operator in their own KYC records (name, address)..
   * NOTE: The scope of this API family should be limited (at least at a first stage) to 4G and 5G.  
 * Describe, develop, document and test the APIs (with 1-2 Telcos)  
 * Started: September 2023
