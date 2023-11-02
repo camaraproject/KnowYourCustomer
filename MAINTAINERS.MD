@@ -4,5 +4,5 @@
 | Deutsche Telekom | Efthymis Isaakidis |
 | KDDI | Tetsuya Chiba |
 | KDDI | Toshi Wakayama |
-| Orange | Gillies Renoux |
+| Orange | Gilles Renoux |
 | Telefonica | Fernando Prado |
