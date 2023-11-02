@@ -19,7 +19,7 @@ Repository to describe, develop, document and test the KnowYourCustomer API fami
 
 ## Meetings
 * Meetings are held virtually
-* Schedule: Bi-weekly, Tuesday, 9 AM CET (08:00 UTC). For date/time of next meeting see previous [meeting minutes] https://github.com/camaraproject/KnowYourCustomer/tree/main/documentation/MeetingMinutes
+* Schedule: Bi-weekly, Tuesday, 9 AM CET (08:00 UTC). For date/time of next meeting see previous [meeting minutes] (https://github.com/camaraproject/KnowYourCustomer/tree/main/documentation/MeetingMinutes)
 * Meeting link: <a href="https://teams.microsoft.com/l/meetup-join/19%3ameeting_ZTQ3ODU3OWUtMTcwMS00NmZhLTg4MjEtZDVmM2FiNTZmMDY4%40thread.v2/0?context=%7b%22Tid%22%3a%22040b5c43-0c27-49b3-b8e6-cdec886abcee%22%2c%22Oid%22%3a%22d89fe1c8-4704-4b8e-8396-745509ac2a82%22%7d">Microsoft Teams Meeting</a>
 
 ## Contributorship and mailing list
