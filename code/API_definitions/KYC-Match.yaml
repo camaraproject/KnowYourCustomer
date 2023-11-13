@@ -1,0 +1,555 @@
+openapi: 3.0.3
+info:
+  title: KYC Match API
+  description: >
+    ### Overview
+
+    This API offers the third parties (RPs, application developers, enterprise customers, etc.) the capability to request for a service that compares information about an end user provided by the end user for the third party's service provision, with information about the same end user owned by the MNO and responds with the results.  The MNO is supposed to have validated information about the end user for making the subscription contract.  This service request is subject to the end user's consent.
+
+    ### Detail Description
+
+    ####  End user's information confirmed at the au/KDDI subscription contract 
+      This API for data matching service uses end user's information confirmed with name, address and birthdate at the au/KDDI subscription contract.
+      
+    If au IDs integration has been made, the third parties can select either of the below two options which will suit its use:
+      - Line contract number: matching will be done with information associated with more than one Mobile Numbers (MSISDNs).
+      - Representative line contract number: matching will be done with information associated with the representative Mobile number (MSISDN).
+
+    *It is not possible to provide matching result regarding identity verification document type (Driver's license, National Health Insurance Card, Passport etc.) which was used at the subscription contract.
+ 
+ 
+ 
+
+  version: 1.0.0
+servers:
+  - url: https://biz.openapi.au.com/proxy/maffin/v1
+    description: product environment
+
+  - url: https://biz.stg.openapi.au.com/proxy/stg-maffin/v1
+    description: verification environment
+    
+tags:
+  - name: KYC_Match
+paths:
+  /match:
+    post:
+      tags:
+        - KYC_Match
+      summary: KYC_Match
+      description: >
+        ### Overview
+        
+        This API offers the third parties (RPs, application developers, enterprise customers, etc.) the capability to request for a service that compares information about an end user provided by the end user for the third party's service provision, with information about the same end user owned by the MNO and responds with the results.  The MNO is supposed to have validated information about the end user for making the subscription contract.  This service request is subject to the end user's consent.
+        
+      operationId: KYC_Match
+      security:
+        - apiKey: []
+          Authorization: []
+      requestBody:
+        required: true
+        
+        description: >
+          Cp_id, service_id are provided by the MNOs when the third parties (RPs, application developers, enterprise customers, etc.) make contract for this service with the MNOs. <br>
+
+          Regarding Subscriber's information and User's information, if a third party wants to use them without distinguishing them, the third party API is supposed to receive matching results of both of Subscriber's information and User's information and to use the results as it wants. <br>
+ 
+          For non-Japanese names (Alphabet names), Subscriber name or User name should be used and "Subscriber_name_Kana" or "User_name_Kana should" not be used. <br>
+
+          If "Subsciber_region_match" is not used, "Subscriber_formatted_match" should include Prefecture name. 
+
+
+        content:
+          application/json;charset=UTF-8:
+            schema:
+              $ref: '#/components/schemas/postMatchingRequest'
+      responses:
+        '200':
+          description: >
+            Normal condition
+
+            List of processing result codes related to requests
+
+            | HTTP response status code  | Processing result code | Message | Remarks |
+
+            |:-----------|:------------|:------------|:------------|
+
+            | 200 | MFN1000 | | Normal response |
+
+            | 200 | MFN1001 | main_subscriber_mobile_phone_number_not_avalable |
+            main subscriber mobile phone number is not available |  
+
+            | 200 | MFN1002 | user_not_available | user information is not available | 
+
+            | 200 | MFN1003 | main_subscriber_mobile_phone_number_user_not_avalable | main subscriber mobile phone number and user information are not available | 
+
+            
+          headers:
+            Access-Control-Allow-Origin:
+              description: |
+                Set to '*'
+              schema:
+                type: string
+                example: '*'
+            Access-Control-Allow-Methods:
+              description: |
+               Set to '*'
+              schema:
+                type: string
+                example: '*'
+            Access-Control-Allow-Headers:
+              description: >
+                Set to Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,token
+              schema:
+                type: string
+
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/postMatchingResponse'
+        '401':
+          $ref: '#/components/responses/unauthorizedError'
+        '404':
+          $ref: '#/components/responses/notFoundError'
+        '500':
+          $ref: '#/components/responses/internalServerError'
+        '503':
+          $ref: '#/components/responses/serviceUnavailable'
+
+components:
+  securitySchemes:
+    apiKey:
+      type: apiKey
+      in: header
+      name: X-KDDI-API-KEY
+      description: API key given to each client, to be used for API-GW authentication.
+    Authorization:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: Access token given by IdP(authentication)
+
+  schemas:
+    postMatchingRequest:
+      type: object
+
+      required:
+        - cp_id
+        - service_id
+
+      properties:
+        cp_id:
+          type: number
+          description: |
+            Third party ID
+            Number (5 digits fixed)
+          example: 12345
+          maxLength: 5
+
+        service_id:
+          type: number
+          description: |
+            Service ID
+            Number (5 digits fixed)
+          example: 54321
+          maxLength: 5
+
+        subscriber_mobile_phone_match:
+          type: string
+          description: |
+            subscriber mobile phone number
+            Number (11 digits)
+            Select when requesting for matching with information related to more than one mobile phone numbers
+          example: 18012345678
+
+        main_subscriber_mobile_phone_match:
+          type: string
+          description: |
+            main subscriber mobile phone number
+            Number (11 digits)
+            Select when requesting for matching with information related to the main mobile phone number
+          example: 18012345678
+
+        subscriber_name_match:
+          type: string
+          description: |
+            Subscriber's name
+            Full-width characters (MaxLength 30)
+          maxLength: 30
+
+        subscriber_name_kana_hankaku_match:
+          type: string
+          description: |
+            Subscriber's name, Half-width Kana
+            Half-widht Kana (MaxLength 30)
+          maxLength: 30
+
+        subscriber_name_kana_zenkaku_match:
+          type: string
+          description: |
+            Subscriber's name, Full-width Kana
+            Full-widht Kana (MaxLength 30)
+          maxLength: 30
+
+        subscriber_postal_code_match:
+          type: string
+          description: |
+            Subcriber's postal code
+            Numbers (7 digits fixed)
+          example: 16789
+          maxLength: 7
+
+        subscriber_formatted_match:
+          type: string
+          description: |
+            Subscriber's postal address
+            Full-width characters (MaxLength 154)
+          maxLength: 154
+
+        subscriber_region_match:
+          type: string
+          description: |
+            Subscriber's postal address, region/prefecture
+            Full-width Kanji characters (maxLength 4)
+          maxLength: 4
+
+        subscriber_birthdate_match:
+          type: number
+          description: |
+            Subscriber's birthdate
+            YYYYMMDD (blank if not available)
+          example: 20001201
+
+        user_name_match:
+          type: string
+          description: |
+            User name
+            Full-width characters (Half-width characters also possible) (maxLength 60)
+          maxLength: 60
+
+        user_name_kana_hankaku_match:
+          type: string
+          description: |
+            User name, Half-width Kana
+            Half-width characters (maxLength 30)
+          maxLength: 30
+
+        user_name_kana_zenkaku_match:
+          type: string
+          description: |
+            User name, Full-width Kana
+            Full-width characters (maxLength 30)
+          maxLength: 30
+
+        user_birthdate_match:
+          type: number
+          description: |
+            User's birthdate
+            YYYYMMDD (blank if not available)
+          example: 20100515
+
+    postMatchingResponse:
+      type: object
+      required:
+        - status
+        - result_code
+        - data
+
+      properties:
+        status:
+          type: boolean
+          description: |
+            Response status
+            Responding to request with status (true)
+          example: true
+
+        result_code:
+          type: string
+          description: >
+            Responding with processing result codes related to requests
+
+            | HTTP response status code | Processing result code | Message | Remarks | 
+
+            |:-----------|:------------|:------------|:------------|
+
+            | 200 | MFN1000 | | Normal response |
+
+            | 200 | MFN1001 | main_subscriber_mobile_phone_number_not_avalable |
+            main subscriber mobile phone number is not available | 
+
+            | 200 | MFN1002 | user_not_available | user information is not available |
+
+            | 200 | MFN1003 | main_subscriber_mobile_phone_number_user_not_avalable | main subscriber mobile phone number and user information are not available |
+ 
+          example: MFN1000
+
+        data:
+          description: |
+            Responding with matching results
+          $ref: '#/components/schemas/postMatchingData'
+
+    postMatchingData:
+      type: object
+      properties:
+        subscriber_mobile_phone_match:
+          type: boolean
+          description: |
+            Matching result of subscriber mobile phone number
+          example: true
+
+        main_subscriber_mobile_phone_match:
+          type: boolean
+          description: |
+            Matching result of main subscriber mobile phone number
+          example: true
+
+        subscriber_name_match:
+          type: boolean
+          description: |
+            Matching result of subscriber name
+          example: true
+
+        subscriber_name_kana_hankaku_match:
+          type: boolean
+          description: |
+            Matching result of subscriber name, half-width Kana
+          example: true
+
+        subscriber_name_kana_zenkaku_match:
+          type: boolean
+          description: |
+            Matching result of subscriber name, Full-width Kana
+          example: true
+
+        subscriber_postal_code_match:
+          type: boolean
+          description: |
+            Matching result of subscriber's postal code
+          example: true
+
+        subscriber_formatted_match:
+          type: boolean
+          description: |
+            Matching result of subscriber's postal address
+          example: true
+
+        subscriber_region_match:
+          type: boolean
+          description: |
+            Matching result of subscriber's region (prefecture)
+          example: true
+
+        subscriber_birthdate_match:
+          type: boolean
+          description: |
+            Matching result of subscriber's birthdate
+          example: true
+
+        user_name_match:
+          type: boolean
+          description: |
+            Matching result of user name
+          example: true
+
+        user_name_kana_hankaku_match:
+          type: boolean
+          description: |
+            Matching result of user name, half-width Kana
+          example: true
+
+        user_name_kana_zenkaku_match:
+          type: boolean
+          description: |
+            Matching result of user name, full-width Kana
+          example: true
+
+        user_birthdate_match:
+          type: boolean
+          description: |
+            Matching result of user's birthdate
+          example: true
+
+  responses:
+    unauthorizedError:
+      description: >
+        ### Unauthorized error.
+
+        Access Token related errors
+ 
+        | HTTP response status code | Processing result code | Message | Remarks |
+
+        |:-----------|:------------|:------------|:------------|
+
+        | 401 | MFN2001 | invalid_characters/invalid_params |
+        error for invalid number of characters/ invalid parameters | 
+
+        | 401 | MFN2002 | invalid_token | error for invalid access token | 
+ 
+        | 401 | MFN2003 | expired_token | access token void (expired)  | 
+        
+      content:
+        application/json;charset=UTF-8:
+          schema:
+            type: object
+            required:
+              - status
+              - error
+              
+            properties:
+              status:
+                type: boolean
+                description: |
+                  Responding to request with status（false）
+                example: false
+
+              error:
+                type: object
+                required:
+                  - result_code
+                  - message
+
+                properties:
+                  result_code:
+                    type: string
+                    description: |
+                      Responding with code related to request
+                    example: MFN2001
+                  message:
+                    type: string
+                    description: |
+                      Responding with error description
+                    example: invalid_params
+
+    notFoundError:
+      description: >
+        ### Not Found error.
+
+        Error if URL is wrong / user is not found
+
+        | HTTP response status code | Processing result code | Message | Remarks |
+
+        |:-----------|:------------|:------------|:------------|
+
+        | 404 | MFN2004 | not_found_contractor/not_found | this service is not available for Subscriber ID used / Something wrong with API endpoint or method format | 
+
+
+      content:
+        application/json;charset=UTF-8:
+          schema:
+            type: object
+            required:
+              - status
+              - error
+            properties:
+              status:
+                type: boolean
+                description: |
+                  Responding to request with status (false)
+                example: false
+
+              error:
+                type: object
+                required:
+                  - result_code
+                  - message
+
+                properties:
+                  result_code:
+                    type: string
+                    description: |
+                      Responding with code related to request
+                    example: MFN2004
+
+                  message:
+                    type: string
+                    description: |
+                      Responding with error description
+                    example: not_found
+
+    internalServerError:
+      description: |
+        ### Internal server error.
+        Problem with MNO's server side.  
+        Some processing error within MNO's servers.
+        
+        | HTTP response status code | Processing result code | Message | Remarks |
+        |:-----------|:------------|:------------|:------------|
+        | 500 | MFN7001/MFN7002 | maintenance | system maintenance is underway | 
+        | 500 | MFN8001 | maintenance | matching service maintenance is underway | 
+
+      content:
+        application/json;charset=UTF-8:
+          schema:
+            type: object
+            required:
+              - status
+              - error
+            properties:
+              status:
+                type: boolean
+                description: |
+                  Responding to request with status (false)
+                example: false
+
+              error:
+                type: object
+                required:
+                  - result_code
+                  - message
+
+                properties:
+                  result_code:
+                    type: string
+                    description: |
+                      Responding with code related to request
+                    example: MFN7001
+
+                  message:
+                    type: string
+                    description: |
+                      Responding with error description
+                    example: maintenance
+
+    serviceUnavailable:
+      description: |
+        ###  Service Unavailable.
+        Problem with MNO's server side.  
+        Any unexpected error within MNO's servers.
+
+        | HTTP response status code | Processing result code | Message | Remarks |
+        |:-----------|:------------|:------------|:------------|
+        | 503 | MFN9000 | sorry_error | service unavailable due to internal system error | 
+
+      content:
+        application/json;charset=UTF-8:
+          schema:
+            type: object
+            required:
+              - status
+              - error
+
+            properties:
+              status:
+                type: boolean
+                description: |
+                  Responding to request with status (false)
+                example: false
+
+              error:
+                type: object
+                required:
+                  - result_code
+                  - message
+
+                properties:
+                  result_code:
+                    type: string
+                    description: |
+                      Responding with code related to request
+                    example: MFN9000
+                  message:
+
+                    type: string
+                    description: |
+                      Responding with error description
+                    example: sorry_error
+                    
