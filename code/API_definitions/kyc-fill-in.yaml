@@ -1,0 +1,328 @@
+openapi: 3.0.3
+info:
+  title: Know Your Customer Fill-in
+
+  termsOfService: http://swagger.io/terms/
+  contact:
+    email: project-email@sample.com
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+
+  version: 0.1.0-wip
+
+servers:
+  - url: '{apiRoot}/{basePath}'
+    variables:
+      apiRoot:
+        default: http://localhost:9091
+        description: API root
+      basePath:
+        default: kyc-fill-in/v0
+        description: Base path for the KYC-Fill-in API
+
+tags:
+  - name: KYC_Fill-in
+    description: Operations to provide information related to a customer identity stored the account data bound to the customer's phone number.
+
+paths:
+  /fill-in:
+    post:
+      tags:
+        - KYC_Fill-in
+      summary: Providing information related to a customer identity stored the account data bound to the customer's phone number.
+
+      operationId: KYC_Fill-in
+
+      security:
+        - openId:
+          - know-your-customer:fill-in
+
+        - apiKey: []
+          Authorization: []
+
+      requestBody:
+        required: true
+        content:
+          application/json;charset=UTF-8:
+            schema:
+              $ref: '#/components/schemas/KYC_FillinRequestBody'
+            examples:
+              KYC_FillinRequestBodyExample:
+                value:
+                  cp_id: 12345
+
+      responses:
+        '200':
+          description: OK
+
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/KYC_FillinResponse'
+              examples:
+                KYC_Fillin200Example:
+                  value:
+                    phoneNumberFillin: '+34629255833'
+                    mainMobilePhoneNumberFillin: '+811234567890'
+                    idDocumentFillin: 66666666q
+                    nameFillin: Federica Sanchez Arjona
+                    giventNameFillin: Federica
+                    familyNameFillin: Sanchez Arjona
+                    nameKanaHankakuFillin: federica
+                    nameKanaZenkakuFillin: Ｆｅｄｅｒｉｃａ
+                    middleNamesFillin: Sanchez
+                    givenNameInitialFillin: F
+                    middleNamesInitialsFillin: S
+                    familyNameAtBirthFillin: YYYY
+                    addressFillin: Tokyo-to Chiyoda-ku Iidabashi 3-10-10
+                    streetNameFillin: Nicolas Salmeron
+                    streetNumberFillin: 4
+                    postalCodeFillin: 1028460
+                    regionFillin: Tokyo
+                    localityFillin: ZZZZ
+                    countryFillin: Japan
+                    houseNumberExtensionFillin: VVVV
+                    birthdateFillin: '1978-08-22'
+                    emailFillin: abc@example.com
+                    genderFillin: male
+
+        '400':
+          $ref: '#/components/responses/Generic400'
+
+        '401':
+          $ref: '#/components/responses/Generic401'
+
+        '404':
+          $ref: '#/components/responses/Generic404'
+
+        '500':
+          $ref: '#/components/responses/Generic500'
+
+        '503':
+          $ref: '#/components/responses/Generic503'
+
+components:
+  securitySchemes:
+    openId:
+      type: openIdConnect
+      openIdConnectUrl: https://example.com/.well-known/openid-configuration
+
+    apiKey:
+      type: apiKey
+      in: header
+      name: X-KDDI-API-KEY
+      description: API key given to each client, to be used for API-GW authentication.
+    Authorization:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: Access toke given by IdP(authentication)
+
+  schemas:
+    KYC_FillinRequestBody:
+      type: object
+      description: Payload to request customer data.
+
+      properties:
+        cp_id:
+          type: string
+          description: Specific for a API service provider.  3rd party/ API consumer identity.  
+
+
+    KYC_FillinResponse:
+      type: object
+      properties:
+
+        phoneNumberFillin:
+          type: string
+          description: the phone number of the customer stored on the OB systems.
+
+        mainMobilePhoneNumberFillin:
+          type: string
+          description: the main mobile phone number of the customer stored on the OB systems.
+
+        idDocumentFillin:
+         type: string
+         description: Id number associated to the id_document of the customer stored on the OB systems.
+         
+        nameFillin:
+          type: string
+          description: the full name of the customer stored on the OB systems.
+        
+        givenNameFillin:
+          type: string
+          description: First name/given name of the customer stored on the OB systems.
+          
+        familyNameFillin:
+          type: string
+          description: Surname/family name of the customer stored on the OB systems.
+          
+        nameKanaHankakuFillin:
+          type: string
+          description: Reading of the full name of the customer in full-width Kana format stored on the OB systems.
+
+        nameKanaZenkakuFillin:
+          type: string
+          description: Reading of the full name of the customer in half-width Kana format stored on the OB systems.
+
+        middleNamesFillin:
+          type: string
+          description: the middle names of the customer stored on the OB systems.
+          
+        givenNameInitialFillin:
+          type: string
+          description: the Given Name Initial of the customer stored on the OB systems.
+          
+        middleNamesInitialsFillin:
+          type: string
+          description: the middle names initials of the customer stored on the OB systems.
+          
+        familyNameAtBirthFillin:
+          type: string
+          description: the Family Name At Birth of the customer stored on the OB systems.
+          
+        addressFillin:
+          type: string
+          description: the address of the customer stored on the OB systems.
+          
+        streetNameFillin:
+          type: string
+          description: the street name of the customer stored on the OB systems.
+          
+        streetNumberFillin:
+          type: string
+          description: the street number of the customer stored on the OB systems.
+          
+        postalCodeFillin:
+          type: string
+          description: the postal code of the customer stored on the OB systems.
+          
+        regionFillin:
+          type: string
+          description: the region of the customer stored on the OB systems.
+          
+        localityFillin:
+          type: string
+          description: the locality of the customer stored on the OB systems.
+        countryFillin:
+          type: string
+          description: the country of the customer stored on the OB systems.
+          
+        houseNumberExtensionFillin:
+          type: string
+          description: the house number extension of the customer stored on the OB systems.
+          
+        birthdateFillin:
+          type: string
+          description: the birthdate of the customer stored on the OB systems.
+          
+        emailFillin:
+          type: string
+          description: the email address of the customer stored on the OB systems.
+          
+        genderFillin:
+          type: string
+          description: the gender of the customer stored on the OB systems.
+          
+    ErrorInfo:
+      type: object
+      required:
+        - status
+        - code
+        - message
+      properties:
+        status:
+          type: integer
+          description: HTTP response status code
+        code:
+          type: string
+          description: Code given to this error
+        message:
+          type: string
+          description: Detailed error description
+
+  responses:
+    Generic400:
+      description: |-
+        Problem with the client request.
+      content:
+        application/json;charset=UTF-8:
+          schema:
+            $ref: '#/components/schemas/ErrorInfo'
+          examples:
+            InvalidCharacters_InvalidParameters:
+              value:
+                status: 400
+                code: INVALID_CHARACTERS_INVALID_PARAMs
+                message: invalid characters/ invalid parameters
+                
+    Generic401:
+      description: Unauthorized error. Access Token related errors.
+      content:
+        application/json;charset=UTF-8:
+          schema:
+            $ref: '#/components/schemas/ErrorInfo'
+          examples:
+            InvalidToken:
+              value:
+                status: 401
+                code: INVALID_TOKEN
+                message: invalid token
+            ExpiredToken:
+              value:
+                status: 401
+                code: EXPIRED_TOKEN
+                message: expired_token
+
+    Generic404:
+      description: |
+        Not Found error.  Error if URL is wrong / user is not found.
+      content:
+        application/json;charset=UTF-8:
+          schema:
+            $ref: '#/components/schemas/ErrorInfo'
+          examples:
+            NotFound:
+              value:
+                status: 404
+                code: NOT_FOUND
+                message: not_found_contractor/not_found
+
+    Generic500:
+      description: Internal server error.  Problem with MNO's server side.  Some processing error within MNO's servers.
+      content:
+        application/json;charset=UTF-8:
+          schema:
+            $ref: '#/components/schemas/ErrorInfo'
+          examples:
+            SystemMaintenance:
+              value:
+                status: 500
+                code: MAINTENANCE
+                message: System maintenance
+            ServiceMaintenance:
+              value:
+                status: 500
+                code: MAINTENANCE
+                message: Service maintenance
+            SettingError:
+              value:
+                status: 500
+                code: SETTING_ERROR_SETTING_GET_FAILED
+                message: Setting error/ setting get failed
+                
+    Generic503:
+      description: Service unavailable. Problem with MNO's server side.  Any unexpected error within MNO's servers.
+      content:
+        application/json;charset=UTF-8:
+          schema:
+            $ref: '#/components/schemas/ErrorInfo'
+          examples:
+            Sorry_error:
+              value:
+                status: 503
+                code: UNAVAILABLE
+                message: sorry_error
+
+
