@@ -51,7 +51,6 @@ paths:
               KYC_MatchRequestBodyExample:
                 value:
                   phoneNumber: '+34629255833'
-                  mainMobilePhoneNumber: '+811234567890'
                   idDocument: 66666666q
                   name: Federica Sanchez Arjona
                   giventName: Federica
@@ -59,8 +58,6 @@ paths:
                   nameKanaHankaku: federica
                   nameKanaZenkaku: Ｆｅｄｅｒｉｃａ
                   middleNames: Sanchez
-                  givenNameInitial: F
-                  middleNamesInitials: S
                   familyNameAtBirth: YYYY
                   address: Tokyo-to Chiyoda-ku Iidabashi 3-10-10
                   streetName: Nicolas Salmeron
@@ -73,8 +70,6 @@ paths:
                   birthdate: '1978-08-22'
                   email: abc@example.com
                   gender: male
-                  cp_id: 12345
-                  service_id: 67890
 
       responses:
         '200':
@@ -88,7 +83,6 @@ paths:
                 KYC_Match200Example:
                   value:
                     phoneNumberMatch: 'true'
-                    mainMobilePhoneNumberMatch: 'true'
                     idDocumentMatch: 'true'
                     nameMatch: 'true'
                     giventNameMatch: 'not_available'
@@ -96,8 +90,6 @@ paths:
                     nameKanaHankakuMatch: 'true'
                     nameKanaZenkakuMatch: 'false'
                     middleNamesMatch: 'true'
-                    givenNameInitialMatch: 'true'
-                    middleNamesInitialsMatch: 'true'
                     familyNameAtBirthMatch: 'false'
                     addressMatch: 'true'
                     streetNameMatch: 'true'
@@ -159,10 +151,6 @@ components:
           type: string
           description: A phone number belonging to the user in E.164 format (starting with country code). Optionally prefixed with '+'.
 
-        mainMobilePhoneNumber:
-          type: string
-          description: Select when requesting for matching with information related to the main mobile phone number
-
         idDocument:
          type: string
          description: Id number associated to the id_document. The value may also contain letters.
@@ -190,14 +178,6 @@ components:
         middleNames:
           type: string
           description: Middle names of the customer
-
-        givenNameInitial:
-          type: string
-          description: Given Name Initial of the customer
-
-        middleNamesInitials:
-          type: string
-          description: Middle names initials of the customer
 
         familyNameAtBirth:
           type: string
@@ -247,14 +227,6 @@ components:
           type: string
           description: Gender of the customer.
 
-        cp_id:
-          type: string
-          description: Specific for a API service provider.  3rd party/ API consumer identity #1.  
-
-        service_id:
-          type: string
-          description: Specific for a API service provider.  3rd party/ API consumer identity #2.  
-
     KYC_MatchResponse:
       type: object
       properties:
@@ -262,14 +234,6 @@ components:
         phoneNumberMatch:
           type: string
           description: Indicates whether the phone number of the customer matches with the one on the OB systems.
-          enum:
-                - 'true'
-                - 'false'
-                - 'not_available'
-
-        mainMobilePhoneNumberMatch:
-          type: string
-          description: Indicates whether the main mobile phone number of the customer matches with the one on the OB systems.
           enum:
                 - 'true'
                 - 'false'
@@ -329,23 +293,7 @@ components:
           enum:
                 - 'true'
                 - 'false'
-                - 'not_available'
-
-        givenNameInitialMatch:
-          type: string
-          description: Indicates whether the Given Name Initial of the customer matches with the one on the OB systems.
-          enum:
-                - 'true'
-                - 'false'
-                - 'not_available'
-
-        middleNamesInitialsMatch:
-          type: string
-          description: Indicates whether the middle names initials of the customer matches with the one on the OB systems.
-          enum:
-                - 'true'
-                - 'false'
-                - 'not_available'
+                - 'not_available
 
         familyNameAtBirthMatch:
           type: string
