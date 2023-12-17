@@ -64,7 +64,6 @@ paths:
                 KYC_Fillin200Example:
                   value:
                     phoneNumberFillin: '+34629255833'
-                    mainMobilePhoneNumberFillin: '+811234567890'
                     idDocumentFillin: 66666666q
                     nameFillin: Federica Sanchez Arjona
                     giventNameFillin: Federica
@@ -72,8 +71,6 @@ paths:
                     nameKanaHankakuFillin: federica
                     nameKanaZenkakuFillin: Ｆｅｄｅｒｉｃａ
                     middleNamesFillin: Sanchez
-                    givenNameInitialFillin: F
-                    middleNamesInitialsFillin: S
                     familyNameAtBirthFillin: YYYY
                     addressFillin: Tokyo-to Chiyoda-ku Iidabashi 3-10-10
                     streetNameFillin: Nicolas Salmeron
@@ -138,10 +135,6 @@ components:
           type: string
           description: the phone number of the customer stored on the OB systems.
 
-        mainMobilePhoneNumberFillin:
-          type: string
-          description: the main mobile phone number of the customer stored on the OB systems.
-
         idDocumentFillin:
          type: string
          description: Id number associated to the id_document of the customer stored on the OB systems.
@@ -169,15 +162,7 @@ components:
         middleNamesFillin:
           type: string
           description: the middle names of the customer stored on the OB systems.
-          
-        givenNameInitialFillin:
-          type: string
-          description: the Given Name Initial of the customer stored on the OB systems.
-          
-        middleNamesInitialsFillin:
-          type: string
-          description: the middle names initials of the customer stored on the OB systems.
-          
+
         familyNameAtBirthFillin:
           type: string
           description: the Family Name At Birth of the customer stored on the OB systems.
