@@ -431,12 +431,6 @@ components:
                 code: KNOW_YOUR_CUSTOMER.INVALID_PARAM_COMBINATION
                 message: Indicated parameter combination is invalid
 
-            InvalidCharactersParameters:
-              value:
-                status: 400
-                code: INVALID_CHARACTERS/INVALID_PARAMS
-                message: Invalid_characters/invalid_params
-
     Generic401:
       description: Authentication problem with the client request. Unauthorized error.  Access Token related errors.
       content:
@@ -449,16 +443,6 @@ components:
                 status: 401
                 code: UNAUTHENTICATED
                 message: Request not authenticated due to missing, invalid, or expired credentials
-            InvalidToken:
-              value:
-                status: 401
-                code: INVALID_TOKEN
-                message: invalid_token
-            ExpiredToken:
-              value:
-                status: 401
-                code: EXPIRED_TOKEN
-                message: expired_token
 
     Generic403:
       description: |
@@ -520,16 +504,6 @@ components:
                 status: 500
                 code: INTERNAL
                 message: Server error
-            SystemMaintenance:
-              value:
-                status: 500
-                code: MAINTENANCE
-                message: System maintenance
-            ServiceMaintenance:
-              value:
-                status: 500
-                code: MAINTENANCE
-                message: Service maintenance
 
     Generic503:
       description: Service unavailable. Typically the server is down.  Problem with MNO's server side.  Any unexpected error within MNO's servers.
