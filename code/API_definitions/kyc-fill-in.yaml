@@ -50,7 +50,7 @@ paths:
             examples:
               KYC_FillinRequestBodyExample:
                 value:
-                  cp_id: 12345
+                  3rdPartyId: 12345
 
       responses:
         '200':
@@ -63,26 +63,26 @@ paths:
               examples:
                 KYC_Fillin200Example:
                   value:
-                    phoneNumberFillin: '+34629255833'
-                    idDocumentFillin: 66666666q
-                    nameFillin: Federica Sanchez Arjona
-                    giventNameFillin: Federica
-                    familyNameFillin: Sanchez Arjona
-                    nameKanaHankakuFillin: federica
-                    nameKanaZenkakuFillin: Ｆｅｄｅｒｉｃａ
-                    middleNamesFillin: Sanchez
-                    familyNameAtBirthFillin: YYYY
-                    addressFillin: Tokyo-to Chiyoda-ku Iidabashi 3-10-10
-                    streetNameFillin: Nicolas Salmeron
-                    streetNumberFillin: 4
-                    postalCodeFillin: 1028460
-                    regionFillin: Tokyo
-                    localityFillin: ZZZZ
-                    countryFillin: Japan
-                    houseNumberExtensionFillin: VVVV
-                    birthdateFillin: '1978-08-22'
-                    emailFillin: abc@example.com
-                    genderFillin: male
+                    phoneNumber: '+34629255833'
+                    idDocument: 66666666q
+                    name: Federica Sanchez Arjona
+                    giventName: Federica
+                    familyName: Sanchez Arjona
+                    nameKanaHankaku: federica
+                    nameKanaZenkaku: Ｆｅｄｅｒｉｃａ
+                    middleNames: Sanchez
+                    familyNameAtBirth: YYYY
+                    address: Tokyo-to Chiyoda-ku Iidabashi 3-10-10
+                    streetName: Nicolas Salmeron
+                    streetNumber: 4
+                    postalCode: 1028460
+                    region: Tokyo
+                    locality: ZZZZ
+                    country: Japan
+                    houseNumberExtension: 36
+                    birthdate: '1978-08-22'
+                    email: abc@example.com
+                    gender: male
 
         '400':
           $ref: '#/components/responses/Generic400'
@@ -131,82 +131,83 @@ components:
       type: object
       properties:
 
-        phoneNumberFillin:
+        phoneNumber:
           type: string
           description: the phone number of the customer stored on the OB systems.
 
-        idDocumentFillin:
+        idDocument:
          type: string
          description: Id number associated to the id_document of the customer stored on the OB systems.
          
-        nameFillin:
+        name:
           type: string
           description: the full name of the customer stored on the OB systems.
         
-        givenNameFillin:
+        givenName:
           type: string
           description: First name/given name of the customer stored on the OB systems.
           
-        familyNameFillin:
+        familyName:
           type: string
           description: Surname/family name of the customer stored on the OB systems.
           
-        nameKanaHankakuFillin:
+        nameKanaHankaku:
           type: string
           description: Reading of the full name of the customer in full-width Kana format stored on the OB systems.
 
-        nameKanaZenkakuFillin:
+        nameKanaZenkaku:
           type: string
           description: Reading of the full name of the customer in half-width Kana format stored on the OB systems.
 
-        middleNamesFillin:
+        middleNames:
           type: string
           description: the middle names of the customer stored on the OB systems.
 
-        familyNameAtBirthFillin:
+        familyNameAtBirth:
           type: string
           description: the Family Name At Birth of the customer stored on the OB systems.
           
-        addressFillin:
+        address:
           type: string
           description: the address of the customer stored on the OB systems.
           
-        streetNameFillin:
+        streetName:
           type: string
           description: the street name of the customer stored on the OB systems.
           
-        streetNumberFillin:
+        streetNumber:
           type: string
           description: the street number of the customer stored on the OB systems.
           
-        postalCodeFillin:
+        postalCode:
           type: string
           description: the postal code of the customer stored on the OB systems.
           
-        regionFillin:
+        region:
           type: string
           description: the region of the customer stored on the OB systems.
           
-        localityFillin:
+        locality:
           type: string
           description: the locality of the customer stored on the OB systems.
-        countryFillin:
+
+        country:
           type: string
           description: the country of the customer stored on the OB systems.
           
-        houseNumberExtensionFillin:
+        houseNumberExtension:
           type: string
           description: the house number extension of the customer stored on the OB systems.
           
-        birthdateFillin:
+        birthdate:
           type: string
           description: the birthdate of the customer stored on the OB systems.
           
-        emailFillin:
+        email:
           type: string
           description: the email address of the customer stored on the OB systems.
           
-        genderFillin:
+        gender:
           type: string
           description: the gender of the customer stored on the OB systems.
           
