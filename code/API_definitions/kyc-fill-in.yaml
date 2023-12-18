@@ -237,29 +237,24 @@ components:
           schema:
             $ref: '#/components/schemas/ErrorInfo'
           examples:
-            InvalidCharacters_InvalidParameters:
+            InvalidArgument:
               value:
                 status: 400
-                code: INVALID_CHARACTERS_INVALID_PARAMs
-                message: invalid characters/ invalid parameters
+                code: INVALID_ARGUMENT
+                message: Client specified an invalid argument, request body or query para
                 
     Generic401:
-      description: Unauthorized error. Access Token related errors.
+      description: Authentication problem with the client request. Unauthorized error. Access Token related errors.
       content:
         application/json;charset=UTF-8:
           schema:
             $ref: '#/components/schemas/ErrorInfo'
           examples:
-            InvalidToken:
+            Unauthenticated:
               value:
                 status: 401
-                code: INVALID_TOKEN
-                message: invalid token
-            ExpiredToken:
-              value:
-                status: 401
-                code: EXPIRED_TOKEN
-                message: expired_token
+                code: UNAUTHENTICATED
+                message: Request not authenticated due to missing, invalid, or espired credentials
 
     Generic404:
       description: |
@@ -276,27 +271,17 @@ components:
                 message: not_found_contractor/not_found
 
     Generic500:
-      description: Internal server error.  Problem with MNO's server side.  Some processing error within MNO's servers.
+      description: Server error. Problem with MNO's server side. Some processing error within MNO's servers.
       content:
         application/json;charset=UTF-8:
           schema:
             $ref: '#/components/schemas/ErrorInfo'
           examples:
-            SystemMaintenance:
+            ServerError:
               value:
                 status: 500
-                code: MAINTENANCE
-                message: System maintenance
-            ServiceMaintenance:
-              value:
-                status: 500
-                code: MAINTENANCE
-                message: Service maintenance
-            SettingError:
-              value:
-                status: 500
-                code: SETTING_ERROR_SETTING_GET_FAILED
-                message: Setting error/ setting get failed
+                code: INTERNAL
+                message: Server error
                 
     Generic503:
       description: Service unavailable. Problem with MNO's server side.  Any unexpected error within MNO's servers.
