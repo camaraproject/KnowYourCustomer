@@ -130,16 +130,6 @@ components:
       type: openIdConnect
       openIdConnectUrl: https://example.com/.well-known/openid-configuration
 
-    apiKey:
-      type: apiKey
-      in: header
-      name: X-KDDI-API-KEY
-      description: API key given to each client, to be used for API-GW authentication.
-    Authorization:
-      type: http
-      scheme: bearer
-      bearerFormat: JWT
-      description: Access toke given by IdP(authentication)
 
   schemas:
     KYC_MatchRequestBody:
