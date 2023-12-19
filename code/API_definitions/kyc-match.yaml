@@ -135,6 +135,20 @@ components:
       openIdConnectUrl: https://example.com/.well-known/openid-configuration
 
 
+  headers:
+    x-correlator:
+      description: Correlation id for the different services
+      schema:
+        type: string
+   
+   parameters:
+    x-correlator:
+      name: x-correlator
+      in: header
+      description: Correlation id for the different services
+      schema:
+        type: string
+        
   schemas:
     KYC_MatchRequestBody:
       type: object
