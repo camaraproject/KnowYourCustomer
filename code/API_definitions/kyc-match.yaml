@@ -46,7 +46,8 @@ paths:
       requestBody:
         required: true
         content:
-          application/json;charset=UTF-8:
+          application/json:
+
             schema:
               $ref: '#/components/schemas/KYC_MatchRequestBody'
             examples:
