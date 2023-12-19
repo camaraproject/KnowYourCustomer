@@ -38,8 +38,6 @@ paths:
         - openId:
           - know-your-customer:match
 
-        - apiKey: []
-          Authorization: []
 
       requestBody:
         required: true
