@@ -30,7 +30,7 @@ paths:
   /match:
     post:
       tags:
-        - KYC_Match
+        - Match
       summary: Matching a customer identity by checking a set of attributes related against the account data bound to their phone number.
 
       operationId: KYC_Match
