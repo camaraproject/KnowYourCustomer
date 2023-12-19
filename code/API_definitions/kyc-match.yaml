@@ -422,6 +422,9 @@ components:
 
     Generic401:
       description: Authentication problem with the client request. Unauthorized error.  Access Token related errors.
+      headers:
+        x-correlator:
+          $ref: '#/components/headers/x-correlator'
       content:
         application/json;charset=UTF-8:
           schema:
