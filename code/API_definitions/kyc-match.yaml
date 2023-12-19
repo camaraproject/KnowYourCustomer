@@ -477,7 +477,8 @@ components:
           $ref: '#/components/headers/x-correlator'
       content:
 
-        application/json;charset=UTF-8:
+        application/json:
+
           schema:
             $ref: '#/components/schemas/ErrorInfo'
           examples:
