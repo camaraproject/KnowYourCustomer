@@ -72,6 +72,9 @@ paths:
       responses:
         '200':
           description: OK
+          headers:
+            x-correlator:
+              $ref: '#/components/headers/x-correlator'
 
           content:
             application/json;charset=UTF-8:
