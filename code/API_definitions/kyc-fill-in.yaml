@@ -9,7 +9,7 @@ info:
     name: Apache 2.0
     url: https://www.apache.org/licenses/LICENSE-2.0.html
 
-  version: 0.1.0-wip
+  version: 0.1.0
 
 servers:
   - url: '{apiRoot}/{basePath}'
@@ -22,14 +22,14 @@ servers:
         description: Base path for the KYC-Fill-in API
 
 tags:
-  - name: KYC_Fill-in
+  - name: Fill-in
     description: Operations to provide information related to a customer identity stored the account data bound to the customer's phone number.
 
 paths:
   /fill-in:
     post:
       tags:
-        - KYC_Fill-in
+        - Fill-in
       summary: Providing information related to a customer identity stored the account data bound to the customer's phone number.
 
       operationId: KYC_Fill-in
@@ -38,26 +38,19 @@ paths:
         - openId:
           - know-your-customer:fill-in
 
-        - apiKey: []
-          Authorization: []
-
-      requestBody:
-        required: true
-        content:
-          application/json;charset=UTF-8:
-            schema:
-              $ref: '#/components/schemas/KYC_FillinRequestBody'
-            examples:
-              KYC_FillinRequestBodyExample:
-                value:
-                  3rdPartyId: 12345
+      parameters:
+        - $ref: '#/components/parameters/x-correlator'
 
       responses:
         '200':
           description: OK
 
+          headers:
+            x-correlator:
+              $ref: '#/components/headers/x-correlator'
+
           content:
-            application/json;charset=UTF-8:
+            application/json:
               schema:
                 $ref: '#/components/schemas/KYC_FillinResponse'
               examples:
@@ -105,27 +98,21 @@ components:
       type: openIdConnect
       openIdConnectUrl: https://example.com/.well-known/openid-configuration
 
-    apiKey:
-      type: apiKey
+  headers:
+    x-correlator:
+      description: Correlation id for the different services
+      schema:
+        type: string
+   
+  parameters:
+    x-correlator:
+      name: x-correlator
       in: header
-      name: X-KDDI-API-KEY
-      description: API key given to each client, to be used for API-GW authentication.
-    Authorization:
-      type: http
-      scheme: bearer
-      bearerFormat: JWT
-      description: Access toke given by IdP(authentication)
-
+      description: Correlation id for the different services
+      schema:
+        type: string
+        
   schemas:
-    KYC_FillinRequestBody:
-      type: object
-      description: Payload to request customer data.
-
-      properties:
-        cp_id:
-          type: string
-          description: Specific for a API service provider.  3rd party/ API consumer identity.  
-
 
     KYC_FillinResponse:
       type: object
@@ -232,8 +219,11 @@ components:
     Generic400:
       description: |-
         Problem with the client request.
+      headers:
+        x-correlator:
+          $ref: '#/components/headers/x-correlator'
       content:
-        application/json;charset=UTF-8:
+        application/json:
           schema:
             $ref: '#/components/schemas/ErrorInfo'
           examples:
@@ -245,8 +235,11 @@ components:
                 
     Generic401:
       description: Authentication problem with the client request. Unauthorized error. Access Token related errors.
+      headers:
+        x-correlator:
+          $ref: '#/components/headers/x-correlator'
       content:
-        application/json;charset=UTF-8:
+        application/json:
           schema:
             $ref: '#/components/schemas/ErrorInfo'
           examples:
@@ -259,8 +252,11 @@ components:
     Generic404:
       description: |
         Not Found error.  Error if URL is wrong / user is not found.
+      headers:
+        x-correlator:
+          $ref: '#/components/headers/x-correlator'
       content:
-        application/json;charset=UTF-8:
+        application/json:
           schema:
             $ref: '#/components/schemas/ErrorInfo'
           examples:
@@ -272,8 +268,11 @@ components:
 
     Generic500:
       description: Server error. Problem with MNO's server side. Some processing error within MNO's servers.
+      headers:
+        x-correlator:
+          $ref: '#/components/headers/x-correlator'
       content:
-        application/json;charset=UTF-8:
+        application/json:
           schema:
             $ref: '#/components/schemas/ErrorInfo'
           examples:
@@ -285,15 +284,18 @@ components:
                 
     Generic503:
       description: Service unavailable. Problem with MNO's server side.  Any unexpected error within MNO's servers.
+      headers:
+        x-correlator:
+          $ref: '#/components/headers/x-correlator'
       content:
-        application/json;charset=UTF-8:
+        application/json:
           schema:
             $ref: '#/components/schemas/ErrorInfo'
           examples:
-            Sorry_error:
+            ServiceUnavailable:
               value:
                 status: 503
                 code: UNAVAILABLE
-                message: sorry_error
+                message: Service unavailable
 
 
