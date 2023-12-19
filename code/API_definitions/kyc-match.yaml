@@ -293,7 +293,8 @@ components:
           enum:
                 - 'true'
                 - 'false'
-                - 'not_available
+                - 'not_available'
+
 
         familyNameAtBirthMatch:
           type: string
