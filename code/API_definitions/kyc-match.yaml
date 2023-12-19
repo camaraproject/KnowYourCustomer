@@ -479,7 +479,8 @@ components:
           examples:
             NotFound:
               value:
-                status: 403
+                status: 404
+
                 code: NOT_FOUND
                 message: not_found_contractor/not_found
 
