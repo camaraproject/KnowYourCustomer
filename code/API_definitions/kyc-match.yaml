@@ -22,7 +22,8 @@ servers:
         description: Base path for the KYC-Match API
 
 tags:
-  - name: KYC_Match
+  - name: Match
+
     description: Operations to match a customer identity against the account data bound to their phone number.
 
 paths:
