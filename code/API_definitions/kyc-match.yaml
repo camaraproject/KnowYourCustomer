@@ -39,6 +39,9 @@ paths:
           - know-your-customer:match
 
 
+      parameters:
+        - $ref: '#/components/parameters/x-correlator'
+        
       requestBody:
         required: true
         content:
