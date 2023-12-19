@@ -1,0 +1,394 @@
+openapi: 3.0.3
+info:
+  title: Know Your Customer Match
+  description: |-
+    Allows to verify the matching of a number of attributes related to a customer identity against the verified account data bound to their phone number.
+
+    # Relevant Definitions and concepts
+
+    - **KYC**: stands for Know Your Customer and it is the process of a business verifying the identity of their clients and assessing their suitability, along with the potential risks of illegal intentions towards the business relationship.
+
+    # API Functionality
+
+    This API allows API clients to verify the matching of a number of attributes related to a customer identity against the account data bound to their phone number. The API is intended to be used in the following scenarios:
+
+    - To verify the user personal data during the digital registration of an account to a 3rd party service.
+    - To prevent fraud, wrong or imprecise information, and/or facilitate the onboarding of a user to a 3rd party service.
+
+    The API supports a multi-level hierarchy of property validation. In addition to the initial verification of the `phoneNumber`, an additional `idDocument` validation may occur based on different OB requirements. This means that if the value of `idDocument` is not provided or it does not match the one bound to the specific phone number in the OB systems, the operation will be return an error.
+
+    In order to increase the compatibility of the input data with those stored in the OB systems, some fields will be subject to a normalization process consisting mainly of the elimination of blank and special characters (such as scores, underscores or language-dependent characters) resulting in a concatenation of the different parts in cases where there are compound strings (such as including an additional lastName). Matching will be done in lower case by default unless there is a specific scenario since the normalization rules will be set by the OB and may vary from system to system.
+
+    **Note**: It may occur that the API response contains some values matched and some others not matched. In such cases, it is the responsibility of the the API Client to determine whether or not the identity verification is correct depending on the specific use case.
+
+    # Resources and Operations overview
+
+    The API provides the following endpoint:
+
+    - An endpoint to verify the matching of a number of attributes related to a customer identity against the account data bound to their phone number.
+
+    # Further info and support
+
+    (FAQs will be added in a later version of the documentation)    
+
+  termsOfService: http://swagger.io/terms/
+  contact:
+    email: project-email@sample.com
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+  version: 0.1.0-wip
+servers:
+  - url: '{apiRoot}/{basePath}'
+    variables:
+      apiRoot:
+        default: http://localhost:9091
+        description: API root
+      basePath:
+        default: kyc-match/0
+        description: Base path for the Know Your Customer API
+tags:
+  - name: Matching Identity
+    description: Operations to match a customer identity against the account data bound to their phone number.
+paths:
+  /match:
+    post:
+      tags:
+        - Matching Identity
+      summary: Matching a customer identity by checking a set of attributes related against the account data bound to their phone number.
+      description: |-
+        Verify matching of a number of attributes related to a customer identity against the verified account data bound to their phone number in the OB systems. Regardless of whether the `phoneNumber` is explicitly stated in the request body, at least one of the other fields must be provided, otherwise a `HTTP 400 - KNOW_YOUR_CUSTOMER.INVALID_PARAM_COMBINATION` error will be returned.
+
+        In order to proceed with the match check, there may be the requirement to perform a second level of validation based on the `idDocument` property. This means that in those cases, the `idDocument` is required and the provided value needs to match the one stored in the OB system associated with the indicated `phoneNumber`.
+        - If no `idDocument` is provided, then a `HTTP 403 - KNOW_YOUR_CUSTOMER.ID_DOCUMENT_REQUIRED` error will be returned.
+        - If the provided `idDocument` does not match the one stored in the OB systems, then a `HTTP 403 - KNOW_YOUR_CUSTOMER.ID_DOCUMENT_MISMATCH` error will be returned.
+
+        This operation is intended to be used with a **3-legged Access Token** so, if the phoneNumber is provided, it must match the `sub` in the Access Token; this is because only the user of the phone number must be able to request a verification of their identity.
+        If `phoneNumber` is not explicitly provided, the match will be done for the user based on the `sub` in the Access Token.
+
+        The API will return the result of the matching process for each requested attribute. This means that the response will **only** contain the attributes for which validation has been requested. Possible values are:
+          - **true**: the attribute provided matches with the one in the OB systems.
+          - **false**: the attribute provided does not match with the one in the OB systems.
+          - **not_available**: the attribute is not available to validate. **NOTE**: This value is only admissible when the information does not exist in the backend system or if it exists but it does not apply to the context of the phone number provided.
+      operationId: matchIdentity
+      security:
+        - openId:
+          - know-your-customer:match
+      parameters:
+        - $ref: '#/components/parameters/x-correlator'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MatchIdentityRequestBody'
+            examples:
+              MatchIdentityRequestBodyExample:
+                value:
+                  phoneNumber: '+34629255833'
+                  idDocument: 66666666q
+                  identity:
+                    firstName: Federica
+                    lastName: Sanchez Arjona
+                  address:
+                    postalCode: '47004'
+                    streetName: Nicolas Salmeron
+                    streetNumber: '4'
+                  birthdate: '1978-08-22'
+      responses:
+        '200':
+          description: OK
+          headers:
+            x-correlator:
+              $ref: '#/components/headers/x-correlator'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MatchIdentityResponse'
+              examples:
+                MatchIdentity200Example:
+                  value:
+                    idDocument: 'true'
+                    identity:
+                      firstName: 'true'
+                      lastName: 'true'
+                    address:
+                      postalCode: 'false'
+                      streetName: 'true'
+                      streetNumber: 'true'
+                    birthdate: not_available
+        '400':
+          $ref: '#/components/responses/KnowYourCustomer400InvalidArgument'
+        '401':
+          $ref: '#/components/responses/Generic401'
+        '403':
+          $ref: '#/components/responses/KnowYourCustomer403PermissionDenied'
+        '500':
+          $ref: '#/components/responses/Generic500'
+        '503':
+          $ref: '#/components/responses/Generic503'
+        '504':
+          $ref: '#/components/responses/Generic504'
+components:
+  securitySchemes:
+    openId:
+      type: openIdConnect
+      openIdConnectUrl: https://example.com/.well-known/openid-configuration
+  headers:
+    x-correlator:
+      description: Correlation id for the different services
+      schema:
+        type: string
+  schemas:
+    MatchIdentityRequestBody:
+      type: object
+      description: Payload to validate the customer data.
+      properties:
+        phoneNumber:
+          $ref: '#/components/schemas/PhoneNumber'
+        idDocument:
+          $ref: '#/components/schemas/IdDocument'
+        identity:
+          $ref: '#/components/schemas/Identity'
+        address:
+          $ref: '#/components/schemas/Address'
+        birthdate:
+          type: string
+          description: The birthdate of the customer, in ISO 8601 calendar date format.
+          format: date
+    PhoneNumber:
+      type: string
+      description: A phone number belonging to the user in E.164 format (starting with country code). Optionally prefixed with '+'.
+    IdDocument:
+      type: string
+      description: Id number associated to the id_document. The value may also contain letters.
+    Identity:
+      type: object
+      description: Identity of the customer
+      minProperties: 1
+      properties:
+        firstName:
+          type: string
+          description: First name/given name of the customer. It may include a compound first name or a second/middle name.
+        lastName:
+          type: string
+          description: Surname/family name of the customer. It may include a compound last name or an additional last name.
+    Address:
+      type: object
+      description: Address of the customer
+      minProperties: 1
+      properties:
+        postalCode:
+          type: string
+          description: Zip code or postal code
+        streetName:
+          type: string
+          description: Name of the street or other street type. It should not include street type
+        streetNumber:
+          type: string
+          description: Generally a number identifying a specific property on the `street_name`, but it may be a range of numbers (10-12) or include some letter (10b)
+    MatchIdentityResponse:
+      type: object
+      properties:
+        idDocument:
+          type: string
+          description: Indicates whether the identity document of the customer matches with the one in the OB systems.
+          enum:
+                - 'true'
+                - 'false'
+                - not_available
+        identity:  
+          type: object
+          description: An object detailing whether the properties of identity of the customer match
+          minProperties: 1
+          properties:
+            firstName:
+              type: string
+              description: |-
+                Indicates whether the first name of the customer matches with the one in the OB systems.
+              enum:
+                - 'true'
+                - 'false'
+                - not_available
+            lastName:
+              type: string
+              description: |-
+                Indicates whether the last name (family name) of the customer matches with the one in the OB systems.
+              enum:
+                - 'true'
+                - 'false'
+                - not_available
+        address:
+          type: object
+          description: An object detailing whether the properties of address of the customer match
+          minProperties: 1
+          properties:
+            streetName:
+              type: string
+              description: |-
+                Indicates whether the street name of the customer matches with the one in the OB systems.
+              enum:
+                - 'true'
+                - 'false'
+                - not_available
+            streetNumber:
+              type: string
+              description: |-
+                Indicates whether the street number of the customer matches with the one in the OB systems.
+              enum:
+                - 'true'
+                - 'false'
+                - not_available
+            postalCode:
+              type: string
+              description: |-
+                Indicates whether the postcode of the customer matches with the one in the OB systems.
+              enum:
+                - 'true'
+                - 'false'
+                - not_available
+        birthdate:
+          type: string
+          description: |-
+            Indicates whether the birthdate of the customer matches with the one in the OB systems.
+          enum:
+            - 'true'
+            - 'false'
+            - not_available
+    ErrorInfo:
+      type: object
+      required:
+        - status
+        - code
+        - message
+      properties:
+        status:
+          type: integer
+          description: HTTP response status code
+        code:
+          type: string
+          description: Code given to this error
+        message:
+          type: string
+          description: Detailed error description
+  parameters:
+    x-correlator:
+      name: x-correlator
+      in: header
+      description: Correlation id for the different services
+      schema:
+        type: string
+  responses:
+    KnowYourCustomer400InvalidArgument:
+      description: |-
+        Problem with the client request.
+        In addition to regular scenario of `INVALID_ARGUMENT`, another scenario may exist.
+
+        - Indicated param combination is invalid (`"code": "KNOW_YOUR_CUSTOMER.INVALID_PARAM_COMBINATION","message": "Indicated parameter combination is invalid"`)
+      headers:
+        x-correlator:
+          $ref: '#/components/headers/x-correlator'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorInfo'
+          examples:
+            InvalidArgument:
+              value:
+                status: 400
+                code: INVALID_ARGUMENT
+                message: Client specified an invalid argument, request body or query param
+            InvalidParamCombination:
+              value:
+                status: 400
+                code: KNOW_YOUR_CUSTOMER.INVALID_PARAM_COMBINATION
+                message: Indicated parameter combination is invalid
+    Generic401:
+      description: Authentication problem with the client request
+      headers:
+        x-correlator:
+          $ref: '#/components/headers/x-correlator'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorInfo'
+          example:
+            status: 401
+            code: UNAUTHENTICATED
+            message: Request not authenticated due to missing, invalid, or expired credentials
+    KnowYourCustomer403PermissionDenied:
+      description: |
+        Client does not have sufficient permission.
+        In addition to regular scenario of `PERMISSION_DENIED`, another scenarios may exist:
+      
+        - Phone number cannot be deducted from access token context.(`{"code": "KNOW_YOUR_CUSTOMER.INVALID_TOKEN_CONTEXT","message": "Phone number mismatch with access token context"}`)
+        - The idDocument property is missing.(`{"code": "KNOW_YOUR_CUSTOMER.ID_DOCUMENT_REQUIRED","message": "The idDocument is required to perform the properties validation"}`)
+        - The idDocument does not match the one associated to the provided phoneNumber in the OB systems.(`{"code": "KNOW_YOUR_CUSTOMER.ID_DOCUMENT_MISMATCH","message": "The idDocument needs to match the one associated with the provided phoneNumber"}`)
+      headers:
+        x-correlator:
+          $ref: '#/components/headers/x-correlator'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorInfo'
+          examples:
+            PermissionDenied:
+              value:
+                status: 403
+                code: PERMISSION_DENIED
+                message: Client does not have sufficient permissions to perform this action
+            InvalidTokenContext:
+              value:
+                status: 403
+                code: KNOW_YOUR_CUSTOMER.INVALID_TOKEN_CONTEXT
+                message: Phone number mismatch with access token context
+            IdDocumentRequired:
+              value:
+                status: 403
+                code: KNOW_YOUR_CUSTOMER.ID_DOCUMENT_REQUIRED
+                message: The idDocument is required to perform the properties validation
+            IdDocumentMismatch:
+              value:
+                status: 403
+                code: KNOW_YOUR_CUSTOMER.ID_DOCUMENT_MISMATCH
+                message: The idDocument needs to match the one associated with the provided phoneNumber
+
+    Generic500:
+      description: Server error
+      headers:
+        x-correlator:
+          $ref: '#/components/headers/x-correlator'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorInfo'
+          example:
+            status: 500
+            code: INTERNAL
+            message: Server error
+    Generic503:
+      description: Service unavailable. Typically the server is down.
+      headers:
+        x-correlator:
+          $ref: '#/components/headers/x-correlator'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorInfo'
+          example:
+            status: 503
+            code: UNAVAILABLE
+            message: Service unavailable
+    Generic504:
+      description: Request time exceeded. If it happens repeatedly, consider reducing the request complexity
+      headers:
+        x-correlator:
+          $ref: '#/components/headers/x-correlator'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorInfo'
+          example:
+            status: 504
+            code: TIMEOUT
+            message: Request timeout exceeded. Try later.
