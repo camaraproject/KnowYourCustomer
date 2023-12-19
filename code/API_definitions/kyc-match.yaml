@@ -160,7 +160,8 @@ components:
       properties:
         phoneNumber:
           type: string
-          description: A phone number belonging to the user in E.164 format (starting with country code). Optionally prefixed with '+'.
+          description: A public identifier addressing a telephone subscription. In mobile networks it corresponds to the MSISDN (Mobile Station International Subscriber Directory Number). In order to be globally unique it has to be formatted in international format, according to E.164 standard, optionally prefixed with '+'.
+
 
         idDocument:
          type: string
