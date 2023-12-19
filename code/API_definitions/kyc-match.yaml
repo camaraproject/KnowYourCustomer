@@ -507,11 +507,6 @@ components:
                 status: 503
                 code: UNAVAILABLE
                 message: Service unavailable
-            Sorry_error:
-              value:
-                status: 503
-                code: UNAVAILABLE
-                message: sorry_error
 
     Generic504:
       description: Request time exceeded. If it happens repeatedly, consider reducing the request complexity
