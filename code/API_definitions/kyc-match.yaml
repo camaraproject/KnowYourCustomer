@@ -9,7 +9,7 @@ info:
     name: Apache 2.0
     url: https://www.apache.org/licenses/LICENSE-2.0.html
 
-  version: 0.1.0-wip
+  version: 0.1.0
 
 servers:
   - url: '{apiRoot}/{basePath}'
@@ -143,7 +143,7 @@ components:
       schema:
         type: string
    
-   parameters:
+  parameters:
     x-correlator:
       name: x-correlator
       in: header
