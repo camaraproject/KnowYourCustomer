@@ -404,7 +404,11 @@ components:
         In addition to regular scenario of `INVALID_ARGUMENT`, another scenario may exist.
 
         - Indicated param combination is invalid (`"code": "KNOW_YOUR_CUSTOMER.INVALID_PARAM_COMBINATION","message": "Indicated parameter combination is invalid"`)
+      headers:
+        x-correlator:
+          $ref: '#/components/headers/x-correlator'
       content:
+
         application/json;charset=UTF-8:
           schema:
             $ref: '#/components/schemas/ErrorInfo'
