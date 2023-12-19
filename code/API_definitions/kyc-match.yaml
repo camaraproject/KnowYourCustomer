@@ -441,7 +441,11 @@ components:
         - Phone number cannot be deducted from access token context.(`{"code": "KNOW_YOUR_CUSTOMER.INVALID_TOKEN_CONTEXT","message": "Phone number mismatch with access token context"}`)
         - The idDocument property is missing.(`{"code": "KNOW_YOUR_CUSTOMER.ID_DOCUMENT_REQUIRED","message": "The idDocument is required to perform the properties validation"}`)
         - The idDocument does not match the one associated to the provided phoneNumber in the OB systems.(`{"code": "KNOW_YOUR_CUSTOMER.ID_DOCUMENT_MISMATCH","message": "The idDocument needs to match the one associated with the provided phoneNumber"}`)
+      headers:
+        x-correlator:
+          $ref: '#/components/headers/x-correlator'
       content:
+
         application/json;charset=UTF-8:
           schema:
             $ref: '#/components/schemas/ErrorInfo'
