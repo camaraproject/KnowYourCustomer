@@ -474,6 +474,9 @@ components:
     Generic404:
       description: |
         Not Found error.  Error if URL is wrong / user is not found.
+      headers:
+        x-correlator:
+          $ref: '#/components/headers/x-correlator'
       content:
         application/json;charset=UTF-8:
           schema:
