@@ -1,0 +1,532 @@
+openapi: 3.0.3
+info:
+  title: KYC Fill-in API
+
+  description: >
+    ### 概要
+
+    This API offers the third parties (RPs, application developers, enterprise customers, etc.) the capability to request for a service that compares information about an end user provided by the end user for the third party's service provision, with information about the same end user owned by the MNO and responds with the results.  The MNO is supposed to have validated information about the end user for making the subscription contract.  This service request is subject to the end user's consent.
+
+    ### Detail Description
+
+    #### End user's information confirmed at the au/KDDI subscription contract
+
+      This API for data fill-in service uses end user's information confirmed with name, address and birthdate at the au/KDDI subscription contract.  If au IDs integration has been made, the third parties can receive information they have chosen when fill-in service contract is made.
+
+      *It is not possible to provide matching result regarding identity verification document type (Driver's license, National Health Insurance Card, Passport etc.) which was used at the subscription contract.
+
+  version: 1.0.0
+servers:
+  - url: https://biz.openapi.au.com/proxy/maffin/v1
+    description: product environment
+  - url: https://biz.stg.openapi.au.com/proxy/stg-maffin/v1
+    description: verification environment
+
+tags:
+  - name: KYC_Fill-in
+
+paths:
+  /fillin/control:
+    post:
+      tags:
+        - KYC_Fill-in
+      summary: KYC_Fill-in
+      description: >
+        ### Overview
+
+        This API offers the third parties (RPs, application developers, enterprise customers, etc.) the capability to request for a service that provides the third party, about an end user for the third party's service provision, with information about the same end user owned by the MNO.  The MNO is supposed to have validated information about the end user for making the subscription contract.  This service request is subject to the end user's consent.
+        
+      operationId: KYC_Fill-in
+
+      security:
+        - apiKey: []
+          Authorization: []
+      requestBody:
+        required: true
+
+        description: >
+          This API offers third parties (RPs, application developers, enterprise customers, etc.) the capability to receive end user's  information associated with the end user's auID (KDDI mobile service subscriber ID).  <br>
+          For this API, third parties (RPs, application developers, enterprise customers, etc.) need to make Service Contract with MNO (au/KDDI) before calling the API before calling the API, and this Service Contract defines what information / which attributes the third party could receive when calling the API.
+
+
+        content:
+          application/json;charset=UTF-8:
+            schema:
+              $ref: '#/components/schemas/postFillinRequest'
+
+      responses:
+        '200':
+          description: |
+
+            Normal condition
+
+            List of processing result codes related to requests
+
+            | HTTP response status code | Processing result code | Message | Remarks |
+            |:-----------|:------------|:------------|:------------|
+            | 200 | MFN1000 | | Normal response | 
+
+          headers:
+            Access-Control-Allow-Origin:
+              description: |
+                Set to '*'
+              schema:
+                type: string
+                example: '*'
+ 
+            Access-Control-Allow-Methods:
+              description: |
+               Set to '*'
+              schema:
+                type: string
+                example: '*'
+ 
+            Access-Control-Allow-Headers:
+              description: >
+                Set to Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,token
+              schema:
+                type: string
+
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/postFillinResponse'
+        '401':
+          $ref: '#/components/responses/unauthorizedError'
+        '404':
+          $ref: '#/components/responses/notFoundError'
+        '500':
+          $ref: '#/components/responses/internalServerError'
+        '503':
+          $ref: '#/components/responses/serviceUnavailable'
+
+components:
+  securitySchemes:
+    apiKey:
+      type: apiKey
+      in: header
+      name: X-KDDI-API-KEY
+      description: API key given to each client, to be used for API-GW authentication.
+ 
+    Authorization:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: Access token given by IdP(authentication)
+
+  schemas:
+    postFillinRequest:
+      type: object
+
+      required:
+        - cp_id
+
+      properties:
+        cp_id:
+          type: number
+          description: |
+            Third party ID
+            Number (5 digits fixed)
+          example: 12345
+          maxLength: 5
+
+    postFillinResponse:
+      type: object
+      required:
+        - status
+        - result_code
+        - data
+
+      properties:
+        status:
+          type: boolean
+          description: |
+            Response status
+            Responding to request with status (true)
+          example: true
+
+        result_code:
+          type: string
+          description: |
+            Responding with processing result codes related to requests
+            | HTTP response status code | Processing result code | Message | Remarks |
+            |:-----------|:------------|:------------|:------------|
+            | 200 | MFN1000 | | Normal response |
+          example: MFN1000
+
+        data:
+          description: |
+            Responding with matching results
+          $ref: '#/components/schemas/postFillinData'
+
+    postFillinData:
+      type: object
+
+      properties:
+        subscriber_mobile_phone:
+          type: string
+          description: |
+            Subscriber mobile phone number
+            Number (11 digits)
+          example: 18012345678
+
+        subscriber_name:
+          type: string
+          description: |
+            Subscriber's name
+            Full-width characters (MaxLength 30)
+          maxLength: 30
+
+        subscriber_name_family:
+          type: string
+          description: |
+            Subscriber's Family name Kanji
+            Full-width characters (MaxLength 30)
+          maxLength: 30
+
+        subscriber_name_first:
+          type: string
+          description: |
+            Subscriber's First name Kanji
+            Full-width characters (MaxLength 30)
+          maxLength: 30
+
+        subscriber_name_kana_hankaku:
+          type: string
+          description: |
+            Subscriber's name, Half-width Kana
+            Half-width Kana (MaxLength 30)
+          maxLength: 30
+
+        subscriber_name_kana_hankaku_family:
+          type: string
+          description: |
+            Subscriber's Family name, Half-width Kana
+            Half-width Kana (MaxLength 30)
+          maxLength: 30
+
+        subscriber_name_kana_hankaku_first:
+          type: string
+          description: |
+            Subscriber's First name, Half-width Kana
+            Half-width Kana (MaxLength 30)
+          maxLength: 30
+
+        subscriber_name_kana_zenkaku:
+          type: string
+          description: |
+            Subscriber's name, Full-width Kana
+            Full-width Kana (MaxLength 30)
+          maxLength: 30
+
+        subscriber_name_kana_zenkaku_family:
+          type: string
+          description: |
+            Subscriber's Family name, Full-width Kana
+            Full-width Kana (MaxLength 30)
+          maxLength: 30
+
+        subscriber_name_kana_zenkaku_first:
+          type: string
+          description: |
+            Subscriber's First name, Full-width Kana
+            Full-width Kana (MaxLength 30)
+          maxLength: 30
+
+        subscriber_postal_code:
+          type: string
+          description: |
+            Subscriber's postal code
+            Numbers (7 digits fixed)
+          example: 1234567
+
+        subscriber_formatted:
+          type: string
+          description: |
+            Subscriber's postal address
+            Full-width characters (MaxLength 154)
+          maxLength: 154
+
+        subscriber_region:
+          type: string
+          description: |
+            Subscriber's postal address, region/prefecture
+            Full-width Kanji characters (maxLength 4)
+          maxLength: 4
+
+        subscriber_birthdate:
+          type: string
+          description: |
+            Subscriber's birthdate
+            YYYYMMDD (blank if not available)
+          example: 20010930
+
+        subscriber_gender:
+          type: string
+          description: |
+            Subscriber's gender
+            Numbers (1 digit fixed)
+            Male:1, Femail:2, if not available:0
+          example: 2
+
+        user_name:
+          type: string
+          description: |
+            User name, Kanji
+            Full-width characters (Half-width characters also possible) (maxLength 60)
+          maxLength: 60
+
+        user_name_family:
+          type: string
+          description: |
+            User Family name, Kanji
+            Full-width characters (Half-width characters also possible) (maxLength 60)
+          maxLength: 60
+
+        user_name_first:
+          type: string
+          description: |
+            User First name, Kanji
+            Full-width characters (Half-width characters also possible) (maxLength 60)
+          maxLength: 60
+
+        user_name_kana_hankaku:
+          type: string
+          description: |
+            User name, Half-width Kana
+            Half-width characters (maxLength 30)
+          maxLength: 30
+
+        user_name_kana_hankaku_family:
+          type: string
+          description: |
+            User Family name, Half-width Kana
+            Half-width characters (maxLength 30)
+          maxLength: 30
+
+        user_name_kana_hankaku_first:
+          type: string
+          description: |
+            User First name, Half-width Kana
+            Half-width characters (maxLength 30)
+          maxLength: 30
+
+        user_name_kana_zenkaku:
+          type: string
+          description: |
+            Full-width characters (maxLength 30)
+          maxLength: 30
+
+        user_name_kana_zenkaku_family:
+          type: string
+          description: |
+            User Family name, Full-width Kana
+            Full-width characters (maxLength 30)
+          maxLength: 30
+
+        user_name_kana_zenkaku_first:
+          type: string
+          description: |
+            User First name, Full-width Kana
+            Full-width characters (maxLength 30)
+          maxLength: 30
+
+        user_birthdate:
+          type: string
+          description: |
+            User's birthdate
+            YYYYMMDD (blank if not available)
+          example: 20001115
+
+        subscriber_mail_adress:
+          type: string
+          description: |
+            Subscriber's email address
+            Half-width characters (maxLength 129)
+          example: mail@example.com
+          maxLength: 129
+
+  responses:
+    unauthorizedError:
+      description: >
+        ### Unauthorized error.
+
+        Access Token related error. 
+
+        If there is something wrong with cp_id, MFN2001 will be returned.
+
+        | HTTP response status code | Processing result code | Message | Remarks |
+
+        |:-----------|:------------|:------------|:------------|
+
+        | 401 | MFN2001 | invalid_characters/invalid_params | error for invalid number of characters/ invalid parameters | 
+
+        | 401 | MFN2002 | invalid_token | error for invalid access token | 
+
+        | 401 | MFN2003 | expired_token | access token void (expired) | 
+
+      content:
+        application/json;charset=UTF-8:
+          schema:
+            type: object
+            required:
+              - status
+              - error
+
+            properties:
+              status:
+                type: boolean
+                description: |
+                  Responding to request with status (false)
+                example: false
+
+              error:
+                type: object
+                required:
+                  - result_code
+                  - message
+
+                properties:
+                  result_code:
+                    type: string
+                    description: |
+                      Responding with code related to request
+                    example: MFN2001
+
+                  message:
+                    type: string
+                    description: |
+                      Responding with error description
+                    example: invalid_params
+
+    notFoundError:
+      description: >
+        ### Not Found error.
+
+        Error if URL is wrong / user is not found.
+
+        | HTTP response status code | Processing result code | Message | Remarks |
+
+        |:-----------|:------------|:------------|:------------|
+
+        | 404 | MFN2004 | not_found_contractor/not_found | this service is not available for Subscriber ID used / Something wrong with API endpoint or method format |
+
+
+      content:
+        application/json;charset=UTF-8:
+          schema:
+            type: object
+            required:
+              - status
+              - error
+            properties:
+              status:
+                type: boolean
+                description: |
+                  Responding to request with status (false)
+                example: false
+              error:
+                type: object
+                required:
+                  - result_code
+                  - message
+                properties:
+                  result_code:
+                    type: string
+                    description: |
+                      Responding with code related to request
+                    example: MFN2004
+                  message:
+                    type: string
+                    description: |
+                      Responding with error description
+                    example: not_found
+
+    internalServerError:
+      description: >
+        ### Internal server error.
+
+        Problem with MNO's server side.
+        Some processing error within MNO's servers.
+
+        | HTTPステータスコード | 処理結果コード | 情報 | 事象 |
+
+        |:-----------|:------------|:------------|:------------|
+
+        | 500 | MFN7001/MFN7002 | maintenance | system maintenance is underway |
+
+        | 500 | MFN8001 | maintenance | service maintenance is underway | 
+
+        | 500 | MFN8010/MFN8011 | setting_error/setting_get_failed | service unavailable due to internal system error | 
+
+
+      content:
+        application/json;charset=UTF-8:
+          schema:
+            type: object
+            required:
+              - status
+              - error
+            properties:
+              status:
+                type: boolean
+                description: |
+                  Responding to request with status (false)
+                example: false
+              error:
+                type: object
+                required:
+                  - result_code
+                  - message
+                properties:
+                  result_code:
+                    type: string
+                    description: |
+                      Responding with code related to request
+                    example: MFN7001
+                  message:
+                    type: string
+                    description: |
+                      Responding with error description
+                    example: maintenance
+
+    serviceUnavailable:
+      description: |
+        ###  Service Unavailable.
+        Problem with MNO's server side.
+        Any unexpected error within MNO's servers.
+
+        | HTTP response status code | Processing result code | Message | Remarks |
+        |:-----------|:------------|:------------|:------------|
+        | 503 | MFN9000 | sorry_error | service unavailable due to internal system error |
+
+      content:
+        application/json;charset=UTF-8:
+          schema:
+            type: object
+            required:
+              - status
+              - error
+            properties:
+              status:
+                type: boolean
+                description: |
+                  Responding to request with status (false)
+                example: false
+              error:
+                type: object
+                required:
+                  - result_code
+                  - message
+                properties:
+                  result_code:
+                    type: string
+                    description: |
+                      Responding with code related to request
+                    example: MFN9000
+                  message:
+                    type: string
+                    description: |
+                      Responding with error description
+                    example: sorry_error
+
