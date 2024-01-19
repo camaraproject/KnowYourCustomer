@@ -1,0 +1,636 @@
+openapi: 3.0.3
+info:
+  title: Know Your Customer Match
+
+  termsOfService: http://swagger.io/terms/
+  contact:
+    email: project-email@sample.com
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+
+  version: 0.1.0-wip
+
+
+servers:
+  - url: '{apiRoot}/{basePath}'
+    variables:
+      apiRoot:
+        default: http://localhost:9091
+        description: API root
+      basePath:
+        default: kyc-match/v0
+        description: Base path for the KYC-Match API
+
+tags:
+  - name: Match
+
+    description: Operations to match a customer identity against the account data bound to their phone number.
+
+paths:
+  /match:
+    post:
+      tags:
+        - Match
+      summary: Matching a customer identity by checking a set of attributes related against the account data bound to their phone number.
+
+      operationId: KYC_Match
+
+      security:
+        - openId:
+          - know-your-customer:match
+
+
+      parameters:
+        - $ref: '#/components/parameters/x-correlator'
+        
+      requestBody:
+        required: true
+        content:
+          application/json:
+
+            schema:
+              $ref: '#/components/schemas/KYC_MatchRequestBody'
+            examples:
+              KYC_MatchRequestExample:
+                value:
+                  phoneNumber: '+34629255833'
+                  idDocument: 66666666q
+                  name: Federica Sanchez Arjona
+                  giventName: Federica
+                  familyName: Sanchez Arjona
+                  nameKanaHankaku: federica
+                  nameKanaZenkaku: Ｆｅｄｅｒｉｃａ
+                  middleNames: Sanchez
+                  familyNameAtBirth: YYYY
+                  address: Tokyo-to Chiyoda-ku Iidabashi 3-10-10
+                  streetName: Nicolas Salmeron
+                  streetNumber: 4
+                  postalCode: 1028460
+                  region: Tokyo
+                  locality: ZZZZ
+                  country: Japan
+                  houseNumberExtension: VVVV
+                  birthdate: '1978-08-22'
+                  email: abc@example.com
+                  gender: male
+
+      responses:
+        '200':
+          description: OK
+          headers:
+            x-correlator:
+              $ref: '#/components/headers/x-correlator'
+
+          content:
+            application/json:
+
+              schema:
+                $ref: '#/components/schemas/KYC_MatchResponseBody'
+              examples:
+                KYC_Match200Example:
+                  value:
+                    phoneNumberMatch: 'true'
+                    idDocumentMatch: 'true'
+                    nameMatch: 'true'
+                    giventNameMatch: 'not_available'
+                    familyNameMatch: 'not_available'
+                    nameKanaHankakuMatch: 'true'
+                    nameKanaZenkakuMatch: 'false'
+                    middleNamesMatch: 'true'
+                    familyNameAtBirthMatch: 'false'
+                    addressMatch: 'true'
+                    streetNameMatch: 'true'
+                    streetNumberMatch: 'true'
+                    postalCodeMatch: 'true'
+                    regionMatch: 'true'
+                    localityMatch: 'not_available'
+                    countryMatch: 'true'
+                    houseNumberExtensionMatch: 'not_available'
+                    birthdateMatch: 'false'
+                    emailMatch: 'false'
+                    genderMatch: 'false'
+
+        '400':
+          $ref: '#/components/responses/Generic400'
+
+        '401':
+          $ref: '#/components/responses/Generic401'
+
+        '403':
+          $ref: '#/components/responses/Generic403'
+
+        '404':
+          $ref: '#/components/responses/Generic404'
+
+        '500':
+          $ref: '#/components/responses/Generic500'
+
+        '503':
+          $ref: '#/components/responses/Generic503'
+
+        '504':
+          $ref: '#/components/responses/Generic504'
+
+components:
+  securitySchemes:
+    openId:
+      type: openIdConnect
+      openIdConnectUrl: https://example.com/.well-known/openid-configuration
+
+
+  headers:
+    x-correlator:
+      description: Correlation id for the different services
+      schema:
+        type: string
+   
+  parameters:
+    x-correlator:
+      name: x-correlator
+      in: header
+      description: Correlation id for the different services
+      schema:
+        type: string
+        
+  schemas:
+    DataType:    
+      description: "Indicates type of data such as language"
+      type: "string"
+      enum:
+      - "INTERNATIONAL"
+      - "JAPANEESE"
+    KYC_MatchCoreBody:
+      type: object
+      description: Core Payload to validate the customer data.
+
+      properties:
+        phoneNumber:
+          type: string
+          description: A public identifier addressing a telephone subscription. In mobile networks it corresponds to the MSISDN (Mobile Station International Subscriber Directory Number). In order to be globally unique it has to be formatted in international format, according to E.164 standard, optionally prefixed with '+'.
+
+
+        idDocument:
+         type: string
+         description: Id number associated to the id_document. The value may also contain letters.
+
+        name:
+          type: string
+          description: Full name of the customer.
+
+        givenName:
+          type: string
+          description: First name/given name of the customer. It may include a compound first name or a second/middle name.
+
+        familyName:
+          type: string
+          description: Surname/family name of the customer. It may include a compound last name or an additional last name.
+
+        middleNames:
+          type: string
+          description: Middle names of the customer
+
+        familyNameAtBirth:
+          type: string
+          description: Family name at birth of the customer
+
+        address:
+          type: string
+          description: Address of the customer
+
+        streetName:
+          type: string
+          description: Name of the street or other street type. It should not include street type
+
+        streetNumber:
+          type: string
+          description: Generally a number identifying a specific property on the `street_name`, but it may be a range of numbers (10-12) or include some letter (10b)
+
+        postalCode:
+          type: string
+          description: Zip code or postal code
+
+        region:
+          type: string
+          description: Regin/prefecture of the customer's address
+
+        locality:
+          type: string
+          description: Locality of the customer's address
+
+        country:
+          type: string
+          description: Country of the customer's address
+
+        houseNumberExtension:
+          type: string
+          description: House number extension of the customer's address
+
+        birthdate:
+          type: string
+          description: The birthdate of the customer, in ISO 8601 calendar date format.
+
+        email:
+          type: string
+          description: Email address of the customer.
+
+        gender:
+          type: string
+          description: Gender of the customer.
+
+    KYC_MatchRequestInternationalBody:
+      type: object
+      description: Payload to validate the specific International customer data.
+      allOf:
+        - $ref: '#/components/schemas/KYC_MatchCoreBody'
+
+    KYC_MatchRequestJapaneeseBody:
+      type: object
+      description: Payload to validate the specific japaneese customer data.
+      allOf:
+        - $ref: '#/components/schemas/KYC_MatchCoreBody'
+      properties:
+        nameKanaHankaku:
+          type: string
+          description: Reading of the full name of the customer in full-width Kana format.
+
+        nameKanaZenkaku:
+          type: string
+          description: Reading of the full name of the customer in half-width Kana format.
+
+    KYC_MatchRequestBody:
+      description: "Requested information to be compare with customer personal information"
+      required:
+      - dataType
+      type: "object"
+      properties:
+        dataType:
+          $ref: "#/components/schemas/DataType"
+      discriminator:
+        propertyName: 'dataType'
+        mapping:  
+          INTERNATIONAL: "#/components/schemas/KYC_MatchRequestInternationalBody:"
+          JAPANEESE: "#/components/schemas/KYC_MatchRequestJapaneeseBody"
+
+
+    KYC_MatchCoreResponse:
+      type: object
+      properties:
+
+        phoneNumberMatch:
+          type: string
+          description: Indicates whether the phone number of the customer matches with the one on the OB systems.
+          enum:
+                - 'true'
+                - 'false'
+                - 'not_available'
+
+        idDocumentMatch:
+         type: string
+         description: Indicates whether Id number associated to the id_document of the customer matches with the one on the OB systems.
+         enum:
+               - 'true'
+               - 'false'
+               - 'not_available'
+
+        nameMatch:
+          type: string
+          description: Indicates whether the full name of the customer matches with the one on the OB systems.
+          enum:
+                - 'true'
+                - 'false'
+                - 'not_available'
+
+        givenNameMatch:
+          type: string
+          description: Indicates whether First name/given name of the customer matches with the one on the OB systems.
+          enum:
+                - 'true'
+                - 'false'
+                - 'not_available'
+
+        familyNameMatch:
+          type: string
+          description: Indicates whether Surname/family name of the customer matches with the one on the OB systems.
+          enum:
+                - 'true'
+                - 'false'
+                - 'not_available'
+
+
+        middleNamesMatch:
+          type: string
+          description: Indicates whether the middle names of the customer matches with the one on the OB systems.
+          enum:
+                - 'true'
+                - 'false'
+                - 'not_available'
+
+
+        familyNameAtBirthMatch:
+          type: string
+          description: Indicates whether the Family Name At Birth of the customer matches with the one on the OB systems.
+          enum:
+                - 'true'
+                - 'false'
+                - 'not_available'
+
+        addressMatch:
+          type: string
+          description: Indicates whether the address of the customer matches with the one on the OB systems.
+          enum:
+                - 'true'
+                - 'false'
+                - 'not_available'
+
+        streetNameMatch:
+          type: string
+          description: Indicates whether the street name of the customer matches with the one on the OB systems.
+          enum:
+                - 'true'
+                - 'false'
+                - 'not_available'
+
+        streetNumberMatch:
+          type: string
+          description: Indicates whether the street number of the customer matches with the one on the OB systems.
+          enum:
+                - 'true'
+                - 'false'
+                - 'not_available'
+
+        postalCodeMatch:
+          type: string
+          description: Indicates whether the postal code of the customer matches with the one on the OB systems.
+          enum:
+                - 'true'
+                - 'false'
+                - 'not_available'
+
+        regionMatch:
+          type: string
+          description: Indicates whether the region of the customer matches with the one on the OB systems.
+          enum:
+                - 'true'
+                - 'false'
+                - 'not_available'
+
+        localityMatch:
+          type: string
+          description: Indicates whether the locality of the customer matches with the one on the OB systems.
+          enum:
+                - 'true'
+                - 'false'
+                - 'not_available'
+
+        countryMatch:
+          type: string
+          description: Indicates whether the country of the customer matches with the one on the OB systems.
+          enum:
+                - 'true'
+                - 'false'
+                - 'not_available'
+
+        houseNumberExtensionMatch:
+          type: string
+          description: Indicates whether the house number extension of the customer matches with the one on the OB systems.
+          enum:
+                - 'true'
+                - 'false'
+                - 'not_available'
+
+        birthdateMatch:
+          type: string
+          description: Indicates whether the birthdate of the customer matches with the one on the OB systems.
+          enum:
+                - 'true'
+                - 'false'
+                - 'not_available'
+
+        emailMatch:
+          type: string
+          description: Indicates whether the email address of the customer matches with the one on the OB systems.
+          enum:
+                - 'true'
+                - 'false'
+                - 'not_available'
+
+        genderMatch:
+          type: string
+          description: Indicates whether the gender of the customer matches with the one on the OB systems.
+          enum:
+                - 'true'
+                - 'false'
+                - 'not_available'
+
+    KYC_MatchResponseInternationalBody:
+      type: object
+      description: Payload to validate the specific International customer data.
+      allOf:
+        - $ref: '#/components/schemas/KYC_MatchCoreResponse'
+
+    KYC_MatchResponseJapaneeseBody:
+      type: object
+      description: Payload to validate the specific japaneese customer data.
+      allOf:
+        - $ref: '#/components/schemas/KYC_MatchCoreResponse'
+      properties:
+        nameKanaHankakuMatch:
+          type: string
+          description: Indicates whether Full name of the customer in full-width Kana format matches with the one on the OB systems.
+          enum:
+                - 'true'
+                - 'false'
+                - 'not_available'
+
+        nameKanaZenkakuMatch:
+          type: string
+          description: Indicates whether Full name of the customer in half-width Kana format matches with the one on the OB systems.
+          enum:
+                - 'true'
+                - 'false'
+                - 'not_available'
+
+    KYC_MatchResponseBody:
+      description: "Requested information to be compare with customer personal information"
+      required:
+      - dataType
+      type: "object"
+      properties:
+        dataType:
+          $ref: "#/components/schemas/DataType"
+      discriminator:
+        propertyName: 'dataType'
+        mapping:  
+          INTERNATIONAL: "#/components/schemas/KYC_MatchResponseInternationalBody:"
+          JAPANEESE: "#/components/schemas/KYC_MatchResponseJapaneeseBody"
+
+
+    ErrorInfo:
+      type: object
+      required:
+        - status
+        - code
+        - message
+      properties:
+        status:
+          type: integer
+          description: HTTP response status code
+        code:
+          type: string
+          description: Code given to this error
+        message:
+          type: string
+          description: Detailed error description
+
+  responses:
+    Generic400:
+      description: |-
+        Problem with the client request.
+        In addition to regular scenario of `INVALID_ARGUMENT`, another scenario may exist.
+
+        - Indicated param combination is invalid (`"code": "KNOW_YOUR_CUSTOMER.INVALID_PARAM_COMBINATION","message": "Indicated parameter combination is invalid"`)
+      headers:
+        x-correlator:
+          $ref: '#/components/headers/x-correlator'
+      content:
+
+        application/json:
+
+          schema:
+            $ref: '#/components/schemas/ErrorInfo'
+          examples:
+            InvalidArgument:
+              value:
+                status: 400
+                code: INVALID_ARGUMENT
+                message: Client specified an invalid argument, request body or query param
+            InvalidParamCombination:
+              value:
+                status: 400
+                code: KNOW_YOUR_CUSTOMER.INVALID_PARAM_COMBINATION
+                message: Indicated parameter combination is invalid
+
+    Generic401:
+      description: Authentication problem with the client request. Unauthorized error.  Access Token related errors.
+      headers:
+        x-correlator:
+          $ref: '#/components/headers/x-correlator'
+      content:
+        application/json:
+
+          schema:
+            $ref: '#/components/schemas/ErrorInfo'
+          examples:
+            Unauthenticated:
+              value:
+                status: 401
+                code: UNAUTHENTICATED
+                message: Request not authenticated due to missing, invalid, or expired credentials
+
+    Generic403:
+      description: |
+        Client does not have sufficient permission.
+        In addition to regular scenario of `PERMISSION_DENIED`, another scenarios may exist:
+      
+        - Phone number cannot be deducted from access token context.(`{"code": "KNOW_YOUR_CUSTOMER.INVALID_TOKEN_CONTEXT","message": "Phone number mismatch with access token context"}`)
+        - The idDocument property is missing.(`{"code": "KNOW_YOUR_CUSTOMER.ID_DOCUMENT_REQUIRED","message": "The idDocument is required to perform the properties validation"}`)
+        - The idDocument does not match the one associated to the provided phoneNumber in the OB systems.(`{"code": "KNOW_YOUR_CUSTOMER.ID_DOCUMENT_MISMATCH","message": "The idDocument needs to match the one associated with the provided phoneNumber"}`)
+      headers:
+        x-correlator:
+          $ref: '#/components/headers/x-correlator'
+      content:
+
+        application/json:
+
+          schema:
+            $ref: '#/components/schemas/ErrorInfo'
+          examples:
+            PermissionDenied:
+              value:
+                status: 403
+                code: PERMISSION_DENIED
+                message: Client does not have sufficient permissions to perform this action
+            InvalidTokenContext:
+              value:
+                status: 403
+                code: KNOW_YOUR_CUSTOMER.INVALID_TOKEN_CONTEXT
+                message: Phone number mismatch with access token context
+            IdDocumentRequired:
+              value:
+                status: 403
+                code: KNOW_YOUR_CUSTOMER.ID_DOCUMENT_REQUIRED
+                message: The idDocument is required to perform the properties validation
+            IdDocumentMismatch:
+              value:
+                status: 403
+                code: KNOW_YOUR_CUSTOMER.ID_DOCUMENT_MISMATCH
+                message: The idDocument needs to match the one associated with the provided phoneNumber
+
+    Generic404:
+      description: |
+        Not Found error.  Error if URL is wrong / user is not found.
+      headers:
+        x-correlator:
+          $ref: '#/components/headers/x-correlator'
+      content:
+        application/json:
+
+          schema:
+            $ref: '#/components/schemas/ErrorInfo'
+          examples:
+            NotFound:
+              value:
+                status: 404
+
+                code: NOT_FOUND
+                message: not_found_contractor/not_found
+
+    Generic500:
+      description: Server error.  Problem with MNO's server side.  Some processing error within MNO's servers.
+      headers:
+        x-correlator:
+          $ref: '#/components/headers/x-correlator'
+      content:
+        application/json:
+
+          schema:
+            $ref: '#/components/schemas/ErrorInfo'
+          examples:
+            ServerError:
+              value:
+                status: 500
+                code: INTERNAL
+                message: Server error
+
+    Generic503:
+      description: Service unavailable. Typically the server is down.  Problem with MNO's server side.  Any unexpected error within MNO's servers.
+      headers:
+        x-correlator:
+          $ref: '#/components/headers/x-correlator'
+      content:
+        application/json:
+
+          schema:
+            $ref: '#/components/schemas/ErrorInfo'
+          examples:
+            ServiceUnavailable:
+              value:
+                status: 503
+                code: UNAVAILABLE
+                message: Service unavailable
+
+    Generic504:
+      description: Request time exceeded. If it happens repeatedly, consider reducing the request complexity
+      headers:
+        x-correlator:
+          $ref: '#/components/headers/x-correlator'
+      content:
+        application/json:
+
+          schema:
+            $ref: '#/components/schemas/ErrorInfo'
+          example:
+            status: 504
+            code: TIMEOUT
+            message: Request timeout exceeded. Try later.
