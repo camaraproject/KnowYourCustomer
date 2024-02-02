@@ -1,6 +1,6 @@
 openapi: 3.0.3
 info:
-  title: Age Verification
+  title: Know Your Customer Age Verification
 
   termsOfService: http://swagger.io/terms/
   contact:
@@ -19,9 +19,286 @@ servers:
         default: http://localhost:9091
         description: API root
       basePath:
-        default: age-verificaiton/v0
-        description: Base path for the Age Verification API
+        default: kyc-ageverification/v0
+        description: Base path for the KYC-AgeVerification API
+
+tags:
+  - name: AgeVerification
+
+    description: Operations to verify the age of a user.
+
+paths:
+  /ageverification:
+    post:
+      tags:
+        - AgeVerification
+      summary: Verify if the age of a user is under the provided age value submitted in order to automatically denied access to gaming, alcohol, or other age-restricted sites.
+
+      operationId: KYC_AgeVerification
+
+      security:
+        - openId:
+          - know-your-customer:AgeVerification
 
 
+      parameters:
+        - $ref: '#/components/parameters/x-correlator'
+        
+      requestBody:
+        required: true
+        content:
+          application/json:
+
+            schema:
+              $ref: '#/components/schemas/KYC_RequestBody'
+            examples:
+              AgeVerificationRequestExample:
+                value:
+                  phoneNumber: '+34629255833'
+                  age: 18
+
+      responses:
+        '200':
+          description: OK
+          headers:
+            x-correlator:
+              $ref: '#/components/headers/x-correlator'
+
+          content:
+            application/json:
+
+              schema:
+                $ref: '#/components/schemas/KYC_ResponseBody'
+              examples:
+                KYC_200Example:
+                  value:
+                    phoneNumber: '+34629255833'
+                    isVerified: true
+
+        '400':
+          $ref: '#/components/responses/Generic400'
+
+        '401':
+          $ref: '#/components/responses/Generic401'
+
+        '403':
+          $ref: '#/components/responses/Generic403'
+
+        '404':
+          $ref: '#/components/responses/Generic404'
+
+        '500':
+          $ref: '#/components/responses/Generic500'
+
+        '503':
+          $ref: '#/components/responses/Generic503'
+
+        '504':
+          $ref: '#/components/responses/Generic504'
+
+components:
+  securitySchemes:
+    openId:
+      type: openIdConnect
+      openIdConnectUrl: https://example.com/.well-known/openid-configuration
 
 
+  headers:
+    x-correlator:
+      description: Correlation id for the different services
+      schema:
+        type: "string"
+   
+  parameters:
+    x-correlator:
+      name: x-correlator
+      in: header
+      description: Correlation id for the different services
+      schema:
+        type: "string"
+        
+  schemas:
+    KYC_RequestBody:
+      description: "Requested information to be compare with customer personal information"
+      type: "object"
+
+      properties:
+        phoneNumber:
+          type: "string"
+          description: A public identifier addressing a telephone subscription. In mobile networks it corresponds to the MSISDN (Mobile Station International Subscriber Directory Number). In order to be globally unique it has to be formatted in international format, according to E.164 standard, optionally prefixed with '+'.
+
+        age:
+         type: "integer"
+         description: age to be verified.
+
+
+    KYC_ResponseBody:
+      type: "object"
+      properties:
+
+        phoneNumber:
+          type: "string"
+          description: A public identifier addressing a telephone subscription.
+
+        isVerified:
+         type: "boolean"
+         default: True         
+         description: Indicates if the age has been verified (True) or if it has not been possible (False).
+
+    ErrorInfo:
+      type: "object"
+      required:
+        - status
+        - code
+        - message
+      properties:
+        status:
+          type: "integer"
+          description: HTTP response status code
+        code:
+          type: "string"
+          description: Code given to this error
+        message:
+          type: "string"
+          description: Detailed error description
+
+  responses:
+    Generic400:
+      description: |-
+        Problem with the client request.
+        In addition to regular scenario of `INVALID_ARGUMENT`, another scenario may exist.
+
+        - Indicated param combination is invalid (`"code": "KNOW_YOUR_CUSTOMER.INVALID_PARAM_COMBINATION","message": "Indicated parameter combination is invalid"`)
+      headers:
+        x-correlator:
+          $ref: '#/components/headers/x-correlator'
+      content:
+
+        application/json:
+
+          schema:
+            $ref: '#/components/schemas/ErrorInfo'
+          examples:
+            InvalidArgument:
+              value:
+                status: 400
+                code: INVALID_ARGUMENT
+                message: Client specified an invalid argument, request body or query param
+            InvalidParamCombination:
+              value:
+                status: 400
+                code: KNOW_YOUR_CUSTOMER.INVALID_PARAM_COMBINATION
+                message: Indicated parameter combination is invalid
+
+    Generic401:
+      description: Authentication problem with the client request. Unauthorized error.  Access Token related errors.
+      headers:
+        x-correlator:
+          $ref: '#/components/headers/x-correlator'
+      content:
+        application/json:
+
+          schema:
+            $ref: '#/components/schemas/ErrorInfo'
+          examples:
+            Unauthenticated:
+              value:
+                status: 401
+                code: UNAUTHENTICATED
+                message: Request not authenticated due to missing, invalid, or expired credentials
+
+    Generic403:
+      description: |
+        Client does not have sufficient permission.
+        In addition to regular scenario of `PERMISSION_DENIED`, another scenarios may exist:
+      
+        - Phone number cannot be deducted from access token context.(`{"code": "KNOW_YOUR_CUSTOMER.INVALID_TOKEN_CONTEXT","message": "Phone number mismatch with access token context"}`)
+
+      headers:
+        x-correlator:
+          $ref: '#/components/headers/x-correlator'
+      content:
+
+        application/json:
+
+          schema:
+            $ref: '#/components/schemas/ErrorInfo'
+          examples:
+            PermissionDenied:
+              value:
+                status: 403
+                code: PERMISSION_DENIED
+                message: Client does not have sufficient permissions to perform this action
+            InvalidTokenContext:
+              value:
+                status: 403
+                code: KNOW_YOUR_CUSTOMER.INVALID_TOKEN_CONTEXT
+                message: Phone number mismatch with access token context
+
+    Generic404:
+      description: |
+        Not Found error.  Error if URL is wrong / user is not found.
+      headers:
+        x-correlator:
+          $ref: '#/components/headers/x-correlator'
+      content:
+        application/json:
+
+          schema:
+            $ref: '#/components/schemas/ErrorInfo'
+          examples:
+            NotFound:
+              value:
+                status: 404
+
+                code: NOT_FOUND
+                message: not_found_contractor/not_found
+
+    Generic500:
+      description: Server error.  Problem with MNO's server side.  Some processing error within MNO's servers.
+      headers:
+        x-correlator:
+          $ref: '#/components/headers/x-correlator'
+      content:
+        application/json:
+
+          schema:
+            $ref: '#/components/schemas/ErrorInfo'
+          examples:
+            ServerError:
+              value:
+                status: 500
+                code: INTERNAL
+                message: Server error
+
+    Generic503:
+      description: Service unavailable. Typically the server is down.  Problem with MNO's server side.  Any unexpected error within MNO's servers.
+      headers:
+        x-correlator:
+          $ref: '#/components/headers/x-correlator'
+      content:
+        application/json:
+
+          schema:
+            $ref: '#/components/schemas/ErrorInfo'
+          examples:
+            ServiceUnavailable:
+              value:
+                status: 503
+                code: UNAVAILABLE
+                message: Service unavailable
+
+    Generic504:
+      description: Request time exceeded. If it happens repeatedly, consider reducing the request complexity
+      headers:
+        x-correlator:
+          $ref: '#/components/headers/x-correlator'
+      content:
+        application/json:
+
+          schema:
+            $ref: '#/components/schemas/ErrorInfo'
+          example:
+            status: 504
+            code: TIMEOUT
+            message: Request timeout exceeded. Try later.
