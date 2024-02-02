@@ -1,0 +1,27 @@
+openapi: 3.0.3
+info:
+  title: Age Verification
+
+  termsOfService: http://swagger.io/terms/
+  contact:
+    email: project-email@sample.com
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+
+  version: 0.1.0-wip
+
+
+servers:
+  - url: '{apiRoot}/{basePath}'
+    variables:
+      apiRoot:
+        default: http://localhost:9091
+        description: API root
+      basePath:
+        default: age-verificaiton/v0
+        description: Base path for the Age Verification API
+
+
+
+
