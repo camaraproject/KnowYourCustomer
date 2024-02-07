@@ -199,47 +199,47 @@ components:
 
         idDocument:
          type: string
-         description: Id number associated to the id_document. The value may also contain letters.
-
+         description: Id number associated to the official identity document in the country. It may contain alphanumeric characters.
+         
         name:
           type: string
-          description: Full name of the customer.
+          description: Complete name of the customer, usually composed of first/given name and last/family/sur- name in a country.  Depending on the country, the order of first/give name and last/family/sur- name varies, and middle name could be included.  It can use givenName, middleNames, familyName and/or familyNameAtBirth. For example, in ESP, name+familyName; in NLD, it can be name+middleNames+familyName or name+middleNames+familyNameAtBirth, etc.
 
         givenName:
           type: string
-          description: First name/given name of the customer. It may include a compound first name or a second/middle name.
-
+          description: First/given name or compound first/given name of the customer.
+          
         familyName:
           type: string
-          description: Surname/family name of the customer. It may include a compound last name or an additional last name.
-
+          description: Last name, family name, or suranme of the customer.
+          
         nameKanaHankaku:
           type: string
-          description: Reading of the full name of the customer in full-width Kana format.
+          description: Complete name of the customer in Hankaku-Kana format (reading of name) for Japan.
 
         nameKanaZenkaku:
           type: string
-          description: Reading of the full name of the customer in half-width Kana format.
+          description: Complete name of the customer in Zenkaku-Kana format (reading of name) for Japan.
 
         middleNames:
           type: string
-          description: Middle names of the customer
+          description: Middle name/s of the customer.
 
         familyNameAtBirth:
           type: string
-          description: Family name at birth of the customer
+          description: Last/family/sur- name at birth of the customer.
 
         address:
           type: string
-          description: Address of the customer
-
+          description: Complete address of the customer.  For some countries, it is built following the usual concatenation of parameters in a country, but for other countires, this is not the case.  For some countries, it can use streetName, streetNumber and/or houseNumberExtension. For example, in ESP, streetName+streetNumber; in NLD, it can be streetName+streetNumber or streetName+streetNumber+houseNumberExtension.
+          
         streetName:
           type: string
-          description: Name of the street or other street type. It should not include street type
+          description: Name of the street of the customer's address. It should not include the type of the street.
 
         streetNumber:
           type: string
-          description: Generally a number identifying a specific property on the `street_name`, but it may be a range of numbers (10-12) or include some letter (10b)
+          description: The street number of the customer's address.  Number identifying a specific property on the 'streetName'.
 
         postalCode:
           type: string
@@ -247,7 +247,7 @@ components:
 
         region:
           type: string
-          description: Regin/prefecture of the customer's address
+          description: Region/prefecture of the customer's address
 
         locality:
           type: string
@@ -255,23 +255,23 @@ components:
 
         country:
           type: string
-          description: Country of the customer's address
+          description: Country id of the customer's address, in ISO 3166 alpha-3 format.
 
         houseNumberExtension:
           type: string
-          description: House number extension of the customer's address
+          description: Specific identifier of the house needed depending on the property type. For example, number of appartment in an appartment building.
 
         birthdate:
           type: string
-          description: The birthdate of the customer, in ISO 8601 calendar date format.
+          description: The birthdate of the customer, in ISO 8601 calendar date format (YYYY-MM-DD).
 
         email:
           type: string
-          description: Email address of the customer.
+          description: Email address of the customer in the RFC specified format (local-part@domain).
 
         gender:
           type: string
-          description: Gender of the customer.
+          description: Gender of the customer (Male/Female/Other).
 
     KYC_MatchResponse:
       type: object
@@ -295,7 +295,7 @@ components:
 
         nameMatch:
           type: string
-          description: Indicates whether the full name of the customer matches with the one on the OB systems.
+          description: Indicates whether the complete name of the customer matches with the one on the OB system.
           enum:
                 - 'true'
                 - 'false'
@@ -311,7 +311,7 @@ components:
 
         familyNameMatch:
           type: string
-          description: Indicates whether Surname/family name of the customer matches with the one on the OB systems.
+          description: Indicates whether last name/ family name/ surname of the customer matches with the one on the OB systems.
           enum:
                 - 'true'
                 - 'false'
@@ -319,7 +319,7 @@ components:
 
         nameKanaHankakuMatch:
           type: string
-          description: Indicates whether Full name of the customer in full-width Kana format matches with the one on the OB systems.
+          description: Indicates whether complete name of the customer in Hankaku-Kana format (reading of name) for Japan matches with the one on the OB systems.
           enum:
                 - 'true'
                 - 'false'
@@ -327,7 +327,7 @@ components:
 
         nameKanaZenkakuMatch:
           type: string
-          description: Indicates whether Full name of the customer in half-width Kana format matches with the one on the OB systems.
+          description: Indicates whether complete name of the customer in Zenkaku-Kana format (reading of name) for Japan matches with the one on the OB systems.
           enum:
                 - 'true'
                 - 'false'
@@ -352,7 +352,7 @@ components:
 
         addressMatch:
           type: string
-          description: Indicates whether the address of the customer matches with the one on the OB systems.
+          description: Indicates whether complete address of the customer matches with the one on the OB systems.
           enum:
                 - 'true'
                 - 'false'
@@ -376,7 +376,7 @@ components:
 
         postalCodeMatch:
           type: string
-          description: Indicates whether the postal code of the customer matches with the one on the OB systems.
+          description: Indicates whether the postal code / zip code of the customer matches with the one on the OB systems.
           enum:
                 - 'true'
                 - 'false'
@@ -384,7 +384,7 @@ components:
 
         regionMatch:
           type: string
-          description: Indicates whether the region of the customer matches with the one on the OB systems.
+          description: Indicates whether the region of the customer's address matches with the one on the OB systems.
           enum:
                 - 'true'
                 - 'false'
@@ -392,7 +392,7 @@ components:
 
         localityMatch:
           type: string
-          description: Indicates whether the locality of the customer matches with the one on the OB systems.
+          description: Indicates wheter the locality of the customer's address matches with the one on the OB systems.
           enum:
                 - 'true'
                 - 'false'
@@ -400,7 +400,7 @@ components:
 
         countryMatch:
           type: string
-          description: Indicates whether the country of the customer matches with the one on the OB systems.
+          description: Indicates whether the country of the customer's address matches with the one on the OB systems.
           enum:
                 - 'true'
                 - 'false'
@@ -408,7 +408,7 @@ components:
 
         houseNumberExtensionMatch:
           type: string
-          description: Indicates whether the house number extension of the customer matches with the one on the OB systems.
+          description: Indicates whether the house number extension of the customer's address with the one on the OB systems.
           enum:
                 - 'true'
                 - 'false'
