@@ -159,7 +159,7 @@ components:
 
         phoneNumber:
           type: string
-          description: the phone number of the customer stored on the OB systems.
+          description: The phone number of the customer stored on the OB systems.  A public identifier addressing a telephone subscription. In mobile networks it corresponds to the MSISDN (Mobile Station International Subscriber Directory Number). In order to be globally unique it has to be formatted in international format, according to E.164 standard, optionally prefixed with '+'.
 
         idDocument:
          type: string
@@ -167,75 +167,75 @@ components:
          
         name:
           type: string
-          description: the full name of the customer stored on the OB systems.
+          description: Complete name of the customer stored on the OB systems.  It is usually composed of first/given name and last/family/sur- name in a country.  Depending on the country, the order of first/give name and last/family/sur- name varies, and middle name could be included.  It can use givenName, middleNames, familyName and/or familyNameAtBirth. For example, in ESP, name+familyName; in NLD, it can be name+middleNames+familyName or name+middleNames+familyNameAtBirth, etc.
         
         givenName:
           type: string
-          description: First name/given name of the customer stored on the OB systems.
+          description: First/given name or compound first/given name of the customer on the OB systems.
           
         familyName:
           type: string
-          description: Surname/family name of the customer stored on the OB systems.
+          description: Last name, family name, or suranme of the customer stored on the OB systems.
           
         nameKanaHankaku:
           type: string
-          description: Reading of the full name of the customer in full-width Kana format stored on the OB systems.
+          description: Complete name of the customer in Hankaku-Kana format (reading of name) for Japan, stored on the OB systems.
 
         nameKanaZenkaku:
           type: string
-          description: Reading of the full name of the customer in half-width Kana format stored on the OB systems.
+          description: Complete name of the customer in Zenkaku-Kana format (reading of name) for Japan, stored on the OB systems.
 
         middleNames:
           type: string
-          description: the middle names of the customer stored on the OB systems.
+          description: Middle name/s of the customer stored on the OB systems.
 
         familyNameAtBirth:
           type: string
-          description: the Family Name At Birth of the customer stored on the OB systems.
+          description: Last/family/sur- name at birth of the customer stored on the OB systems.
           
         address:
           type: string
-          description: the address of the customer stored on the OB systems.
+          description: Complete address of the customer stored on the OB systems.  For some countries, it is built following the usual concatenation of parameters in a country, but for other countires, this is not the case.  For some countries, it can use streetName, streetNumber and/or houseNumberExtension. For example, in ESP, streetName+streetNumber; in NLD, it can be streetName+streetNumber or streetName+streetNumber+houseNumberExtension.
           
         streetName:
           type: string
-          description: the street name of the customer stored on the OB systems.
+          description: Name of the street of the customer's address on the OB systems.  It should not include the type of the street.
           
         streetNumber:
           type: string
-          description: the street number of the customer stored on the OB systems.
+          description: The street number of the customer's address on the OB systems.  Number identifying a specific property on the 'streetName'.
           
         postalCode:
           type: string
-          description: the postal code of the customer stored on the OB systems.
+          description: The poslta code or Zip code of the customer's address, stored on the OB systems.
           
         region:
           type: string
-          description: the region of the customer stored on the OB systems.
+          description: Region/prefecture of the customer's address, stored on the OB systems.
           
         locality:
           type: string
-          description: the locality of the customer stored on the OB systems.
+          description: Locality of the customer's address, stored on the OB systems.
 
         country:
           type: string
-          description: the country of the customer stored on the OB systems.
+          description: Country id of the customer's address in ISO 3166 alpha-3 format, stored on the OB systems.
           
         houseNumberExtension:
           type: string
-          description: the house number extension of the customer stored on the OB systems.
+          description: House number extension of the customer stored on the OB systems.  Specific identifier of the house needed depending on the property type. For example, number of appartment in an appartment building.
           
         birthdate:
           type: string
-          description: the birthdate of the customer stored on the OB systems.
+          description: Birthdate of the customer, in ISO 8601 calendar date format (YYYY-MM-DD), stored on the OB systems.
           
         email:
           type: string
-          description: the email address of the customer stored on the OB systems.
+          description: Email address of the customer in the RFC specified format (local-part@domain), stored on the OB systems.
           
         gender:
           type: string
-          description: the gender of the customer stored on the OB systems.
+          description: Gender of the customer stored on the OB systems (Male/Female/Other).
           
     ErrorInfo:
       type: object
