@@ -255,7 +255,7 @@ components:
 
         country:
           type: string
-          description: Country id of the customer's address, in ISO 3166 alpha-3 format.
+          description: Country of the customer's address
 
         houseNumberExtension:
           type: string
