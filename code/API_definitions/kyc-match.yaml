@@ -272,6 +272,10 @@ components:
         gender:
           type: string
           description: Gender of the customer (Male/Female/Other).
+          enum:
+            - MALE
+            - FEMALE
+            - OTHER
 
     KYC_MatchResponse:
       type: object
