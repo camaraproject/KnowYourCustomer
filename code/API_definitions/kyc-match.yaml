@@ -32,7 +32,7 @@ info:
 
     The API provides the following endpoint:
 
-    * An endpoint to verify the matching of a number of attributes related to a mobile phone user identity against the acount data bound to their phone number.
+    * An endpoint to verify the matching of a number of attributes related to a mobile phone user identity against the account data bound to their phone number.
 
 
   termsOfService: http://swagger.io/terms/
@@ -42,7 +42,7 @@ info:
     name: Apache 2.0
     url: https://www.apache.org/licenses/LICENSE-2.0.html
 
-  version: 0.1.0-wip
+  version: 0.1.0-rc
 
 
 servers:
@@ -211,7 +211,7 @@ components:
           
         familyName:
           type: string
-          description: Last name, family name, or suranme of the customer.
+          description: Last name, family name, or surname of the customer.
           
         nameKanaHankaku:
           type: string
@@ -259,7 +259,7 @@ components:
 
         houseNumberExtension:
           type: string
-          description: Specific identifier of the house needed depending on the property type. For example, number of appartment in an appartment building.
+          description: Specific identifier of the house needed depending on the property type. For example, number of apartment in an apartment building.
 
         birthdate:
           type: string
@@ -396,7 +396,7 @@ components:
 
         localityMatch:
           type: string
-          description: Indicates wheter the locality of the customer's address matches with the one on the OB systems.
+          description: Indicates whether the locality of the customer's address matches with the one on the OB systems.
           enum:
                 - 'true'
                 - 'false'
