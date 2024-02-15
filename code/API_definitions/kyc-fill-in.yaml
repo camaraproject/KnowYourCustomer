@@ -38,7 +38,7 @@ info:
 
     The API provides the following endpoint:
 
-    * An endpoint to request information related to an end user against the acount data bound to their phone number.
+    * An endpoint to request information related to an end user against the account data bound to their phone number.
 
 
   termsOfService: http://swagger.io/terms/
@@ -48,7 +48,7 @@ info:
     name: Apache 2.0
     url: https://www.apache.org/licenses/LICENSE-2.0.html
 
-  version: 0.1.0-wip
+  version: 0.1.0-rc
 
 servers:
   - url: '{apiRoot}/{basePath}'
@@ -175,7 +175,7 @@ components:
           
         familyName:
           type: string
-          description: Last name, family name, or suranme of the customer stored on the OB systems.
+          description: Last name, family name, or surname of the customer stored on the OB systems.
           
         nameKanaHankaku:
           type: string
@@ -195,7 +195,7 @@ components:
           
         address:
           type: string
-          description: Complete address of the customer stored on the OB systems.  For some countries, it is built following the usual concatenation of parameters in a country, but for other countires, this is not the case.  For some countries, it can use streetName, streetNumber and/or houseNumberExtension. For example, in ESP, streetName+streetNumber; in NLD, it can be streetName+streetNumber or streetName+streetNumber+houseNumberExtension.
+          description: Complete address of the customer stored on the OB systems.  For some countries, it is built following the usual concatenation of parameters in a country, but for other countries, this is not the case.  For some countries, it can use streetName, streetNumber and/or houseNumberExtension. For example, in ESP, streetName+streetNumber; in NLD, it can be streetName+streetNumber or streetName+streetNumber+houseNumberExtension.
           
         streetName:
           type: string
@@ -207,7 +207,7 @@ components:
           
         postalCode:
           type: string
-          description: The poslta code or Zip code of the customer's address, stored on the OB systems.
+          description: The postal code or Zip code of the customer's address, stored on the OB systems.
           
         region:
           type: string
@@ -223,7 +223,7 @@ components:
           
         houseNumberExtension:
           type: string
-          description: House number extension of the customer stored on the OB systems.  Specific identifier of the house needed depending on the property type. For example, number of appartment in an appartment building.
+          description: House number extension of the customer stored on the OB systems.  Specific identifier of the house needed depending on the property type. For example, number of apartment in an apartment building.
           
         birthdate:
           type: string
@@ -286,7 +286,7 @@ components:
               value:
                 status: 401
                 code: UNAUTHENTICATED
-                message: Request not authenticated due to missing, invalid, or espired credentials
+                message: Request not authenticated due to missing, invalid, or expired credentials
 
     Generic404:
       description: |
