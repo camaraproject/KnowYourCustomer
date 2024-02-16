@@ -19,26 +19,26 @@ servers:
         default: http://localhost:9091
         description: API root
       basePath:
-        default: kyc-ageverification/v0
-        description: Base path for the KYC-AgeVerification API
+        default: kyc-ageverify/v0
+        description: Base path for the KYC-AgeVerify API
 
 tags:
-  - name: AgeVerification
+  - name: AgeVerify
 
     description: Operations to verify the age of a user.
 
 paths:
-  /ageverification:
+  /ageverify:
     post:
       tags:
-        - AgeVerification
+        - AgeVerify
       summary: Verify if the age of a user is under the provided age value submitted in order to automatically denied access to gaming, alcohol, or other age-restricted sites.
 
-      operationId: KYC_AgeVerification
+      operationId: KYC_AgeVerify
 
       security:
         - openId:
-          - know-your-customer:AgeVerification
+          - know-your-customer:AgeVerify
 
 
       parameters:
@@ -52,7 +52,7 @@ paths:
             schema:
               $ref: '#/components/schemas/KYC_RequestBody'
             examples:
-              AgeVerificationRequestExample:
+              RequestExample:
                 value:
                   phoneNumber: '+34629255833'
                   age: 18
