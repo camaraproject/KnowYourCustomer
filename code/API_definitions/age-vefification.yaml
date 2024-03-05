@@ -55,6 +55,8 @@ paths:
               RequestExample:
                 value:
                   phoneNumber: '+34629255833'
+                  giventName: 'Federica'
+                  familyName: 'Sanchez Arjona'
                   age: 18
 
       responses:
@@ -73,6 +75,8 @@ paths:
                 KYC_200Example:
                   value:
                     phoneNumber: '+34629255833'
+                    giventNameMatch: 'True'
+                    familyNameMatch: 'True'
                     isVerified: true
 
         '400':
@@ -127,6 +131,14 @@ components:
           type: "string"
           description: A public identifier addressing a telephone subscription. In mobile networks it corresponds to the MSISDN (Mobile Station International Subscriber Directory Number). In order to be globally unique it has to be formatted in international format, according to E.164 standard, optionally prefixed with '+'.
 
+        givenName:
+          type: "string"
+          description: First name/given name of the customer. It may include a compound first name or a second/middle name.
+
+        familyName:
+          type: "string"
+          description: Surname/family name of the customer. It may include a compound last name or an additional last name.
+
         age:
          type: "integer"
          description: age to be verified.
@@ -139,6 +151,23 @@ components:
         phoneNumber:
           type: "string"
           description: A public identifier addressing a telephone subscription.
+
+          
+        givenNameMatch:
+          type: "string"
+          description: Indicates whether First name/given name of the customer matches with the one on the OB systems.
+          enum:
+                - 'true'
+                - 'false'
+                - 'not_available'
+
+        familyNameMatch:
+          type: "string"
+          description: Indicates whether Surname/family name of the customer matches with the one on the OB systems.
+          enum:
+                - 'true'
+                - 'false'
+                - 'not_available'
 
         isVerified:
          type: "boolean"
