@@ -123,7 +123,6 @@ paths:
               examples:
                 KYC_Match200Example:
                   value:
-                    phoneNumberMatch: 'true'
                     idDocumentMatch: 'true'
                     nameMatch: 'true'
                     giventNameMatch: 'not_available'
