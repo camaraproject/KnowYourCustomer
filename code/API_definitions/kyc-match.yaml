@@ -123,7 +123,6 @@ paths:
               examples:
                 KYC_Match200Example:
                   value:
-                    phoneNumberMatch: 'true'
                     idDocumentMatch: 'true'
                     nameMatch: 'true'
                     giventNameMatch: 'not_available'
@@ -177,7 +176,7 @@ components:
       description: Correlation id for the different services
       schema:
         type: string
-   
+
   parameters:
     x-correlator:
       name: x-correlator
@@ -198,9 +197,9 @@ components:
 
 
         idDocument:
-         type: string
-         description: Id number associated to the official identity document in the country. It may contain alphanumeric characters.
-         
+          type: string
+          description: Id number associated to the official identity document in the country. It may contain alphanumeric characters.
+
         name:
           type: string
           description: Complete name of the customer, usually composed of first/given name and last/family/sur- name in a country.  Depending on the country, the order of first/give name and last/family/sur- name varies, and middle name could be included.  It can use givenName, middleNames, familyName and/or familyNameAtBirth. For example, in ESP, name+familyName; in NLD, it can be name+middleNames+familyName or name+middleNames+familyNameAtBirth, etc.
@@ -281,21 +280,13 @@ components:
       type: object
       properties:
 
-        phoneNumberMatch:
+        idDocumentMatch:
           type: string
-          description: Indicates whether the phone number of the customer matches with the one on the OB systems.
+          description: Indicates whether Id number associated to the id_document of the customer matches with the one on the OB systems.
           enum:
                 - 'true'
                 - 'false'
                 - 'not_available'
-
-        idDocumentMatch:
-         type: string
-         description: Indicates whether Id number associated to the id_document of the customer matches with the one on the OB systems.
-         enum:
-               - 'true'
-               - 'false'
-               - 'not_available'
 
         nameMatch:
           type: string
