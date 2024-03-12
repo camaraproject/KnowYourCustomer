@@ -55,7 +55,7 @@ paths:
               RequestExample:
                 value:
                   phoneNumber: '+34629255833'
-                  giventName: 'Federica'
+                  givenName: 'Federica'
                   middleNames: 'Sanchez'                  
                   familyName: 'Sanchez Arjona'
                   age: 18
@@ -76,7 +76,7 @@ paths:
                 KYC_200Example:
                   value:
                     phoneNumber: '+34629255833'
-                    giventNameMatch: 'True'
+                    givenNameMatch: 'True'
                     middleNamesMatch: 'true'                    
                     familyNameMatch: 'True'
                     isVerified: true
@@ -126,6 +126,10 @@ components:
   schemas:
     KYC_RequestBody:
       description: "Requested information to be compare with customer personal information"
+      required:
+      - "givenName"
+      - "familyName"
+      - "age"
       type: "object"
 
       properties:
@@ -159,13 +163,12 @@ components:
           description: A public identifier addressing a telephone subscription.
 
           
-        givenNameMatch:
+        givenNameMatch::
           type: "string"
           description: Indicates whether First name/given name of the customer matches with the one on the OB systems.
           enum:
                 - 'true'
                 - 'false'
-                - 'not_available'
 
         middleNamesMatch:
           type: string
@@ -173,7 +176,6 @@ components:
           enum:
                 - 'true'
                 - 'false'
-                - 'not_available'
 
         familyNameMatch:
           type: "string"
@@ -181,7 +183,6 @@ components:
           enum:
                 - 'true'
                 - 'false'
-                - 'not_available'
 
         isVerified:
          type: "boolean"
