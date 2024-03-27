@@ -23,7 +23,7 @@ servers:
         description: Base path for the KYC-AgeVerify API
 
 tags:
-  - name: AgeVerify
+  - name: Ageverify
 
     description: Operations to verify the age of a user.
 
@@ -31,8 +31,8 @@ paths:
   /ageverify:
     post:
       tags:
-        - AgeVerify
-      summary: Verify if the age of a user is under the provided age value submitted in order to automatically denied access to gaming, alcohol, or other age-restricted sites.
+        - Ageverify
+      summary: Verify if the age of a user is under the provided age value submitted in order to automatically denied access to gaming, alcohol, or other age-restricted sites. There are restrictions applied to the service. User phone number must be the contact's phone number declared in the contract. 
 
       operationId: KYC_AgeVerify
 
@@ -57,7 +57,8 @@ paths:
                   phoneNumber: '+34629255833'
                   givenName: 'Federica'
                   middleNames: 'Sanchez'                  
-                  familyName: 'Sanchez Arjona'
+                  familyName: 'Arjona'
+                  email: "FedericaSanchez.Arjona@gmail.com" 
                   age: 18
 
       responses:
@@ -76,10 +77,9 @@ paths:
                 KYC_200Example:
                   value:
                     phoneNumber: '+34629255833'
-                    givenNameMatch: 'True'
-                    middleNamesMatch: 'true'                    
-                    familyNameMatch: 'True'
+                    age: 18
                     isVerified: true
+                    assuranceLeve: 95
 
         '400':
           $ref: '#/components/responses/Generic400'
@@ -149,10 +149,13 @@ components:
           type: "string"
           description: Surname/family name of the customer. It may include a compound last name or an additional last name.
 
+        email:
+          type: string
+          description: Email address of the customer in the RFC specified format (local-part@domain), stored on the OB systems.
+
         age:
          type: "integer"
          description: age to be verified.
-
 
     KYC_ResponseBody:
       type: "object"
@@ -162,32 +165,18 @@ components:
           type: "string"
           description: A public identifier addressing a telephone subscription.
 
-          
-        givenNameMatch::
-          type: "string"
-          description: Indicates whether First name/given name of the customer matches with the one on the OB systems.
-          enum:
-                - 'true'
-                - 'false'
-
-        middleNamesMatch:
-          type: string
-          description: Indicates whether the middle names of the customer matches with the one on the OB systems.
-          enum:
-                - 'true'
-                - 'false'
-
-        familyNameMatch:
-          type: "string"
-          description: Indicates whether Surname/family name of the customer matches with the one on the OB systems.
-          enum:
-                - 'true'
-                - 'false'
+        age:
+         type: "integer"
+         description: age which has been verified.
 
         isVerified:
          type: "boolean"
          default: True         
          description: Indicates if the age has been verified (True) or if it has not been possible (False).
+
+        assuranceLevel:
+         type: "integer"
+         description: Assurance level the MNO has to provide a result of the age verification.
 
     ErrorInfo:
       type: "object"
