@@ -79,8 +79,7 @@ paths:
                     phoneNumber: '+34629255833'
                     age: 18
                     isVerified: true
-                    assuranceLeve: 95
-
+                    assuranceLeve: 'substancial'
         '400':
           $ref: '#/components/responses/Generic400'
 
@@ -175,8 +174,12 @@ components:
          description: Indicates if the age has been verified (True) or if it has not been possible (False).
 
         assuranceLevel:
-         type: "integer"
-         description: Assurance level the MNO has to provide a result of the age verification.
+          type: "string"
+          description: Assurance level estimated by the MNO on the age verification according to data it hold.
+          enum:
+                - 'Low'
+                - 'Substancial'
+                - 'High'
 
     ErrorInfo:
       type: "object"
