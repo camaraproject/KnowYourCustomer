@@ -4,6 +4,7 @@
 <a href="https://github.com/camaraproject/KnowYourCustomer/graphs/contributors" title="Contributors"><img src="https://img.shields.io/github/contributors/camaraproject/KnowYourCustomer?style=plastic"></a>
 <a href="https://github.com/camaraproject/KnowYourCustomer" title="Repo Size"><img src="https://img.shields.io/github/repo-size/camaraproject/KnowYourCustomer?style=plastic"></a>
 <a href="https://github.com/camaraproject/KnowYourCustomer/blob/main/LICENSE" title="License"><img src="https://img.shields.io/badge/License-Apache%202.0-green.svg?style=plastic"></a>
+<a href="https://github.com/camaraproject/KnowYourCustomer/releases/latest" title="Latest Release"><img src="https://img.shields.io/github/release/camaraproject/KnowYourCustomer?style=plastic"></a>
 
 # KnowYourCustomer
 Repository to describe, develop, document and test the KnowYourCustomer API family
@@ -15,13 +16,11 @@ Repository to describe, develop, document and test the KnowYourCustomer API fami
   * request and receive the information for a particular user, which on file (and verified) by the user's Operator in their own KYC records, in order for the SP to confirm the accuracy of the information and provide a specific service to the user. (KYC Fill-in)  
 * Describe, develop, document and test the APIs (with 1-2 Telcos)  
 * Started: September 2023
-* Location: virtually  
 
-## Meetings
-* Meetings are held virtually
-* Schedule (till October 27th 2024): Bi-weekly, Tuesday, 9 AM CEST (07:00 UTC). For date/time of next meeting see previous [meeting minutes](https://github.com/camaraproject/KnowYourCustomer/tree/main/documentation/MeetingMinutes).
-* Meeting link: <a href="https://teams.microsoft.com/l/meetup-join/19%3ameeting_ZmUyNTY1MGEtYzYyNy00NTZkLThhMmQtZGJmZTJjMmY0YTRm%40thread.v2/0?context=%7b%22Tid%22%3a%22040b5c43-0c27-49b3-b8e6-cdec886abcee%22%2c%22Oid%22%3a%22d89fe1c8-4704-4b8e-8396-745509ac2a82%22%7d">Microsoft Teams Meeting</a>
-
-## Contributorship and mailing list
-* To subscribe / unsubscribe to the mailing list of this Sub Project and thus be / resign as Contributor please visit <https://lists.camaraproject.org/g/sp-kyc>.
-* A message to all Contributors of this Sub Project can be sent using <sp-kyc@lists.camaraproject.org>.
+## Contributing
+* Meetings
+  * Schedule: Bi-weekly, Tuesday, 09:00 CEST (07:00 UTC) (till October 27th 2024)
+  * [Registration / Join](https://zoom-lfx.platform.linuxfoundation.org/meeting/95365880067?password=644c46e3-480b-426d-be9d-64ab4613aeb3)
+* Maling List
+  * Subscribe <sp-kyc+subscribe@lists.camaraproject.org>
+  * <https://lists.camaraproject.org/g/sp-kyc>
