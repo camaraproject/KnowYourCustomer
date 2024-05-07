@@ -48,7 +48,7 @@ info:
     name: Apache 2.0
     url: https://www.apache.org/licenses/LICENSE-2.0.html
 
-  version: 0.1.0
+  version: wip
 
 servers:
   - url: '{apiRoot}/{basePath}'
@@ -110,7 +110,7 @@ paths:
                     postalCode: 1028460
                     region: Tokyo
                     locality: ZZZZ
-                    country: Japan
+                    country: JP
                     houseNumberExtension: 36
                     birthdate: '1978-08-22'
                     email: abc@example.com
@@ -219,7 +219,7 @@ components:
 
         country:
           type: string
-          description: Country of the customer's address stored on the OB systems.
+          description: Country of the customer's address stored on the OB systems. Format ISO 3166-1 alpha-2.
           
         houseNumberExtension:
           type: string
