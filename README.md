@@ -18,14 +18,15 @@ Repository to describe, develop, document and test the KnowYourCustomer API fami
 * Started: September 2023
 
 ## Release Information
-The latest public release is available here: https://github.com/camaraproject/KnowYourCustomer/releases/latest
-Pre-releases of this sub project are available in https://github.com/camaraproject/KnowYourCustomer/releases
-For changes see [CHANGELOG.md](https://github.com/camaraproject/KnowYourCustomer/blob/main/CHANGELOG.md)
+* The latest public release is available here: https://github.com/camaraproject/KnowYourCustomer/releases/latest
+* Pre-releases of this sub project are available in https://github.com/camaraproject/KnowYourCustomer/releases
+* For changes see [CHANGELOG.md](https://github.com/camaraproject/KnowYourCustomer/blob/main/CHANGELOG.md)
 
 ## Contributing
 * Meetings
   * Schedule: Bi-weekly, Tuesday, 09:00 CEST (07:00 UTC) (till October 27th 2024)
   * [Registration / Join](https://zoom-lfx.platform.linuxfoundation.org/meeting/95365880067?password=644c46e3-480b-426d-be9d-64ab4613aeb3)
-* Maling List
+  * Access [Meeting Minutes](https://github.com/camaraproject/KnowYourCustomer/tree/main/documentation/MeetingMinutes)
+* Mailing List
   * Subscribe / Unsubscribe to the mailing list of this Sub Project https://lists.camaraproject.org/g/sp-kyc
   * A message to the community of this Sub Project can be sent using <https://lists.camaraproject.org/g/sp-kyc>
