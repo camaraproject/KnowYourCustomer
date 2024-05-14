@@ -25,7 +25,7 @@ Repository to describe, develop, document and test the KnowYourCustomer API fami
 ## Contributing
 * Meetings
   * Schedule: Bi-weekly, Tuesday, 09:00 CEST (07:00 UTC) (till October 27th 2024)
-  * [Registration / Join](https://zoom-lfx.platform.linuxfoundation.org/meeting/95365880067?password=644c46e3-480b-426d-be9d-64ab4613aeb3)
+  * [Registration / Join](https://zoom-lfx.platform.linuxfoundation.org/meeting/96235150735?password=7e3fea67-a76e-4941-8a70-392cf5545917)
   * Access [Meeting Minutes](https://github.com/camaraproject/KnowYourCustomer/tree/main/documentation/MeetingMinutes)
 * Mailing List
   * Subscribe / Unsubscribe to the mailing list of this Sub Project https://lists.camaraproject.org/g/sp-kyc
