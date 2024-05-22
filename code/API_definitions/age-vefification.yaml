@@ -169,9 +169,15 @@ components:
          description: age which has been verified.
 
         isVerified:
-         type: "boolean"
+         type: "string"
          default: True         
-         description: Indicates if the age has been verified (True) or if it has not been possible (False).
+         description: Indicates if the age has been verified (True) or not.
+         enum:
+                - 'True'
+                - 'False'
+                - 'Unverified'
+                - 'Not_Available'
+                - 'Insufficient_Data'
 
         assuranceLevel:
           type: "string"
