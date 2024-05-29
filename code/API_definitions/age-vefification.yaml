@@ -130,10 +130,6 @@ components:
   schemas:
     KYC_RequestBody:
       description: "Requested information to be compare with customer personal information"
-      required:
-      - "givenName"
-      - "familyName"
-      - "age"
       type: "object"
 
       properties:
