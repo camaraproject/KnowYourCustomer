@@ -84,7 +84,7 @@ paths:
                     phoneNumber: '+34629255833'
                     age: 18
                     isVerified: true
-                    assuranceLeve: 'substancial'
+                    assuranceLeve: 90
         '400':
           $ref: '#/components/responses/Generic400'
 
