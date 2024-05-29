@@ -55,9 +55,14 @@ paths:
               RequestExample:
                 value:
                   phoneNumber: '+34629255833'
-                  givenName: 'Federica'
-                  middleNames: 'Sanchez'                  
-                  familyName: 'Arjona'
+                  idDocument: 66666666q
+                  name: Federica Sanchez Arjona
+                  giventName: Federica
+                  familyName: Sanchez Arjona
+                  nameKanaHankaku: federica
+                  nameKanaZenkaku: Ｆｅｄｅｒｉｃａ
+                  middleNames: Sanchez
+                  familyNameAtBirth: YYYY
                   email: "FedericaSanchez.Arjona@gmail.com" 
                   age: 18
 
@@ -135,18 +140,38 @@ components:
         phoneNumber:
           type: "string"
           description: A public identifier addressing a telephone subscription. In mobile networks it corresponds to the MSISDN (Mobile Station International Subscriber Directory Number). In order to be globally unique it has to be formatted in international format, according to E.164 standard, optionally prefixed with '+'.
+          
+        idDocument:
+          type: string
+          description: Id number associated to the official identity document in the country. It may contain alphanumeric characters.
+
+        name:
+          type: string
+          description: Complete name of the customer, usually composed of first/given name and last/family/sur- name in a country.  Depending on the country, the order of first/give name and last/family/sur- name varies, and middle name could be included.  It can use givenName, middleNames, familyName and/or familyNameAtBirth. For example, in ESP, name+familyName; in NLD, it can be name+middleNames+familyName or name+middleNames+familyNameAtBirth, etc.
 
         givenName:
-          type: "string"
-          description: First name/given name of the customer. It may include a compound first name or a second/middle name.
+          type: string
+          description: First/given name or compound first/given name of the customer.
+          
+        familyName:
+          type: string
+          description: Last name, family name, or surname of the customer.
+          
+        nameKanaHankaku:
+          type: string
+          description: Complete name of the customer in Hankaku-Kana format (reading of name) for Japan.
+
+        nameKanaZenkaku:
+          type: string
+          description: Complete name of the customer in Zenkaku-Kana format (reading of name) for Japan.
 
         middleNames:
           type: string
           description: Middle name/s of the customer.
 
-        familyName:
-          type: "string"
-          description: Surname/family name of the customer. It may include a compound last name or an additional last name.
+        familyNameAtBirth:
+          type: string
+          description: Last/family/sur- name at birth of the customer.
 
         email:
           type: string
@@ -179,13 +204,9 @@ components:
                 - 'Not_Available'
                 - 'Insufficient_Data'
 
-        assuranceLevel:
-          type: "string"
+        score:
+          type: "integer"
           description: Assurance level estimated by the MNO on the age verification according to data it hold.
-          enum:
-                - 'Low'
-                - 'Substancial'
-                - 'High'
 
     ErrorInfo:
       type: "object"
