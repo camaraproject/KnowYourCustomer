@@ -42,7 +42,7 @@ info:
     name: Apache 2.0
     url: https://www.apache.org/licenses/LICENSE-2.0.html
 
-  version: 0.1.0
+  version: wip
 
 
 servers:
@@ -102,7 +102,7 @@ paths:
                   postalCode: 1028460
                   region: Tokyo
                   locality: ZZZZ
-                  country: Japan
+                  country: JP
                   houseNumberExtension: VVVV
                   birthdate: '1978-08-22'
                   email: abc@example.com
@@ -230,7 +230,7 @@ components:
 
         address:
           type: string
-          description: Complete address of the customer.  For some countries, it is built following the usual concatenation of parameters in a country, but for other countires, this is not the case.  For some countries, it can use streetName, streetNumber and/or houseNumberExtension. For example, in ESP, streetName+streetNumber; in NLD, it can be streetName+streetNumber or streetName+streetNumber+houseNumberExtension.
+          description: Complete address of the customer.  For some countries, it is built following the usual concatenation of parameters in a country, but for other countries, this is not the case.  For some countries, it can use streetName, streetNumber and/or houseNumberExtension. For example, in ESP, streetName+streetNumber; in NLD, it can be streetName+streetNumber or streetName+streetNumber+houseNumberExtension.
           
         streetName:
           type: string
@@ -254,7 +254,7 @@ components:
 
         country:
           type: string
-          description: Country of the customer's address
+          description: Country of the customer's address. Format ISO 3166-1 alpha-2
 
         houseNumberExtension:
           type: string
@@ -282,7 +282,7 @@ components:
 
         idDocumentMatch:
           type: string
-          description: Indicates whether Id number associated to the id_document of the customer matches with the one on the OB systems.
+          description: Indicates whether Id number associated to the id_document of the customer matches with the one on the Operator's system.
           enum:
                 - 'true'
                 - 'false'
@@ -290,7 +290,7 @@ components:
 
         nameMatch:
           type: string
-          description: Indicates whether the complete name of the customer matches with the one on the OB system.
+          description: Indicates whether the complete name of the customer matches with the one on the Operator's system.
           enum:
                 - 'true'
                 - 'false'
@@ -298,7 +298,7 @@ components:
 
         givenNameMatch:
           type: string
-          description: Indicates whether First name/given name of the customer matches with the one on the OB systems.
+          description: Indicates whether First name/given name of the customer matches with the one on the Operator's system.
           enum:
                 - 'true'
                 - 'false'
@@ -306,7 +306,7 @@ components:
 
         familyNameMatch:
           type: string
-          description: Indicates whether last name/ family name/ surname of the customer matches with the one on the OB systems.
+          description: Indicates whether last name/ family name/ surname of the customer matches with the one on the Operator's system.
           enum:
                 - 'true'
                 - 'false'
@@ -314,7 +314,7 @@ components:
 
         nameKanaHankakuMatch:
           type: string
-          description: Indicates whether complete name of the customer in Hankaku-Kana format (reading of name) for Japan matches with the one on the OB systems.
+          description: Indicates whether complete name of the customer in Hankaku-Kana format (reading of name) for Japan matches with the one on the Operator's system.
           enum:
                 - 'true'
                 - 'false'
@@ -322,7 +322,7 @@ components:
 
         nameKanaZenkakuMatch:
           type: string
-          description: Indicates whether complete name of the customer in Zenkaku-Kana format (reading of name) for Japan matches with the one on the OB systems.
+          description: Indicates whether complete name of the customer in Zenkaku-Kana format (reading of name) for Japan matches with the one on the Operator's system.
           enum:
                 - 'true'
                 - 'false'
@@ -330,7 +330,7 @@ components:
 
         middleNamesMatch:
           type: string
-          description: Indicates whether the middle names of the customer matches with the one on the OB systems.
+          description: Indicates whether the middle names of the customer matches with the one on the Operator's system.
           enum:
                 - 'true'
                 - 'false'
@@ -339,7 +339,7 @@ components:
 
         familyNameAtBirthMatch:
           type: string
-          description: Indicates whether the Family Name At Birth of the customer matches with the one on the OB systems.
+          description: Indicates whether the Family Name At Birth of the customer matches with the one on the Operator's system.
           enum:
                 - 'true'
                 - 'false'
@@ -347,7 +347,7 @@ components:
 
         addressMatch:
           type: string
-          description: Indicates whether complete address of the customer matches with the one on the OB systems.
+          description: Indicates whether complete address of the customer matches with the one on the Operator's system.
           enum:
                 - 'true'
                 - 'false'
@@ -355,7 +355,7 @@ components:
 
         streetNameMatch:
           type: string
-          description: Indicates whether the street name of the customer matches with the one on the OB systems.
+          description: Indicates whether the street name of the customer matches with the one on the Operator's system.
           enum:
                 - 'true'
                 - 'false'
@@ -363,7 +363,7 @@ components:
 
         streetNumberMatch:
           type: string
-          description: Indicates whether the street number of the customer matches with the one on the OB systems.
+          description: Indicates whether the street number of the customer matches with the one on the Operator's system.
           enum:
                 - 'true'
                 - 'false'
@@ -371,7 +371,7 @@ components:
 
         postalCodeMatch:
           type: string
-          description: Indicates whether the postal code / zip code of the customer matches with the one on the OB systems.
+          description: Indicates whether the postal code / zip code of the customer matches with the one on the Operator's system.
           enum:
                 - 'true'
                 - 'false'
@@ -379,7 +379,7 @@ components:
 
         regionMatch:
           type: string
-          description: Indicates whether the region of the customer's address matches with the one on the OB systems.
+          description: Indicates whether the region of the customer's address matches with the one on the Operator's system.
           enum:
                 - 'true'
                 - 'false'
@@ -387,7 +387,7 @@ components:
 
         localityMatch:
           type: string
-          description: Indicates whether the locality of the customer's address matches with the one on the OB systems.
+          description: Indicates whether the locality of the customer's address matches with the one on the Operator's system.
           enum:
                 - 'true'
                 - 'false'
@@ -395,7 +395,7 @@ components:
 
         countryMatch:
           type: string
-          description: Indicates whether the country of the customer's address matches with the one on the OB systems.
+          description: Indicates whether the country of the customer's address matches with the one on the Operator's system.
           enum:
                 - 'true'
                 - 'false'
@@ -403,7 +403,7 @@ components:
 
         houseNumberExtensionMatch:
           type: string
-          description: Indicates whether the house number extension of the customer's address with the one on the OB systems.
+          description: Indicates whether the house number extension of the customer's address with the one on the Operator's system.
           enum:
                 - 'true'
                 - 'false'
@@ -411,7 +411,7 @@ components:
 
         birthdateMatch:
           type: string
-          description: Indicates whether the birthdate of the customer matches with the one on the OB systems.
+          description: Indicates whether the birthdate of the customer matches with the one on the Operator's system.
           enum:
                 - 'true'
                 - 'false'
@@ -419,7 +419,7 @@ components:
 
         emailMatch:
           type: string
-          description: Indicates whether the email address of the customer matches with the one on the OB systems.
+          description: Indicates whether the email address of the customer matches with the one on the Operator's system.
           enum:
                 - 'true'
                 - 'false'
@@ -427,7 +427,7 @@ components:
 
         genderMatch:
           type: string
-          description: Indicates whether the gender of the customer matches with the one on the OB systems.
+          description: Indicates whether the gender of the customer matches with the one on the Operator's system.
           enum:
                 - 'true'
                 - 'false'
@@ -502,7 +502,7 @@ components:
       
         - Phone number cannot be deducted from access token context.(`{"code": "KNOW_YOUR_CUSTOMER.INVALID_TOKEN_CONTEXT","message": "Phone number mismatch with access token context"}`)
         - The idDocument property is missing.(`{"code": "KNOW_YOUR_CUSTOMER.ID_DOCUMENT_REQUIRED","message": "The idDocument is required to perform the properties validation"}`)
-        - The idDocument does not match the one associated to the provided phoneNumber in the OB systems.(`{"code": "KNOW_YOUR_CUSTOMER.ID_DOCUMENT_MISMATCH","message": "The idDocument needs to match the one associated with the provided phoneNumber"}`)
+        - The idDocument does not match the one associated to the provided phoneNumber in the Operator's system.(`{"code": "KNOW_YOUR_CUSTOMER.ID_DOCUMENT_MISMATCH","message": "The idDocument needs to match the one associated with the provided phoneNumber"}`)
       headers:
         x-correlator:
           $ref: '#/components/headers/x-correlator'

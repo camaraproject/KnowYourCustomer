@@ -48,7 +48,7 @@ info:
     name: Apache 2.0
     url: https://www.apache.org/licenses/LICENSE-2.0.html
 
-  version: 0.1.0
+  version: wip
 
 servers:
   - url: '{apiRoot}/{basePath}'
@@ -110,7 +110,7 @@ paths:
                     postalCode: 1028460
                     region: Tokyo
                     locality: ZZZZ
-                    country: Japan
+                    country: JP
                     houseNumberExtension: 36
                     birthdate: '1978-08-22'
                     email: abc@example.com
@@ -159,83 +159,83 @@ components:
 
         phoneNumber:
           type: string
-          description: The phone number of the customer stored on the OB systems.  A public identifier addressing a telephone subscription. In mobile networks it corresponds to the MSISDN (Mobile Station International Subscriber Directory Number). In order to be globally unique it has to be formatted in international format, according to E.164 standard, optionally prefixed with '+'.
+          description: The phone number of the customer stored on the Operator's system.  A public identifier addressing a telephone subscription. In mobile networks it corresponds to the MSISDN (Mobile Station International Subscriber Directory Number). In order to be globally unique it has to be formatted in international format, according to E.164 standard, optionally prefixed with '+'.
 
         idDocument:
          type: string
-         description: Id number associated to the id_document of the customer stored on the OB systems.
+         description: Id number associated to the id_document of the customer stored on the Operator's system.
          
         name:
           type: string
-          description: Complete name of the customer stored on the OB systems.  It is usually composed of first/given name and last/family/sur- name in a country.  Depending on the country, the order of first/give name and last/family/sur- name varies, and middle name could be included.  It can use givenName, middleNames, familyName and/or familyNameAtBirth. For example, in ESP, name+familyName; in NLD, it can be name+middleNames+familyName or name+middleNames+familyNameAtBirth, etc.
+          description: Complete name of the customer stored on the Operator's system.  It is usually composed of first/given name and last/family/sur- name in a country.  Depending on the country, the order of first/give name and last/family/sur- name varies, and middle name could be included.  It can use givenName, middleNames, familyName and/or familyNameAtBirth. For example, in ESP, name+familyName; in NLD, it can be name+middleNames+familyName or name+middleNames+familyNameAtBirth, etc.
         
         givenName:
           type: string
-          description: First/given name or compound first/given name of the customer on the OB systems.
+          description: First/given name or compound first/given name of the customer on the Operator's system.
           
         familyName:
           type: string
-          description: Last name, family name, or surname of the customer stored on the OB systems.
+          description: Last name, family name, or surname of the customer stored on the Operator's system.
           
         nameKanaHankaku:
           type: string
-          description: Complete name of the customer in Hankaku-Kana format (reading of name) for Japan, stored on the OB systems.
+          description: Complete name of the customer in Hankaku-Kana format (reading of name) for Japan, stored on the Operator's system.
 
         nameKanaZenkaku:
           type: string
-          description: Complete name of the customer in Zenkaku-Kana format (reading of name) for Japan, stored on the OB systems.
+          description: Complete name of the customer in Zenkaku-Kana format (reading of name) for Japan, stored on the Operator's system.
 
         middleNames:
           type: string
-          description: Middle name/s of the customer stored on the OB systems.
+          description: Middle name/s of the customer stored on the Operator's system.
 
         familyNameAtBirth:
           type: string
-          description: Last/family/sur- name at birth of the customer stored on the OB systems.
+          description: Last/family/sur- name at birth of the customer stored on the Operator's system.
           
         address:
           type: string
-          description: Complete address of the customer stored on the OB systems.  For some countries, it is built following the usual concatenation of parameters in a country, but for other countries, this is not the case.  For some countries, it can use streetName, streetNumber and/or houseNumberExtension. For example, in ESP, streetName+streetNumber; in NLD, it can be streetName+streetNumber or streetName+streetNumber+houseNumberExtension.
+          description: Complete address of the customer stored on the Operator's system.  For some countries, it is built following the usual concatenation of parameters in a country, but for other countries, this is not the case.  For some countries, it can use streetName, streetNumber and/or houseNumberExtension. For example, in ESP, streetName+streetNumber; in NLD, it can be streetName+streetNumber or streetName+streetNumber+houseNumberExtension.
           
         streetName:
           type: string
-          description: Name of the street of the customer's address on the OB systems.  It should not include the type of the street.
+          description: Name of the street of the customer's address on the Operator's system.  It should not include the type of the street.
           
         streetNumber:
           type: string
-          description: The street number of the customer's address on the OB systems.  Number identifying a specific property on the 'streetName'.
+          description: The street number of the customer's address on the Operator's system.  Number identifying a specific property on the 'streetName'.
           
         postalCode:
           type: string
-          description: The postal code or Zip code of the customer's address, stored on the OB systems.
+          description: The postal code or Zip code of the customer's address, stored on the Operator's system.
           
         region:
           type: string
-          description: Region/prefecture of the customer's address, stored on the OB systems.
+          description: Region/prefecture of the customer's address, stored on the Operator's system.
           
         locality:
           type: string
-          description: Locality of the customer's address, stored on the OB systems.
+          description: Locality of the customer's address, stored on the Operator's system.
 
         country:
           type: string
-          description: Country of the customer's address stored on the OB systems.
+          description: Country of the customer's address stored on the Operator's system. Format ISO 3166-1 alpha-2.
           
         houseNumberExtension:
           type: string
-          description: House number extension of the customer stored on the OB systems.  Specific identifier of the house needed depending on the property type. For example, number of apartment in an apartment building.
+          description: House number extension of the customer stored on the Operator's system.  Specific identifier of the house needed depending on the property type. For example, number of apartment in an apartment building.
           
         birthdate:
           type: string
-          description: Birthdate of the customer, in ISO 8601 calendar date format (YYYY-MM-DD), stored on the OB systems.
+          description: Birthdate of the customer, in ISO 8601 calendar date format (YYYY-MM-DD), stored on the Operator's system.
           
         email:
           type: string
-          description: Email address of the customer in the RFC specified format (local-part@domain), stored on the OB systems.
+          description: Email address of the customer in the RFC specified format (local-part@domain), stored on the Operator's system.
           
         gender:
           type: string
-          description: Gender of the customer stored on the OB systems (Male/Female/Other).
+          description: Gender of the customer stored on the Operator's system (Male/Female/Other).
           
     ErrorInfo:
       type: object
