@@ -83,8 +83,8 @@ paths:
                   value:
                     phoneNumber: '+34629255833'
                     age: 18
-                    isVerified: true
-                    assuranceLeve: 90
+                    ageVerified: true
+                    identityMatchScore: 90
         '400':
           $ref: '#/components/responses/Generic400'
 
@@ -189,7 +189,7 @@ components:
          type: "integer"
          description: age which has been verified.
 
-        isVerified:
+        ageVerified:
          type: "string"
          default: True         
          description: Indicates if the age has been verified (True) or not.
@@ -200,7 +200,7 @@ components:
                 - 'Not_Available'
                 - 'Insufficient_Data'
 
-        score:
+        identityMatchScore:
           type: "integer"
           description: Assurance level estimated by the MNO on the age verification according to data it hold.
 
