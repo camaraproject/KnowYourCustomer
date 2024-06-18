@@ -57,7 +57,7 @@ paths:
                   phoneNumber: '+34629255833'
                   idDocument: 66666666q
                   name: Federica Sanchez Arjona
-                  giventName: Federica
+                  givenName: Federica
                   familyName: Sanchez Arjona
                   nameKanaHankaku: federica
                   nameKanaZenkaku: Ｆｅｄｅｒｉｃａ
@@ -138,39 +138,39 @@ components:
           description: A public identifier addressing a telephone subscription. In mobile networks it corresponds to the MSISDN (Mobile Station International Subscriber Directory Number). In order to be globally unique it has to be formatted in international format, according to E.164 standard, optionally prefixed with '+'.
           
         idDocument:
-          type: string
+          type: "string"
           description: Id number associated to the official identity document in the country. It may contain alphanumeric characters.
 
         name:
-          type: string
+          type: "string"
           description: Complete name of the customer, usually composed of first/given name and last/family/sur- name in a country.  Depending on the country, the order of first/give name and last/family/sur- name varies, and middle name could be included.  It can use givenName, middleNames, familyName and/or familyNameAtBirth. For example, in ESP, name+familyName; in NLD, it can be name+middleNames+familyName or name+middleNames+familyNameAtBirth, etc.
 
         givenName:
-          type: string
+          type: "string"
           description: First/given name or compound first/given name of the customer.
           
         familyName:
-          type: string
+          type: "string"
           description: Last name, family name, or surname of the customer.
           
         nameKanaHankaku:
-          type: string
+          type: "string"
           description: Complete name of the customer in Hankaku-Kana format (reading of name) for Japan.
 
         nameKanaZenkaku:
-          type: string
+          type: "string"
           description: Complete name of the customer in Zenkaku-Kana format (reading of name) for Japan.
 
         middleNames:
-          type: string
+          type: "string"
           description: Middle name/s of the customer.
 
         familyNameAtBirth:
-          type: string
+          type: "string"
           description: Last/family/sur- name at birth of the customer.
 
         email:
-          type: string
+          type: "string"
           description: Email address of the customer in the RFC specified format (local-part@domain), stored on the OB systems.
 
         age:
