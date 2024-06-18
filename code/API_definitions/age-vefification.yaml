@@ -81,7 +81,6 @@ paths:
               examples:
                 KYC_200Example:
                   value:
-                    phoneNumber: '+34629255833'
                     age: 18
                     ageVerified: true
                     identityMatchScore: 90
@@ -180,10 +179,6 @@ components:
     KYC_ResponseBody:
       type: "object"
       properties:
-
-        phoneNumber:
-          type: "string"
-          description: A public identifier addressing a telephone subscription.
 
         age:
          type: "integer"
