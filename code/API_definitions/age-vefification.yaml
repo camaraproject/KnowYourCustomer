@@ -59,8 +59,6 @@ paths:
                   name: Federica Sanchez Arjona
                   givenName: Federica
                   familyName: Sanchez Arjona
-                  nameKanaHankaku: federica
-                  nameKanaZenkaku: Ｆｅｄｅｒｉｃａ
                   middleNames: Sanchez
                   familyNameAtBirth: YYYY
                   email: "FedericaSanchez.Arjona@gmail.com" 
@@ -152,13 +150,6 @@ components:
           type: "string"
           description: Last name, family name, or surname of the customer.
           
-        nameKanaHankaku:
-          type: "string"
-          description: Complete name of the customer in Hankaku-Kana format (reading of name) for Japan.
-
-        nameKanaZenkaku:
-          type: "string"
-          description: Complete name of the customer in Zenkaku-Kana format (reading of name) for Japan.
 
         middleNames:
           type: "string"
@@ -193,11 +184,10 @@ components:
                 - 'False'
                 - 'Unverified'
                 - 'Not_Available'
-                - 'Insufficient_Data'
 
         identityMatchScore:
           type: "integer"
-          description: Assurance level estimated by the MNO on the age verification according to data it hold.
+          description: Aggregate score of user's identity match result.
 
     ErrorInfo:
       type: "object"
