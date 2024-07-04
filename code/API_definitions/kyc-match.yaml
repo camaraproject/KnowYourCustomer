@@ -323,10 +323,14 @@ components:
           allOf:
             - $ref: '#/components/schemas/MatchResult'
             - description: Indicates whether complete name of the customer in Hankaku-Kana format (reading of name) for Japan matches with the one on the Operator's system.
+        nameKanaHankakuMatchScore:
+          $ref: '#/components/schemas/MatchScoreResult'
         nameKanaZenkakuMatch:
           allOf:
             - $ref: '#/components/schemas/MatchResult'
             - description: Indicates whether complete name of the customer in Zenkaku-Kana format (reading of name) for Japan matches with the one on the Operator's system.
+        nameKanaZenkakuMatchScore:
+          $ref: '#/components/schemas/MatchScoreResult'
         middleNamesMatch:
           allOf:
             - $ref: '#/components/schemas/MatchResult'
