@@ -10,7 +10,7 @@ info:
 
     * **KYC**: stands for Know Your Customer and it is the process of a business verifying the identity of their clients and assessing their suitability, along with the potential risks of illegal intentions towards the business relationship.
 
-    * **Match Score**: a numerical value that quantifies the similarity between two pieces of text based on the words they contain. This score is often used in various applications like text comparison, plagiarism detection, information retrieval, and natural language processing. The score typically reflects how well the words in one text match the words in another text. In the context of this API, this score will be used to determine how much does the input information looks like the information stored in the Operator's system. The algorithm used to calculate this value is the Jaro-Winkler Distance Algorithm.
+    * **Match Score**: a numerical value that quantifies the similarity between two pieces of text based on the words they contain. This score is often used in various applications like text comparison, plagiarism detection, information retrieval, and natural language processing. The score typically reflects how well the words in one text match the words in another text. In the context of this API, this score will be used to determine how much does the input information looks like the information stored in the Operator's system. Unless otherwise captured in the specification, score will use the Jaro-Winkler distance algorithm for all countries.
 
     ## API Functionality
 
@@ -51,19 +51,16 @@ info:
   license:
     name: Apache 2.0
     url: https://www.apache.org/licenses/LICENSE-2.0.html
-
-  version: wip
-
-
+  version: 0.2.0-rc.1
+externalDocs:
+  description: Product documentation at Camara.
+  url: https://github.com/camaraproject/
 servers:
-  - url: '{apiRoot}/{basePath}'
+  - url: '{apiRoot}/kyc-match/v0.2'
     variables:
       apiRoot:
         default: http://localhost:9091
-        description: API root
-      basePath:
-        default: kyc-match/v0
-        description: Base path for the KYC-Match API
+        description: API root, defined by the service provider, e.g. `api.example.com` or `api.example.com/somepath`
 
 tags:
   - name: Match
