@@ -34,6 +34,14 @@ info:
 
     * An endpoint to verify the matching of a number of attributes related to a mobile phone user identity against the account data bound to their phone number.
 
+    ## Authorization and authentication
+
+    [Camara Security and Interoperability Profile](https://github.com/camaraproject/IdentityAndConsentManagement/blob/main/documentation/CAMARA-Security-Interoperability.md) provides details on how a client requests an access token.
+
+    Which specific authorization flows are to be used will be determined during onboarding process, happening between the API Client and the Telco Operator exposing the API, taking into account the declared purpose for accessing the API, while also being subject to the prevailing legal framework dictated by local legislation.
+
+    It is important to remark that in cases where personal user data is processed by the API, and users can exercise their rights through mechanisms such as opt-in and/or opt-out, the use of 3-legged access tokens becomes mandatory. This measure ensures that the API remains in strict compliance with user privacy preferences and regulatory obligations, upholding the principles of transparency and user-centric data control.
+
 
   termsOfService: http://swagger.io/terms/
   contact:
@@ -42,7 +50,7 @@ info:
     name: Apache 2.0
     url: https://www.apache.org/licenses/LICENSE-2.0.html
 
-  version: 0.1.1
+  version: wip
 
 
 servers:
@@ -193,7 +201,7 @@ components:
       properties:
         phoneNumber:
           type: string
-          description: A public identifier addressing a telephone subscription. In mobile networks it corresponds to the MSISDN (Mobile Station International Subscriber Directory Number). In order to be globally unique it has to be formatted in international format, according to E.164 standard, optionally prefixed with '+'.
+          description: A public identifier addressing a telephone subscription. In mobile networks it corresponds to the MSISDN (Mobile Station International Subscriber Directory Number). In order to be globally unique it has to be formatted in international format, according to E.164 standard, prefixed with '+'.
 
 
         idDocument:
