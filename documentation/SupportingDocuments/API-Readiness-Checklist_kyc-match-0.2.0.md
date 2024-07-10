@@ -1,6 +1,6 @@
 # API Readiness Checklist
 
-Checklist for kyc-maych 0.2.0 in FALL24
+Checklist for kyc-match 0.2.0 in FALL24
 
 | Nr | API release assets  | alpha | release-candidate |  initial<br>public | stable<br> public | Status | Comments |
 |----|----------------------------------------------|:-----:|:-----------------:|:-------:|:------:|:----:|:----:|
