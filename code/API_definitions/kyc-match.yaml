@@ -10,6 +10,8 @@ info:
 
     * **KYC**: stands for Know Your Customer and it is the process of a business verifying the identity of their clients and assessing their suitability, along with the potential risks of illegal intentions towards the business relationship.
 
+    * **Match Score**: a numerical value that quantifies the similarity between two pieces of text based on the words they contain. This score is often used in various applications like text comparison, plagiarism detection, information retrieval, and natural language processing. The score typically reflects how well the words in one text match the words in another text. In the context of this API, this score will be used to determine how much does the input information looks like the information stored in the Operator's system. The algorithm used to calculate this value is the Jaro-Winkler Distance Algorithm.
+
     ## API Functionality
 
     This API allows API clients to verify the matching of a number of attributes related to a customer identity against the account data bound to their phone number.  The API is intended to be used in the following scenarios, for example:
@@ -139,6 +141,7 @@ paths:
                     nameKanaZenkakuMatch: 'false'
                     middleNamesMatch: 'true'
                     familyNameAtBirthMatch: 'false'
+                    familyNameAtBirthMatchScore: 90.5
                     addressMatch: 'true'
                     streetNameMatch: 'true'
                     streetNumberMatch: 'true'
@@ -149,6 +152,7 @@ paths:
                     houseNumberExtensionMatch: 'not_available'
                     birthdateMatch: 'false'
                     emailMatch: 'false'
+                    emailMatchScore: 87.8
                     genderMatch: 'false'
 
         '400':
@@ -284,162 +288,127 @@ components:
             - FEMALE
             - OTHER
 
+    MatchResult:
+      type: string
+      enum:
+          - 'true'
+          - 'false'
+          - 'not_available'
+
+    MatchScoreResult:
+      type: number
+      format: float 
+      description: Indicates the similarity score assigned to the input value when it does not exactly match the value stored in the operator's system. This property shall only be returned when the value of the corresponding match field is `false`.
+      minimum: 0
+      maximum: 100
+
     KYC_MatchResponse:
       type: object
       properties:
-
         idDocumentMatch:
-          type: string
-          description: Indicates whether Id number associated to the id_document of the customer matches with the one on the Operator's system.
-          enum:
-                - 'true'
-                - 'false'
-                - 'not_available'
-
+          allOf:
+            - $ref: '#/components/schemas/MatchResult'
+            - description: Indicates whether Id number associated to the ID document of the customer matches with the one on the Operator's system.
         nameMatch:
-          type: string
-          description: Indicates whether the complete name of the customer matches with the one on the Operator's system.
-          enum:
-                - 'true'
-                - 'false'
-                - 'not_available'
-
+          allOf:
+            - $ref: '#/components/schemas/MatchResult'
+            - description: Indicates whether the complete name of the customer matches with the one on the Operator's system.
+        nameMatchScore:
+          $ref: '#/components/schemas/MatchScoreResult'
         givenNameMatch:
-          type: string
-          description: Indicates whether First name/given name of the customer matches with the one on the Operator's system.
-          enum:
-                - 'true'
-                - 'false'
-                - 'not_available'
-
+          allOf:
+            - $ref: '#/components/schemas/MatchResult'
+            - description: Indicates whether First name/given name of the customer matches with the one on the Operator's system.
+        givenNameMatchScore:
+          $ref: '#/components/schemas/MatchScoreResult'
         familyNameMatch:
-          type: string
-          description: Indicates whether last name/ family name/ surname of the customer matches with the one on the Operator's system.
-          enum:
-                - 'true'
-                - 'false'
-                - 'not_available'
-
+          allOf:
+            - $ref: '#/components/schemas/MatchResult'
+            - description: Indicates whether last name/ family name/ surname of the customer matches with the one on the Operator's system.
+        familyNameMatchScore:
+          $ref: '#/components/schemas/MatchScoreResult'
         nameKanaHankakuMatch:
-          type: string
-          description: Indicates whether complete name of the customer in Hankaku-Kana format (reading of name) for Japan matches with the one on the Operator's system.
-          enum:
-                - 'true'
-                - 'false'
-                - 'not_available'
-
+          allOf:
+            - $ref: '#/components/schemas/MatchResult'
+            - description: Indicates whether complete name of the customer in Hankaku-Kana format (reading of name) for Japan matches with the one on the Operator's system.
+        nameKanaHankakuMatchScore:
+          $ref: '#/components/schemas/MatchScoreResult'
         nameKanaZenkakuMatch:
-          type: string
-          description: Indicates whether complete name of the customer in Zenkaku-Kana format (reading of name) for Japan matches with the one on the Operator's system.
-          enum:
-                - 'true'
-                - 'false'
-                - 'not_available'
-
+          allOf:
+            - $ref: '#/components/schemas/MatchResult'
+            - description: Indicates whether complete name of the customer in Zenkaku-Kana format (reading of name) for Japan matches with the one on the Operator's system.
+        nameKanaZenkakuMatchScore:
+          $ref: '#/components/schemas/MatchScoreResult'
         middleNamesMatch:
-          type: string
-          description: Indicates whether the middle names of the customer matches with the one on the Operator's system.
-          enum:
-                - 'true'
-                - 'false'
-                - 'not_available'
-
-
+          allOf:
+            - $ref: '#/components/schemas/MatchResult'
+            - description: Indicates whether the middle names of the customer matches with the one on the Operator's system.
+        middleNamesScore:
+          $ref: '#/components/schemas/MatchScoreResult'
         familyNameAtBirthMatch:
-          type: string
-          description: Indicates whether the Family Name At Birth of the customer matches with the one on the Operator's system.
-          enum:
-                - 'true'
-                - 'false'
-                - 'not_available'
-
+          allOf:
+            - $ref: '#/components/schemas/MatchResult'
+            - description: Indicates whether the Family Name At Birth of the customer matches with the one on the Operator's system.
+        familyNameAtBirthMatchScore:
+          $ref: '#/components/schemas/MatchScoreResult'
         addressMatch:
-          type: string
-          description: Indicates whether complete address of the customer matches with the one on the Operator's system.
-          enum:
-                - 'true'
-                - 'false'
-                - 'not_available'
-
+          allOf:
+            - $ref: '#/components/schemas/MatchResult'
+            - description: Indicates whether complete address of the customer matches with the one on the Operator's system.
+        addressMatchScore:
+          $ref: '#/components/schemas/MatchScoreResult'
         streetNameMatch:
-          type: string
-          description: Indicates whether the street name of the customer matches with the one on the Operator's system.
-          enum:
-                - 'true'
-                - 'false'
-                - 'not_available'
-
+          allOf:
+            - $ref: '#/components/schemas/MatchResult'
+            - description: Indicates whether the street name of the customer matches with the one on the Operator's system.
+        streetNameMatchScore:
+          $ref: '#/components/schemas/MatchScoreResult'
         streetNumberMatch:
-          type: string
-          description: Indicates whether the street number of the customer matches with the one on the Operator's system.
-          enum:
-                - 'true'
-                - 'false'
-                - 'not_available'
-
+          allOf:
+            - $ref: '#/components/schemas/MatchResult'
+            - description: Indicates whether the street number of the customer matches with the one on the Operator's system.
+        streetNumberMatchScore:
+          $ref: '#/components/schemas/MatchScoreResult'
         postalCodeMatch:
-          type: string
-          description: Indicates whether the postal code / zip code of the customer matches with the one on the Operator's system.
-          enum:
-                - 'true'
-                - 'false'
-                - 'not_available'
-
+          allOf:
+            - $ref: '#/components/schemas/MatchResult'
+            - description: Indicates whether the postal code / zip code of the customer matches with the one on the Operator's system.
         regionMatch:
-          type: string
-          description: Indicates whether the region of the customer's address matches with the one on the Operator's system.
-          enum:
-                - 'true'
-                - 'false'
-                - 'not_available'
-
+          allOf:
+            - $ref: '#/components/schemas/MatchResult'
+            - description: Indicates whether the region of the customer's address matches with the one on the Operator's system.
+        regionMatchScore:
+          $ref: '#/components/schemas/MatchScoreResult'
         localityMatch:
-          type: string
-          description: Indicates whether the locality of the customer's address matches with the one on the Operator's system.
-          enum:
-                - 'true'
-                - 'false'
-                - 'not_available'
-
+          allOf:
+            - $ref: '#/components/schemas/MatchResult'
+            - description: Indicates whether the locality of the customer's address matches with the one on the Operator's system.
+        localityMatchScore:
+          $ref: '#/components/schemas/MatchScoreResult'
         countryMatch:
-          type: string
-          description: Indicates whether the country of the customer's address matches with the one on the Operator's system.
-          enum:
-                - 'true'
-                - 'false'
-                - 'not_available'
-
+          allOf:
+            - $ref: '#/components/schemas/MatchResult'
+            - description: Indicates whether the country of the customer's address matches with the one on the Operator's system.
+        countryMatchScore:
+          $ref: '#/components/schemas/MatchScoreResult'
         houseNumberExtensionMatch:
-          type: string
-          description: Indicates whether the house number extension of the customer's address with the one on the Operator's system.
-          enum:
-                - 'true'
-                - 'false'
-                - 'not_available'
-
+          allOf:
+            - $ref: '#/components/schemas/MatchResult'
+            - description: Indicates whether the house number extension of the customer's address with the one on the Operator's system.
         birthdateMatch:
-          type: string
-          description: Indicates whether the birthdate of the customer matches with the one on the Operator's system.
-          enum:
-                - 'true'
-                - 'false'
-                - 'not_available'
-
+          allOf:
+            - $ref: '#/components/schemas/MatchResult'
+            - description: Indicates whether the birthdate of the customer matches with the one on the Operator's system.
         emailMatch:
-          type: string
-          description: Indicates whether the email address of the customer matches with the one on the Operator's system.
-          enum:
-                - 'true'
-                - 'false'
-                - 'not_available'
-
+          allOf:
+            - $ref: '#/components/schemas/MatchResult'
+            - description: Indicates whether the email address of the customer matches with the one on the Operator's system.
+        emailMatchScore:
+          $ref: '#/components/schemas/MatchScoreResult'
         genderMatch:
-          type: string
-          description: Indicates whether the gender of the customer matches with the one on the Operator's system.
-          enum:
-                - 'true'
-                - 'false'
-                - 'not_available'
+          allOf:
+            - $ref: '#/components/schemas/MatchResult'
+            - description: Indicates whether the gender of the customer matches with the one on the Operator's system.
 
     ErrorInfo:
       type: object
@@ -544,7 +513,7 @@ components:
 
     Generic404:
       description: |
-        Not Found error.  Error if URL is wrong / user is not found.
+        Not Found error. Error if URL is wrong / user is not found.
       headers:
         x-correlator:
           $ref: '#/components/headers/x-correlator'
