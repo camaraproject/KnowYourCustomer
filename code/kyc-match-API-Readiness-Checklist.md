@@ -16,12 +16,3 @@ Checklist for kyc-match 0.2.0 in FALL24
 | 10 | API release numbering convention applied     |   M   |         M         |    M    |    M   |      |      |
 | 11 | Change log updated                           |   M   |         M         |    M    |    M   |      | link |
 | 12 | Previous public release was certified        |   O   |         O         |    O    |    M   |      |      |
-
-To fill the checklist:
-- in the line above the table, replace the api-name, api-version and the rx.y by their actual values for the current API version and release.
-- in the Status column, put "Y" (yes) if the release asset is available or fulfilled in the current release, a "N" (no) or a "tbd". Example use of "tbd" is in case an alpha or release-candidate API version does not yet provide all mandatory assets for the release.
-- in the Comments column, provide the link to the asset once available, and any other relevant comments.
-
-Note: the checklists of a public API version and of its preceding release-candidate API version can be the same.
-
-The documentation for the content of the checklist is here: [API Readiness Checklist](https://wiki.camaraproject.org/x/HQBFAQ)
