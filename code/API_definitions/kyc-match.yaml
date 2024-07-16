@@ -10,8 +10,9 @@ info:
 
     * **KYC**: stands for Know Your Customer and it is the process of a business verifying the identity of their clients and assessing their suitability, along with the potential risks of illegal intentions towards the business relationship.
 
-    * **Match Score**: a numerical value that quantifies the similarity between two pieces of text based on the words they contain. This score is often used in various applications like text comparison, plagiarism detection, information retrieval, and natural language processing. The score typically reflects how well the words in one text match the words in another text. In the context of this API, this score will be used to determine how much does the input information looks like the information stored in the Operator's system. Unless otherwise captured in the specification, score will use the Jaro-Winkler distance algorithm for all countries. This parameter is optional, based on the capability to calculate the scoring that depends on each operator and in the availability of the necesary parameters in the request. If this is not the case and scoring is not calculated, the parameter is not provided in the response.
-
+    * **Match Score**: a numerical value that quantifies the similarity between two pieces of text based on the words they contain. This score is often used in various applications like text comparison, plagiarism detection, information retrieval, and natural language processing. The score typically reflects how well the words in one text match the words in another text. In the context of this API, this score will be used to determine how much does the input information looks like the information stored in the Operator's system. Unless otherwise captured in the specification, score will use the Jaro-Winkler distance algorithm for all countries. This parameter, as optional, will be returned depending on the capability of the Operator to calculate the scoring value. This means that not all Operators will implement this functionallity or won't have the requested parameter available. It can happen that an Operator implements the score functionality but, for whatever reason, is not able to calculate it based on the client's input or the related stored information. For these cases, the score property related won't be returned in the response.
+    The range of score values is between "0" and "100", where higher scores indicate a higher similarity between the two compared parameters.
+    
     ## API Functionality
 
     This API allows API clients to verify the matching of a number of attributes related to a customer identity against the account data bound to their phone number.  The API is intended to be used in the following scenarios, for example:
@@ -294,7 +295,7 @@ components:
 
     MatchScoreResult:
       type: number
-      format: float 
+      format: integer 
       description: Indicates the similarity score assigned to the input value when it does not exactly match the value stored in the operator's system. This property shall only be returned when the value of the corresponding match field is `false`.
       minimum: 0
       maximum: 100
