@@ -554,12 +554,6 @@ components:
           schema:
             $ref: "#/components/schemas/ErrorInfo"
           examples:
-            PhoneNumberMismatch:
-              description: Inconsistency between device identifiers not pointing to the same device
-              value:
-                status: 422
-                code: DEVICE_IDENTIFIERS_MISMATCH
-                message: Provided device identifiers are not consistent.
             NoPhoneNumber:
               description: Phone number not available neither from "phoneNumber" or from the access token.
               value:
