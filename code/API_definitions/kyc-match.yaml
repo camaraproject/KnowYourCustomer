@@ -75,7 +75,7 @@ paths:
 
       security:
         - openId:
-          - know-your-customer:match
+          - kyc-match:match
 
 
       parameters:
