@@ -78,7 +78,7 @@ paths:
 
       security:
         - openId:
-          - know-your-customer:fill-in
+          - kyc-fill-in:fill-in
 
       parameters:
         - $ref: '#/components/parameters/x-correlator'
