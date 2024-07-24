@@ -54,7 +54,7 @@ info:
 
 
 servers:
-  - url: '{apiRoot}/kyc-match/v0.2'
+  - url: '{apiRoot}/kyc-match/vwip'
     variables:
       apiRoot:
         default: http://localhost:9091
