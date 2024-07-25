@@ -52,12 +52,12 @@ info:
   license:
     name: Apache 2.0
     url: https://www.apache.org/licenses/LICENSE-2.0.html
-  version: 0.2.0-rc.1
+  version: wip
 externalDocs:
   description: Product documentation at Camara.
   url: https://github.com/camaraproject/
 servers:
-  - url: '{apiRoot}/kyc-match/v0.2'
+  - url: '{apiRoot}/kyc-match/v0'
     variables:
       apiRoot:
         default: http://localhost:9091
