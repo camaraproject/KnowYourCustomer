@@ -46,26 +46,22 @@ info:
     It is important to remark that in cases where personal user data is processed by the API, and users can exercise their rights through mechanisms such as opt-in and/or opt-out, the use of 3-legged access tokens becomes mandatory. This measure ensures that the API remains in strict compliance with user privacy preferences and regulatory obligations, upholding the principles of transparency and user-centric data control.
 
 
-  termsOfService: http://swagger.io/terms/
-  contact:
-    email: project-email@sample.com
   license:
     name: Apache 2.0
     url: https://www.apache.org/licenses/LICENSE-2.0.html
   version: wip
-externalDocs:
-  description: Product documentation at Camara.
-  url: https://github.com/camaraproject/
+  
+  x-camara-commonalities: 0.4.0
+
 servers:
-  - url: '{apiRoot}/kyc-match/v0'
+  - url: '{apiRoot}/kyc-match/vwip'
     variables:
       apiRoot:
         default: http://localhost:9091
-        description: API root, defined by the service provider, e.g. `api.example.com` or `api.example.com/somepath`
+        description: API root
 
 tags:
   - name: Match
-
     description: Operations to match a customer identity against the account data bound to their phone number.
 
 paths:
@@ -79,7 +75,7 @@ paths:
 
       security:
         - openId:
-          - know-your-customer:match
+          - kyc-match:match
 
 
       parameters:
