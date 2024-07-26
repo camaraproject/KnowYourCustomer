@@ -49,16 +49,16 @@ info:
   license:
     name: Apache 2.0
     url: https://www.apache.org/licenses/LICENSE-2.0.html
-  version: wip
-  
+  version: 0.2.0-rc.1
+
   x-camara-commonalities: 0.4.0
 
 servers:
-  - url: '{apiRoot}/kyc-match/vwip'
+  - url: '{apiRoot}/kyc-match/v0.2rc1'
     variables:
       apiRoot:
         default: http://localhost:9091
-        description: API root
+        description: API root, defined by the service provider, e.g. `api.example.com` or `api.example.com/somepath`
 
 tags:
   - name: Match
