@@ -135,7 +135,7 @@ paths:
                     nameKanaZenkakuMatch: 'false'
                     middleNamesMatch: 'true'
                     familyNameAtBirthMatch: 'false'
-                    familyNameAtBirthMatchScore: 90.5
+                    familyNameAtBirthMatchScore: 90
                     addressMatch: 'true'
                     streetNameMatch: 'true'
                     streetNumberMatch: 'true'
@@ -146,7 +146,7 @@ paths:
                     houseNumberExtensionMatch: 'not_available'
                     birthdateMatch: 'false'
                     emailMatch: 'false'
-                    emailMatchScore: 87.8
+                    emailMatchScore: 87
                     genderMatch: 'false'
 
         '400':
