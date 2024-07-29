@@ -94,7 +94,7 @@ paths:
                   phoneNumber: '+34629255833'
                   idDocument: 66666666q
                   name: Federica Sanchez Arjona
-                  giventName: Federica
+                  givenName: Federica
                   familyName: Sanchez Arjona
                   nameKanaHankaku: federica
                   nameKanaZenkaku: Ｆｅｄｅｒｉｃａ
@@ -129,7 +129,7 @@ paths:
                   value:
                     idDocumentMatch: 'true'
                     nameMatch: 'true'
-                    giventNameMatch: 'not_available'
+                    givenNameMatch: 'not_available'
                     familyNameMatch: 'not_available'
                     nameKanaHankakuMatch: 'true'
                     nameKanaZenkakuMatch: 'false'
