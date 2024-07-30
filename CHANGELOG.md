@@ -20,7 +20,7 @@ The below sections record the changes for each API version in each release as fo
 
 This release contains the definition and documentation of
 * kyc-match v0.2.0-rc.1
-* kyc-fill-in v0.1.1-rc.1
+* kyc-fill-in v0.2.0-rc.1
 
 The API definition(s) are based on
 * Commonalities v0.4.0
@@ -44,7 +44,7 @@ The API definition(s) are based on
 
 * n/a
 
-## kyc-fill-in v0.1.1-rc.1
+## kyc-fill-in v0.2.0-rc.1
 
 **Main Changes**
 
@@ -56,7 +56,7 @@ The API definition(s) are based on
 
 ### Changed
 
-* n/a
+* Scope changed from `know-your-customer:fill-in` to `kyc-fill-in:fill-in`
 
 ### Fixed
 

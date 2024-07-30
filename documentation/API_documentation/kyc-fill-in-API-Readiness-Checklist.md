@@ -1,6 +1,6 @@
 # API Readiness Checklist
 
-Checklist for kyc-fill-in 0.1.1-rc in release r1.1
+Checklist for kyc-fill-in 0.2.0-rc in release r1.1
 
 | Nr | API release assets  | alpha | release-candidate |  initial<br>public | stable<br> public | Status | Comments |
 |----|----------------------------------------------|:-----:|:-----------------:|:-------:|:------:|:----:|:----:|
