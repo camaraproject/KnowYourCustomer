@@ -110,7 +110,7 @@ paths:
                   houseNumberExtension: VVVV
                   birthdate: '1978-08-22'
                   email: abc@example.com
-                  gender: male
+                  gender: MALE
 
       responses:
         '200':
