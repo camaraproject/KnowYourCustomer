@@ -10,7 +10,7 @@ info:
 
     * **KYC**: stands for Know Your Customer and it is the process of a business verifying the identity of their clients and assessing their suitability, along with the potential risks of illegal intentions towards the business relationship.
 
-    * **Match Score**: a numerical value that quantifies the similarity between two pieces of text based on the words they contain. This score is often used in various applications like text comparison, plagiarism detection, information retrieval, and natural language processing. The score typically reflects how well the words in one text match the words in another text. In the context of this API, this score will be used to determine how much does the input information looks like the information stored in the Operator's system. Unless otherwise captured in the specification, score will use the Jaro-Winkler distance algorithm for all countries. This parameter, as optional, will be returned depending on the capability of the Operator to calculate the scoring value. This means that not all Operators will implement this functionallity or won't have the requested parameter available. It can happen that an Operator implements the score functionality but, for whatever reason, is not able to calculate it based on the client's input or the related stored information. For these cases, the score property related won't be returned in the response.
+    * **Match Score**: a numerical value that quantifies the similarity between two pieces of text based on the words they contain. This score is often used in various applications like text comparison, plagiarism detection, information retrieval, and natural language processing. The score typically reflects how well the words in one text match the words in another text. In the context of this API, this score will be used to determine how much does the input information looks like the information stored in the Operator's system. Unless otherwise captured in the specification, score will use the Jaro-Winkler distance algorithm for all countries. This parameter, as optional, will be returned depending on the capability of the Operator to calculate the scoring value. This means that not all Operators will implement this functionality or won't have the requested parameter available. It can happen that an Operator implements the score functionality but, for whatever reason, is not able to calculate it based on the client's input or the related stored information. For these cases, the score property related won't be returned in the response.
     The range of score values is between "0" and "100", where higher scores indicate a higher similarity between the two compared parameters.
     
     ## API Functionality
@@ -23,7 +23,7 @@ info:
 
     The following figure is the generic high-level flows of this API.  
 
-    <img width="848" alt="KYC_Match_flow" src="https://github.com/ToshiWakayama-KDDI/KnowYourCustomer-Toshi/assets/53090722/3f9acdcb-9f8d-4177-a586-7e426b8ac33d">
+    <img width="848" alt="KYC_Match_flow" src="https://raw.githubusercontent.com/camaraproject/KnowYourCustomer/main/documentation/API_documentation/assets/kyc-match_flow.png">
 
     Note:
 
