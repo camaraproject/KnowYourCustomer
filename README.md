@@ -7,9 +7,11 @@
 <a href="https://github.com/camaraproject/KnowYourCustomer/releases/latest" title="Latest Release"><img src="https://img.shields.io/github/release/camaraproject/KnowYourCustomer?style=plastic"></a>
 
 # KnowYourCustomer
+
 Repository to describe, develop, document and test the KnowYourCustomer API family
 
 ## Scope
+
 * Service APIs for “KnowYourCustomer” (see APIBacklog.md)  
 * It provides the customer with the ability to:  
   * compare the information it (Service Provider, SP) has for a particular user with that on file (and verified) by the user's Operator in their own KYC records, in order for the SP to confirm the accuracy of the information and provide a specific service to the user. (KYC Match)
@@ -18,11 +20,22 @@ Repository to describe, develop, document and test the KnowYourCustomer API fami
 * Started: September 2023
 
 ## Release Information
-* The latest public release is available here: https://github.com/camaraproject/KnowYourCustomer/releases/latest
-* Pre-releases of this sub project are available in https://github.com/camaraproject/KnowYourCustomer/releases
+
+* Note: Please be aware that the project will have updates to the main branch. There are no compatibility guarantees associated with code in any branch, including main, until a new release is created. For example, changes may be reverted before a release is created. For best results, use the latest available release.
+* **The latest pre-release of CAMARA Know Your customer is [r1.1](https://github.com/camaraproject/DeviceLocation/tree/r1.1)**. The Release Tag is [r1.1](https://github.com/camaraproject/SimSwap/releases/tag/r1.1).
+  - Contains the following API definitions **with inline documentation**:
+    - kyc-match: [YAML spec file](https://github.com/camaraproject/KnowYourCustomer/blob/r1.1/code/API_definitions/kyc-match.yaml) | [View it on ReDoc](https://redocly.github.io/redoc/?url=https://raw.githubusercontent.com/camaraproject/KnowYourCustomer/r1.1/code/API_definitions/kyc-match.yaml&nocors) | [View it on Swagger Editor](https://editor.swagger.io/?url=https://raw.githubusercontent.com/camaraproject/KnowYourCustomer/r1.1/code/API_definitions/kyc-match.yaml&nocors)
+    - kyc-fill-in: [YAML spec file](https://github.com/camaraproject/KnowYourCustomer/blob/r1.1/code/API_definitions/kyc-fill-in.yaml) | [View it on ReDoc](https://redocly.github.io/redoc/?url=https://raw.githubusercontent.com/camaraproject/KnowYourCustomer/r1.1/code/API_definitions/kyc-fill-in.yaml&nocors) | [View it on Swagger Editor](https://editor.swagger.io/?url=https://raw.githubusercontent.com/camaraproject/KnowYourCustomer/r1.1/code/API_definitions/kyc-fill-in.yaml&nocors)
+
+* The latest public release is available [here](https://github.com/camaraproject/KnowYourCustomer/releases/tag/v0.1.1)
+  - Contains the following API definitions **with inline documentation**:
+    - kyc-match: [YAML spec file](https://github.com/camaraproject/KnowYourCustomer/blob/release-v0.1.1/code/API_definitions/kyc-match.yaml) | [View it on ReDoc](https://github.com/camaraproject/KnowYourCustomer/blob/release-v0.1.1/code/API_definitions/kyc-match.yaml&nocors) | [View it on Swagger Editor](https://editor.swagger.io/?url=https://github.com/camaraproject/KnowYourCustomer/blob/release-v0.1.1/code/API_definitions/kyc-match.yaml&nocors)
+    - kyc-fill-in: [YAML spec file](https://github.com/camaraproject/KnowYourCustomer/blob/release-v0.1.1/code/API_definitions/kyc-fill-in.yaml) | [View it on ReDoc](https://redocly.github.io/redoc/?url=https://github.com/camaraproject/KnowYourCustomer/blob/release-v0.1.1/code/API_definitions/kyc-fill-in.yaml&nocors) | [View it on Swagger Editor](https://editor.swagger.io/?url=https://github.com/camaraproject/KnowYourCustomer/blob/release-v0.1.1/code/API_definitions/kyc-fill-in.yaml&nocors)
+* Other releases of this sub project are available in https://github.com/camaraproject/KnowYourCustomer/releases
 * For changes see [CHANGELOG.md](https://github.com/camaraproject/KnowYourCustomer/blob/main/CHANGELOG.md)
 
 ## Contributing
+
 * Meetings
   * Schedule: Bi-weekly, Tuesday, 09:00 CEST (07:00 UTC) (till October 27th 2024)
   * [Registration / Join](https://zoom-lfx.platform.linuxfoundation.org/meeting/96235150735?password=7e3fea67-a76e-4941-8a70-392cf5545917)
