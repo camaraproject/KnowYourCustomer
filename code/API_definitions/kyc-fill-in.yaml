@@ -18,7 +18,7 @@ info:
 
     The following figure is the generic high-level flows of this API.  
 
-    <img width="854" alt="KYC_Fill-in_flow" src="https://github.com/ToshiWakayama-KDDI/KnowYourCustomer-Toshi/assets/53090722/f23daa52-bb28-4236-b90d-0184d303f907">
+    <img width="848" alt="KYC_Match_flow" src="https://raw.githubusercontent.com/camaraproject/KnowYourCustomer/main/documentation/API_documentation/assets/kyc-fill-in_flow.png">
 
     Note:
 
