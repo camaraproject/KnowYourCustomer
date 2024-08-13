@@ -49,16 +49,16 @@ info:
   license:
     name: Apache 2.0
     url: https://www.apache.org/licenses/LICENSE-2.0.html
-  version: wip
-  
+  version: 0.2.0-rc.1
+
   x-camara-commonalities: 0.4.0
 
 servers:
-  - url: '{apiRoot}/kyc-match/vwip'
+  - url: '{apiRoot}/kyc-match/v0.2rc1'
     variables:
       apiRoot:
         default: http://localhost:9091
-        description: API root
+        description: API root, defined by the service provider, e.g. `api.example.com` or `api.example.com/somepath`
 
 tags:
   - name: Match
@@ -94,7 +94,7 @@ paths:
                   phoneNumber: '+34629255833'
                   idDocument: 66666666q
                   name: Federica Sanchez Arjona
-                  giventName: Federica
+                  givenName: Federica
                   familyName: Sanchez Arjona
                   nameKanaHankaku: federica
                   nameKanaZenkaku: Ｆｅｄｅｒｉｃａ
@@ -129,13 +129,13 @@ paths:
                   value:
                     idDocumentMatch: 'true'
                     nameMatch: 'true'
-                    giventNameMatch: 'not_available'
+                    givenNameMatch: 'not_available'
                     familyNameMatch: 'not_available'
                     nameKanaHankakuMatch: 'true'
                     nameKanaZenkakuMatch: 'false'
                     middleNamesMatch: 'true'
                     familyNameAtBirthMatch: 'false'
-                    familyNameAtBirthMatchScore: 90.5
+                    familyNameAtBirthMatchScore: 90
                     addressMatch: 'true'
                     streetNameMatch: 'true'
                     streetNumberMatch: 'true'
@@ -146,7 +146,7 @@ paths:
                     houseNumberExtensionMatch: 'not_available'
                     birthdateMatch: 'false'
                     emailMatch: 'false'
-                    emailMatchScore: 87.8
+                    emailMatchScore: 87
                     genderMatch: 'false'
 
         '400':

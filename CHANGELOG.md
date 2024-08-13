@@ -2,10 +2,73 @@
 
 ## Table of Contents
 
+- [r1.1](#r11)
 - [v0.1.1](#v011)
 - [v0.1.0](#v010)
 
 **Please be aware that the project will have frequent updates to the main branch. There are no compatibility guarantees associated with code in any branch, including main, until it has been released. For example, changes may be reverted before a release is published. For the best results, use the latest published release.**
+
+The below sections record the changes for each API version in each release as follows:
+
+* for each first alpha or release-candidate API version, all changes since the release of the previous public API version
+* for subsequent alpha or release-candidate API versions, the delta with respect to the previous pre-release
+* for a public API version, the consolidated changes since the release of the previous public API version
+
+# r1.1 - rc
+
+## Release Notes
+
+This release contains the definition and documentation of
+* kyc-match v0.2.0-rc.1
+* kyc-fill-in v0.2.0-rc.1
+
+The API definition(s) are based on
+* Commonalities v0.4.0
+* Identity and Consent Management v0.2.0
+
+## kyc-match v0.2.0-rc.1
+
+### Added
+
+* Include score functionality by @fernandopradocabrillo in https://github.com/camaraproject/KnowYourCustomer/pull/104
+
+### Changed
+
+* Alignment of info, servers objects and security scope names by @rartych in https://github.com/camaraproject/KnowYourCustomer/pull/114
+
+### Fixed
+
+* n/a
+
+### Removed
+
+* n/a
+
+## kyc-fill-in v0.2.0-rc.1
+
+**Main Changes**
+
+* API definition updated to conform to the Commonalities v0.4.0 and Identity and Consent Management v0.2.0 guidelines included in the CAMARA Fall24 meta-release. No new features were added.
+
+### Added
+
+* n/a
+
+### Changed
+
+* Scope changed from `know-your-customer:fill-in` to `kyc-fill-in:fill-in`
+
+### Fixed
+
+* n/a
+
+### Removed
+
+* n/a
+
+## New Contributors
+* @rartych made their first contribution in https://github.com/camaraproject/KnowYourCustomer/pull/114
+* @jgarciahospital made their first contribution in https://github.com/camaraproject/KnowYourCustomer/pull/111
 
 # v0.1.1
 
