@@ -2,6 +2,7 @@
 
 ## Table of Contents
 
+- [r1.2](#r12)
 - [r1.1](#r11)
 - [v0.1.1](#v011)
 - [v0.1.0](#v010)
@@ -14,7 +15,83 @@ The below sections record the changes for each API version in each release as fo
 * for subsequent alpha or release-candidate API versions, the delta with respect to the previous pre-release
 * for a public API version, the consolidated changes since the release of the previous public API version
 
-# r1.1 - rc
+# r1.2
+
+## Release Notes
+
+This release contains the definition and documentation of
+* kyc-match v0.2.0
+* kyc-fill-in v0.2.0
+
+The API definition(s) are based on
+* Commonalities v0.4.0
+* Identity and Consent Management v0.2.0
+
+## kyc-match v0.2.0
+
+**kyc-match v0.2.0 is the first initial version for the CAMARA KnowYourCustomer Match API**
+
+- API definition **with inline documentation**:
+    - OpenAPI [YAML spec file](https://github.com/camaraproject/KnowYourCustomer/blob/r1.2/code/API_definitions/kyc-match.yaml)
+    - [View it on ReDoc](https://redocly.github.io/redoc/?url=https://raw.githubusercontent.com/camaraproject/KnowYourCustomer/r1.2/code/API_definitions/kyc-match.yaml&nocors)
+    - [View it on Swagger Editor](https://editor.swagger.io/?url=https://raw.githubusercontent.com/camaraproject/KnowYourCustomer/r1.2/code/API_definitions/kyc-match.yaml&nocors)
+
+**Main changes**
+- Includes Score functionality
+- Includes updated endpoint and API documentation
+- Includes test plan
+
+### Added
+
+- Include test plan for kyc-match operation by @fernandopradocabrillo in https://github.com/camaraproject/KnowYourCustomer/pull/140
+
+### Changed
+
+- Remove countryMatchScore property by @fernandopradocabrillo in https://github.com/camaraproject/KnowYourCustomer/pull/137
+- Update endpoint description to reflect all use cases by @fernandopradocabrillo in https://github.com/camaraproject/KnowYourCustomer/pull/138
+
+### Fixed
+
+* n/a
+
+### Removed
+
+* n/a
+
+## kyc-fill-in v0.2.0
+
+**kyc-fill-in v0.2.0 is the first initial version for the CAMARA KnowYourCustomer Fill-in API**
+
+- API definition **with inline documentation**:
+    - OpenAPI [YAML spec file](https://github.com/camaraproject/KnowYourCustomer/blob/r1.2/code/API_definitions/kyc-fill-in.yaml)
+    - [View it on ReDoc](https://redocly.github.io/redoc/?url=https://raw.githubusercontent.com/camaraproject/KnowYourCustomer/r1.2/code/API_definitions/kyc-fill-in.yaml&nocors)
+    - [View it on Swagger Editor](https://editor.swagger.io/?url=https://raw.githubusercontent.com/camaraproject/KnowYourCustomer/r1.2/code/API_definitions/kyc-fill-in.yaml&nocors)
+
+**Main Changes**
+
+* API definition updated to conform to the Commonalities v0.4.0 and Identity and Consent Management v0.2.0 guidelines included in the CAMARA Fall24 meta-release. No new features were added.
+
+### Added
+
+- Include test plan for kyc-match operation by @ToshiWakayama-KDDI in https://github.com/camaraproject/KnowYourCustomer/pull/142
+
+### Changed
+
+* n/a
+
+### Fixed
+
+* n/a
+
+### Removed
+
+* n/a
+
+## New Contributors
+
+* n/a
+
+# r1.1
 
 ## Release Notes
 
