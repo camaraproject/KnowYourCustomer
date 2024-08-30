@@ -111,6 +111,8 @@ Feature: CAMARA Know Your Customer Match API, v0.2.0 - Operation KYC_Match
         And the request body property "$.name" is set to a valid name
         And the request body property "$.givenName" is set to a valid given name
         And the request body property "$.familyName" is set to a valid family name
+        And the request body property "$.nameKanaHankaku" is set to a valid name in Hankaku-Kana format
+        And the request body property "$.nameKanaZenkaku" is set to a valid name in Zenkaku-Kana format
         And the request body property "$.middleNames" is set to a valid middle names
         And the request body property "$.familyNameAtBirth" is set to a valid family name at birth
         And the request body property "$.address" is set to a valid address
@@ -123,7 +125,7 @@ Feature: CAMARA Know Your Customer Match API, v0.2.0 - Operation KYC_Match
         And the request body property "$.houseNumberExtension" is set to a valid house number extension of the address
         And the request body property "$.birthdate" is set to a birthdate value that complies with the ISO 8601 calendar date format "YYYY-MM-DD"
         And the request body property "$.email" is set to a email value that complies with the RFC format "{local-part}@{domain}"
-        And the request body property "$.gender" is set to a valid gender value that
+        And the request body property "$.gender" is set to a valid gender value that belongs to the enumeration (MALE, FEMALE, OTHER)
         And the given request body is populated with any random combination of afore mention optional parameters
         When the request "KYC_Match" is sent
         Then the response status code is 200
@@ -133,6 +135,7 @@ Feature: CAMARA Know Your Customer Match API, v0.2.0 - Operation KYC_Match
 
 
     @KYC_Match_7_success_specific_property_score
+    # Note: This test scenario is optional, as implementation of 'score' feature is optional to network operators/ API providers. 
     Scenario Outline: Validate success response when providing <property> with false value
         Given the request header "Authorization" is set to a valid access token from which a valid testing phoneNumber can be deducted
         And the request body is set to a valid parameter combination with property "<request_body_path>" set to a valid formatted value that does not match the value stored in the MNO system
@@ -308,6 +311,7 @@ Feature: CAMARA Know Your Customer Match API, v0.2.0 - Operation KYC_Match
 
 
     @KYC_Match_12_idDocument_required
+    # Note: This test scenario is optional, as idDocument parameter and Second Level Validation is optional to network operators/ API providers.
     Scenario: Error 403 when body does not contain idDocument when this is required
         Given the request header "Authorization" is set to a valid access token from which a valid testing phoneNumber can be deducted
         And the request body is set to a valid parameter combination without property "$.idDocument"
@@ -319,6 +323,7 @@ Feature: CAMARA Know Your Customer Match API, v0.2.0 - Operation KYC_Match
 
 
     @KYC_Match_13_idDocument_mismatch_when_idDocument_is_required
+    # Note: This test scenario is optional, as idDocument parameter and Second Level Validation is optional to network operators/ API providers.
     Scenario: Error 403 when the idDocument included in the request does not match the one saved in the MNO system when the idDocument is required
         Given the request header "Authorization" is set to a valid access token from which a valid testing phoneNumber can be deducted
         And the request body property "$.idDocument" is set to a valid idDocument that does not belong to the user
