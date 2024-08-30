@@ -21,7 +21,7 @@ info:
 
     * To prevent fraud, wrong or imprecise information, and/or facilitate the onboarding of a mobile phone user to a 3rd party service.
 
-    The API supports a multi-level hierarchy of property validation. In addition to the initial verification of the `phoneNumber`, an additional `idDocument` validation may occur based on different Operator requirements. This means that if the value of `idDocument` is not provided or it does not match the one bound to the specific phone number in the Operator systems, the operation will return an error.
+    The API supports a multi-level hierarchy of property validation. In addition to the initial verification of the `phoneNumber`, an additional `idDocument` validation may occur based on different Operator requirements. This means that, in those cases, if the value of `idDocument` is not provided or it does not match the one bound to the specific phone number in the Operator systems, the operation will return an error.
 
     The following figure is the generic high-level flows of this API.  
 
