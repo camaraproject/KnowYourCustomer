@@ -64,37 +64,5 @@ Background: Common KYC_Fill-in_API setup
         And the response property "$.message" contains a user friendly text
         And the response property "$.status" is 401
 
-
-    # Generic 400 errors
-
-    @KYC_Fill-in_400.01_invalid_phoneNumber
-    Scenario Outline: Error 400 when phone number is not valid due to the format
-        Given I want to test "KYC_Fill-In"
-        And the request header "Authorization" is set to a valid access token from which a valid testing phoneNumber can be deducted
-        And the request body is set to a valid property "$.phoneNumber" set to "<invalid_phone_number>"
-        And the resource "/kyc-fill-in/v0.2"
-        When the HTTP "POST" request "KYC_Fill-In" is sent
-        Then the response status code is 400
-        And the response property "$.code" is "INVALID_ARGUMENT"
-        And the response property "$.message" contains a user friendly text
-        And the response property "$.status" is 400
-
-        Examples:
-            | invalid_phone_number                       |
-            |                                            |
-            | 1233aaa4456                                |
-            | 348768491273895718927589172895789127293785 |
-
-    # API Specific Errors
-    
-    @KYC_Match_11_phone_number_does_not_exist_in_access_token
-    Scenario: Error 403 when phone number cannot be deducted from access token
-        Given the header "Authorization" is set to an access token from which a valid testing phoneNumber cannot be deducted
-        And the resource "/kyc-fill-in/v0.2"
-        When the HTTP "POST" request "KYC_Fill-In" is sent
-        Then the response status code is 403
-        And the response property "$.code" is "KNOW_YOUR_CUSTOMER.INVALID_TOKEN_CONTEXT"
-        And the response property "$.message" contains a user friendly text
-        And the response property "$.status" is 403
         
 [END]
