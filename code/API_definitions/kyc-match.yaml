@@ -49,7 +49,7 @@ info:
   license:
     name: Apache 2.0
     url: https://www.apache.org/licenses/LICENSE-2.0.html
-  version: 0.2.0-rc.1
+  version: wip
 
   x-camara-commonalities: 0.4.0
 
@@ -383,8 +383,6 @@ components:
           allOf:
             - $ref: '#/components/schemas/MatchResult'
             - description: Indicates whether the country of the customer's address matches with the one on the Operator's system.
-        countryMatchScore:
-          $ref: '#/components/schemas/MatchScoreResult'
         houseNumberExtensionMatch:
           allOf:
             - $ref: '#/components/schemas/MatchResult'
