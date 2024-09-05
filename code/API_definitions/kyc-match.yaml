@@ -51,12 +51,12 @@ info:
   license:
     name: Apache 2.0
     url: https://www.apache.org/licenses/LICENSE-2.0.html
-  version: wip
+  version: 0.2.0
 
   x-camara-commonalities: 0.4.0
 
 servers:
-  - url: '{apiRoot}/kyc-match/v0.2rc1'
+  - url: '{apiRoot}/kyc-match/v0.2'
     variables:
       apiRoot:
         default: http://localhost:9091
