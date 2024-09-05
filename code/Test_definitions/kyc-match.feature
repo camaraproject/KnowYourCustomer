@@ -45,7 +45,7 @@ Feature: CAMARA Know Your Customer Match API, v0.2.0 - Operation KYC_Match
     @KYC_Match_3_success_specific_property
     Scenario Outline: Validate success response when providing specific property
         Given a valid testing phone number supported by the service, identified by the access token or provided in the request body
-        And the request body is set to a valid parameter combination 
+        And the request body is set to a valid parameter combination
         And the request body property "<request_property_path>" is set to a valid value that complies with the OAS schema at "/components/schemas/KYC_MatchRequestBody"
         When the request "KYC_Match" is sent
         Then the response status code is 200
@@ -55,33 +55,33 @@ Feature: CAMARA Know Your Customer Match API, v0.2.0 - Operation KYC_Match
         And the response contains the property "<response_property_path>"
 
         Examples:
-            | property              | request_property_path     | response_property_path        |
-            | idDocument            | $.idDocument              | $.idDocumentMatch             |
-            | name                  | $.name                    | $.nameMatch                   |
-            | givenName             | $.givenName               | $.givenNameMatch              |
-            | familyName            | $.familyName              | $.familyNameMatch             |
-            | nameKanaHankaku       | $.nameKanaHankaku         | $.nameKanaHankakuMatch        |
-            | nameKanaZenkaku       | $.nameKanaZenkaku         | $.nameKanaZenkakuMatch        |
-            | middleNames           | $.middleNames             | $.middleNamesMatch            |
-            | familyNameAtBirth     | $.familyNameAtBirth       | $.familyNameAtBirthMatch      |
-            | address               | $.address                 | $.addressMatch                |
-            | streetName            | $.streetName              | $.streetNameMatch             |
-            | streetNumber          | $.streetNumber            | $.streetNumberMatch           |
-            | postalCode            | $.postalCode              | $.postalCodeMatch             |
-            | region                | $.region                  | $.regionMatch                 |
-            | locality              | $.locality                | $.localityMatch               |
-            | country               | $.country                 | $.countryMatch                |
-            | houseNumberExtension  | $.houseNumberExtension    | $.houseNumberExtensionMatch   |
-            | birthdate             | $.birthdate               | $.birthdateMatch              |
-            | email                 | $.email                   | $.emailMatch                  |
-            | gender                | $.gender                  | $.genderMatch                 |
+            | request_property_path     | response_property_path        |
+            | $.idDocument              | $.idDocumentMatch             |
+            | $.name                    | $.nameMatch                   |
+            | $.givenName               | $.givenNameMatch              |
+            | $.familyName              | $.familyNameMatch             |
+            | $.nameKanaHankaku         | $.nameKanaHankakuMatch        |
+            | $.nameKanaZenkaku         | $.nameKanaZenkakuMatch        |
+            | $.middleNames             | $.middleNamesMatch            |
+            | $.familyNameAtBirth       | $.familyNameAtBirthMatch      |
+            | $.address                 | $.addressMatch                |
+            | $.streetName              | $.streetNameMatch             |
+            | $.streetNumber            | $.streetNumberMatch           |
+            | $.postalCode              | $.postalCodeMatch             |
+            | $.region                  | $.regionMatch                 |
+            | $.locality                | $.localityMatch               |
+            | $.country                 | $.countryMatch                |
+            | $.houseNumberExtension    | $.houseNumberExtensionMatch   |
+            | $.birthdate               | $.birthdateMatch              |
+            | $.email                   | $.emailMatch                  |
+            | $.gender                  | $.genderMatch                 |
 
 
     @KYC_Match_4_success_specific_property_score
     # Note: This test scenario is optional, as implementation of 'score' feature is optional to network operators/ API providers.
     Scenario Outline: Validate success response when providing specific property with false value
         Given a valid testing phone number supported by the service, identified by the access token or provided in the request body
-        And the request body is set to a valid parameter combination with property "<request_body_path>" set to a valid formatted value that does not match the value stored in the MNO system
+        And the request body is set to a valid parameter combination with property "<request_property_path>" set to a valid formatted value that does not match the value stored in the MNO system
         When the request "KYC_Match" is sent
         Then the response status code is 200
         And the response header "x-correlator" has same value as the request header "x-correlator"
@@ -91,22 +91,22 @@ Feature: CAMARA Know Your Customer Match API, v0.2.0 - Operation KYC_Match
         And the response property "<response_score_property_path>" is equal to an integer value between 0 and 100
 
         Examples:
-            | property              | request_property_path     | response_property_path        | response_score_property_path  |
-            | idDocument            | $.idDocument              | $.idDocumentMatch             | $.idDocumentMatchScore        |
-            | name                  | $.name                    | $.nameMatch                   | $.nameMatchScore              |
-            | givenName             | $.givenName               | $.givenNameMatch              | $.givenNameMatchScore         |
-            | familyName            | $.familyName              | $.familyNameMatch             | $.familyNameMatchScore        |
-            | nameKanaHankaku       | $.nameKanaHankaku         | $.nameKanaHankakuMatch        | $.nameKanaHankakuMatchScore   |
-            | nameKanaZenkaku       | $.nameKanaZenkaku         | $.nameKanaZenkakuMatch        | $.nameKanaZenkakuMatchScore   |
-            | middleNames           | $.middleNames             | $.middleNamesMatch            | $.middleNamesMatchScore       |
-            | familyNameAtBirth     | $.familyNameAtBirth       | $.familyNameAtBirthMatch      | $.familyNameAtBirthMatchScore |
-            | address               | $.address                 | $.addressMatch                | $.addressMatchScore           |
-            | streetName            | $.streetName              | $.streetNameMatch             | $.streetNameMatchScore        |
-            | streetNumber          | $.streetNumber            | $.streetNumberMatch           | $.streetNumberMatchScore      |
-            | region                | $.region                  | $.regionMatch                 | $.regionMatchScore            |
-            | locality              | $.locality                | $.localityMatch               | $.localityMatchScore          |
-            | birthdate             | $.birthdate               | $.birthdateMatch              | $.birthdateMatchScore         |
-            | email                 | $.email                   | $.emailMatch                  | $.emailMatchScore             |
+            | request_property_path     | response_property_path        | response_score_property_path  |
+            | $.idDocument              | $.idDocumentMatch             | $.idDocumentMatchScore        |
+            | $.name                    | $.nameMatch                   | $.nameMatchScore              |
+            | $.givenName               | $.givenNameMatch              | $.givenNameMatchScore         |
+            | $.familyName              | $.familyNameMatch             | $.familyNameMatchScore        |
+            | $.nameKanaHankaku         | $.nameKanaHankakuMatch        | $.nameKanaHankakuMatchScore   |
+            | $.nameKanaZenkaku         | $.nameKanaZenkakuMatch        | $.nameKanaZenkakuMatchScore   |
+            | $.middleNames             | $.middleNamesMatch            | $.middleNamesMatchScore       |
+            | $.familyNameAtBirth       | $.familyNameAtBirthMatch      | $.familyNameAtBirthMatchScore |
+            | $.address                 | $.addressMatch                | $.addressMatchScore           |
+            | $.streetName              | $.streetNameMatch             | $.streetNameMatchScore        |
+            | $.streetNumber            | $.streetNumberMatch           | $.streetNumberMatchScore      |
+            | $.region                  | $.regionMatch                 | $.regionMatchScore            |
+            | $.locality                | $.localityMatch               | $.localityMatchScore          |
+            | $.birthdate               | $.birthdateMatch              | $.birthdateMatchScore         |
+            | $.email                   | $.emailMatch                  | $.emailMatchScore             |
 
 
     @KYC_Match_5_success_multiple_optional_parameter_combinations
