@@ -51,7 +51,7 @@ info:
   license:
     name: Apache 2.0
     url: https://www.apache.org/licenses/LICENSE-2.0.html
-  version: 0.2.0
+  version: wip
 
   x-camara-commonalities: 0.4.0
 
@@ -303,8 +303,7 @@ components:
           - 'not_available'
 
     MatchScoreResult:
-      type: number
-      format: integer 
+      type: integer
       description: Indicates the similarity score assigned to the input value when it does not exactly match the value stored in the operator's system. This property shall only be returned when the value of the corresponding match field is `false`.
       minimum: 0
       maximum: 100
