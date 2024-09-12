@@ -2,6 +2,7 @@
 
 ## Table of Contents
 
+- [r1.3](#r13)
 - [r1.2](#r12)
 - [r1.1](#r11)
 - [v0.1.1](#v011)
@@ -15,26 +16,28 @@ The below sections record the changes for each API version in each release as fo
 * for subsequent alpha or release-candidate API versions, the delta with respect to the previous pre-release
 * for a public API version, the consolidated changes since the release of the previous public API version
 
-# r1.2
+# r1.3
 
 ## Release Notes
 
 This release contains the definition and documentation of
-* kyc-match v0.2.0
+* kyc-match v0.2.1
 * kyc-fill-in v0.2.0
 
 The API definition(s) are based on
 * Commonalities v0.4.0
 * Identity and Consent Management v0.2.0
 
-## kyc-match v0.2.0
+## kyc-match v0.2.1
 
-**kyc-match v0.2.0 is the first initial version for the CAMARA KnowYourCustomer Match API**
+**NOTE: kyc-match v0.2.0 has been revoked and should not be considered due to a bug found in matchScore response property that makes this version not suitable. It is fixed in v0.2.1**
+
+**kyc-match v0.2.1 is the first initial version for the CAMARA KnowYourCustomer Match API**
 
 - API definition **with inline documentation**:
-    - OpenAPI [YAML spec file](https://github.com/camaraproject/KnowYourCustomer/blob/r1.2/code/API_definitions/kyc-match.yaml)
-    - [View it on ReDoc](https://redocly.github.io/redoc/?url=https://raw.githubusercontent.com/camaraproject/KnowYourCustomer/r1.2/code/API_definitions/kyc-match.yaml&nocors)
-    - [View it on Swagger Editor](https://editor.swagger.io/?url=https://raw.githubusercontent.com/camaraproject/KnowYourCustomer/r1.2/code/API_definitions/kyc-match.yaml&nocors)
+    - OpenAPI [YAML spec file](https://github.com/camaraproject/KnowYourCustomer/blob/r1.3/code/API_definitions/kyc-match.yaml)
+    - [View it on ReDoc](https://redocly.github.io/redoc/?url=https://raw.githubusercontent.com/camaraproject/KnowYourCustomer/r1.3/code/API_definitions/kyc-match.yaml&nocors)
+    - [View it on Swagger Editor](https://editor.swagger.io/?url=https://raw.githubusercontent.com/camaraproject/KnowYourCustomer/r1.3/code/API_definitions/kyc-match.yaml&nocors)
 
 **Main changes**
 - Includes Score functionality
@@ -52,7 +55,7 @@ The API definition(s) are based on
 
 ### Fixed
 
-* n/a
+* Fix score type and change version by @fernandopradocabrillo in https://github.com/camaraproject/KnowYourCustomer/pull/148
 
 ### Removed
 
@@ -63,9 +66,9 @@ The API definition(s) are based on
 **kyc-fill-in v0.2.0 is the first initial version for the CAMARA KnowYourCustomer Fill-in API**
 
 - API definition **with inline documentation**:
-    - OpenAPI [YAML spec file](https://github.com/camaraproject/KnowYourCustomer/blob/r1.2/code/API_definitions/kyc-fill-in.yaml)
-    - [View it on ReDoc](https://redocly.github.io/redoc/?url=https://raw.githubusercontent.com/camaraproject/KnowYourCustomer/r1.2/code/API_definitions/kyc-fill-in.yaml&nocors)
-    - [View it on Swagger Editor](https://editor.swagger.io/?url=https://raw.githubusercontent.com/camaraproject/KnowYourCustomer/r1.2/code/API_definitions/kyc-fill-in.yaml&nocors)
+    - OpenAPI [YAML spec file](https://github.com/camaraproject/KnowYourCustomer/blob/r1.3/code/API_definitions/kyc-fill-in.yaml)
+    - [View it on ReDoc](https://redocly.github.io/redoc/?url=https://raw.githubusercontent.com/camaraproject/KnowYourCustomer/r1.3/code/API_definitions/kyc-fill-in.yaml&nocors)
+    - [View it on Swagger Editor](https://editor.swagger.io/?url=https://raw.githubusercontent.com/camaraproject/KnowYourCustomer/r1.3/code/API_definitions/kyc-fill-in.yaml&nocors)
 
 **Main Changes**
 
@@ -90,6 +93,10 @@ The API definition(s) are based on
 ## New Contributors
 
 * n/a
+
+# r1.2
+
+**NOTE: Release r1.2 has been revoked due to a bug found in kyc-match v0.2.0 code. It is fixed in kyc-match v0.2.1 as part of r1.3 release.**
 
 # r1.1
 
