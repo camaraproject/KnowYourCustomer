@@ -1,6 +1,6 @@
 # API Readiness Checklist
 
-Checklist for kyc-match 0.2.0 in release r1.2
+Checklist for kyc-match 0.2.1 in release r1.3
 
 | Nr | API release assets  | alpha | release-candidate |  initial<br>public | stable<br> public | Status | Comments |
 |----|----------------------------------------------|:-----:|:-----------------:|:-------:|:------:|:----:|:----:|
