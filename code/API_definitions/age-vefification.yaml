@@ -287,11 +287,11 @@ components:
                 - 'true'
                 - 'false'
                 - 'unverified'
-                - 'not_Available'
+                - 'not_available'
 
         identityMatchScore:
           type: "integer"
-          description: Aggregate score of user's identity match result i =n case of information have been included in the request.
+          description: An aggregate match score of user's identity when available in the request body.
 
     ErrorInfo:
       type: "object"
