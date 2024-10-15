@@ -239,7 +239,7 @@ components:
           
         gender:
           type: string
-          description: Gender of the customer stored on the Operator's system (Male/Female/Other).
+          description: Gender of the customer stored on the Operator's system (male/female/other).
           
     ErrorInfo:
       type: object
