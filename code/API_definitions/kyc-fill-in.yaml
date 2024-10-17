@@ -79,8 +79,46 @@ paths:
 
       security:
         - openId:
-          - kyc-fill-in:fill-in
-
+          - kyc-fill-in:fill-in kyc-fill-in:phoneNumber
+        - openId:
+          - kyc-fill-in:fill-in kyc-fill-in:idDocument
+        - openId:
+          - kyc-fill-in:fill-in name
+        - openId:
+          - kyc-fill-in:fill-in kyc-fill-in:givenName
+        - openId:
+          - kyc-fill-in:fill-in kyc-fill-in:familyName
+        - openId:
+          - kyc-fill-in:fill-in kyc-fill-in:nameKanaHankaku
+        - openId:
+          - kyc-fill-in:fill-in kyc-fill-in:nameKanaZenkaku
+        - openId:
+          - kyc-fill-in:fill-in kyc-fill-in:middleNames
+        - openId:
+          - kyc-fill-in:fill-in kyc-fill-in:familyNameAtBirth
+        - openId:
+          - kyc-fill-in:fill-in kyc-fill-in:address
+        - openId:
+          - kyc-fill-in:fill-in kyc-fill-in:streetName
+        - openId:
+          - kyc-fill-in:fill-in kyc-fill-in:streetNumber
+        - openId:
+          - kyc-fill-in:fill-in kyc-fill-in:postalCode
+        - openId:
+          - kyc-fill-in:fill-in kyc-fill-in:region
+        - openId:
+          - kyc-fill-in:fill-in kyc-fill-in:locality
+        - openId:
+          - kyc-fill-in:fill-in kyc-fill-in:country
+        - openId:
+          - kyc-fill-in:fill-in kyc-fill-in:houseNumberExtension
+        - openId:
+          - kyc-fill-in:fill-in kyc-fill-in:birthdate
+        - openId:
+          - kyc-fill-in:fill-in email
+        - openId:
+          - kyc-fill-in:fill-in kyc-fill-in:gender
+        
       parameters:
         - $ref: '#/components/parameters/x-correlator'
 
