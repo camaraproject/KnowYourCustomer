@@ -172,8 +172,8 @@ paths:
               examples:
                 KYC_200Example:
                   value:
-                    ageThreshold: 18
                     ageVerified: true
+                    ageCheck: true
                     identityMatchScore: 90
         "400":
           $ref: '#/components/responses/Generic400'
