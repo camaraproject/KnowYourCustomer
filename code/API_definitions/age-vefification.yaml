@@ -38,8 +38,8 @@ info:
     ## Outputs
 
     If successful, a JSON object is returned containing the following data:
-    - `ageThreshold`: The date's threshold from which the age of the user must be compared.
-    - `ageVerified`: true when the age of the user is older than the age threshold, otherwise false if not. unverified if the MNO has never verified whether this is valid or not.
+    - `ageVerified`: true if the information provided was checked against another form of official identification, otherwise false.
+    - `ageCheck`: true when the age of the user is older than the age threshold, otherwise false if not. unverified if the MNO has never verified whether this is valid or not.
     - `identityMatchScore`: the overall match score of identity information provided in the request compared to what MNO holds.
     
     An example of a JSON response object is as follows:
@@ -271,16 +271,15 @@ components:
     KYC_ResponseBody:
       type: "object"
       required:
-        - ageThreshold
-        - ageVerified
+        - ageCheck
         
       properties:
 
-        ageThreshold:
-         type: "integer"
-         description: age threshold which has been verified.
-
         ageVerified:
+         type: "boolean"
+         description: Indicates if the information provided was checked against another form of official identification held by the MNO.
+
+        ageCheck:
          type: "string"
          description: Indicates if the age has been verified (true) or not (false). If age information is not available not_available is returned, else unverified indicates that MNO has not verified the validity of the information it holds.
          enum:
