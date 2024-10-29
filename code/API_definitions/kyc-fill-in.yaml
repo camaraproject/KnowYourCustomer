@@ -115,7 +115,7 @@ paths:
         - openId:
           - kyc-fill-in:birthdate
         - openId:
-          - kyc-fill-in:fill-in email
+          - kyc-fill-in:email
         - openId:
           - kyc-fill-in:gender
         
