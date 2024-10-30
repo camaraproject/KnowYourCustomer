@@ -98,7 +98,7 @@ Feature: CAMARA Know Your Customer Match API, v0.2.1 - Operation KYC_Match
             | $.familyName              | $.familyNameMatch             | $.familyNameMatchScore        |
             | $.nameKanaHankaku         | $.nameKanaHankakuMatch        | $.nameKanaHankakuMatchScore   |
             | $.nameKanaZenkaku         | $.nameKanaZenkakuMatch        | $.nameKanaZenkakuMatchScore   |
-            | $.middleNames             | $.middleNamesMatch            | $.middleNamesMatchScore       |
+            | $.middleNames             | $.middleNamesMatch            | $.middleNamesScore            |
             | $.familyNameAtBirth       | $.familyNameAtBirthMatch      | $.familyNameAtBirthMatchScore |
             | $.address                 | $.addressMatch                | $.addressMatchScore           |
             | $.streetName              | $.streetNameMatch             | $.streetNameMatchScore        |
