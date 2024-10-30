@@ -113,7 +113,7 @@ Feature: CAMARA Know Your Customer Match API, v0.2.1 - Operation KYC_Match
     Scenario: Validate success response when providing different optional parameter combinations
         Given a valid testing phone number supported by the service, identified by the access token or provided in the request body
         And the request body property "$.phoneNumber" is set to a valid phone number
-        And the request body property "$.idDocument" is set to a valid identify document
+        And the request body property "$.idDocument" is set to a valid identity document
         And the request body property "$.name" is set to a valid name
         And the request body property "$.givenName" is set to a valid given name
         And the request body property "$.familyName" is set to a valid family name
@@ -133,6 +133,18 @@ Feature: CAMARA Know Your Customer Match API, v0.2.1 - Operation KYC_Match
         And the request body property "$.email" is set to a email value that complies with the RFC format "{local-part}@{domain}"
         And the request body property "$.gender" is set to a valid gender value that belongs to the enumeration ("MALE", "FEMALE", "OTHER")
         And the given request body is populated with any random combination of afore mention optional parameters
+        When the request "KYC_Match" is sent
+        Then the response status code is 200
+        And the response header "x-correlator" has same value as the request header "x-correlator"
+        And the response header "Content-Type" is "application/json"
+        And the response body complies with the OAS schema at "/components/schemas/KYC_MatchResponse"
+
+    @KYC_Match_6_success_id_document_required
+    # Note: This test scenario is optional, as idDocument parameter and Second Level Validation is optional to network operators/ API providers.
+    Scenario: Validate success when idDocument is required to perform the match validation for any other property
+        Given a valid testing phone number supported by the service, identified by the access token or provided in the request body
+        And the request body property "$.idDocument" is set to a valid identity document asssociated with the identified phoneNumber
+        And the request body is set to a valid parameter combination
         When the request "KYC_Match" is sent
         Then the response status code is 200
         And the response header "x-correlator" has same value as the request header "x-correlator"
@@ -271,21 +283,11 @@ Feature: CAMARA Know Your Customer Match API, v0.2.1 - Operation KYC_Match
         And the response property "$.status" is 400
 
 
-    @KYC_Match_11_phone_number_does_not_exist_in_access_token
-    Scenario: Error 403 when phone number cannot be deducted from access token
-        Given the header "Authorization" is set to an access token from which a valid testing phone number cannot be deducted
-        And the request body is set to a valid parameter combination without property "$.phoneNumber"
-        When the request "KYC_Match" is sent
-        Then the response status code is 403
-        And the response property "$.code" is "KNOW_YOUR_CUSTOMER.INVALID_TOKEN_CONTEXT"
-        And the response property "$.message" contains a user friendly text
-        And the response property "$.status" is 403
-
-
-    @KYC_Match_12_phone_number_provided_does_not_match_the_token
+    @KYC_Match_11_phone_number_provided_does_not_match_the_token
     Scenario: Error when the phone number provided in the request body does not match the phone number asssociated with the access token
-        Given the header "Authorization" is set to an access token from which a valid testing phone number can be deducted
-        And the request body property "$.phoneNumber" is set to a valid testing phoneNumber that does not match the one associated with the token
+        # To test this, a token has to be obtained for a different phoneNumber
+        Given the request body property "$.phoneNumber" is set to a valid testing phone number 
+        And the header "Authorization" is set to a valid access token emitted for a different phone number
         When the request "KYC_Match" is sent
         Then the response status code is 403
         And the response property "$.code" is "INVALID_TOKEN_CONTEXT"
@@ -293,7 +295,7 @@ Feature: CAMARA Know Your Customer Match API, v0.2.1 - Operation KYC_Match
         And the response property "$.status" is 403
 
 
-    @KYC_Match_13_idDocument_required
+    @KYC_Match_12_idDocument_required
     # Note: This test scenario is optional, as idDocument parameter and Second Level Validation is optional to network operators/ API providers.
     Scenario: Error 403 when body does not contain idDocument when this is required
         Given a valid testing phone number supported by the service, identified by the access token or provided in the request body
@@ -305,11 +307,11 @@ Feature: CAMARA Know Your Customer Match API, v0.2.1 - Operation KYC_Match
         And the response property "$.status" is 403
 
 
-    @KYC_Match_14_idDocument_mismatch_when_idDocument_is_required
+    @KYC_Match_13_idDocument_mismatch_when_idDocument_is_required
     # Note: This test scenario is optional, as idDocument parameter and Second Level Validation is optional to network operators/ API providers.
     Scenario: Error 403 when the idDocument included in the request does not match the one saved in the MNO system when the idDocument is required
         Given a valid testing phone number supported by the service, identified by the access token or provided in the request body
-        And the request body property "$.idDocument" is set to a valid idDocument that does not belong to the user
+        And the request body property "$.idDocument" is set to a valid idDocument that is not asssociated with the identified phone number
         When the request "KYC_Match" is sent
         Then the response status code is 403
         And the response property "$.code" is "KNOW_YOUR_CUSTOMER.ID_DOCUMENT_MISMATCH"
