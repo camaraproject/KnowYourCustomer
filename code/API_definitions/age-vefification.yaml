@@ -247,7 +247,6 @@ components:
           type: "string"
           description: Last name, family name, or surname of the customer.
           
-
         middleNames:
           type: "string"
           description: Middle name/s of the customer.
@@ -259,10 +258,10 @@ components:
         birthdate:
           type: string
           description: The birthdate of the customer, in ISO 8601 calendar date format (YYYY-MM-DD).
-          
+
         email:
-          type: "string"
-          description: Email address of the customer in the RFC specified format (local-part@domain), stored on the OB systems.
+          type: string
+          description: Email address of the customer in the RFC specified format (local-part@domain).
 
         ageThreshold:
          type: "integer"
