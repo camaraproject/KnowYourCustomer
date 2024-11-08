@@ -22,24 +22,22 @@ info:
     - `POST /ageverify`
 
       Takes the network subscription identifier (e.g. the mobile phone number for a mobile network subscriber) and check the age of the user is older than the age's threshold in the request.
-      If infotrmation of the user's identity such as `givenName`, `familyName`, `address` match with information held by the MNO.
+      If information of the user's identity such as `givenName`, `familyName`, `address` match with information held by the MNO.
 
 
     ## Inputs
 
     The endpoint request body is a JSON object with the following parameters:
-    - `phoneNumber`: The network subscription identifier (i.e. the phone number of the subscriber). This field is only required if no network subscription identifier is associated with the access token.
-    - `ageThreshold`: The date's threshold from which the age of the user must be compared.
+    - `phoneNumber`: The network subscription identifier (i.e. the phone number of the subscriber). [Only required in case a 2-legged flow has been agreed between API Provider and API Consumer; otherwise, none]
+    - `ageThreshold`: The date's threshold from which the age of the user must be compared. [Required]
+    - any of `idDocument`, `name`, `givenName`, `familyName`, `middieNames`, `familyNameAtBirth`, `birthdate`, `email`; user's information to be checked in order to confirm that the user is the contract's owner [Optional]
     
-    
-    - `givenName`, `familyName`, `address`,`etc.`  user's information to be checked in order to confirm that the user is the contract's owner.
-
 
     ## Outputs
 
     If successful, a JSON object is returned containing the following data:
-    - `ageVerified`: true if the information provided was checked against another form of official identification, otherwise false.
     - `ageCheck`: true when the age of the user is older than the age threshold, otherwise false if not. unverified if the MNO has never verified whether this is valid or not.
+    - `verifiedStatus`: true if the information provided was checked against another form of official identification, otherwise false.
     - `identityMatchScore`: the overall match score of identity information provided in the request compared to what MNO holds.
     
     An example of a JSON response object is as follows:
@@ -130,7 +128,7 @@ paths:
 
       security:
         - openId:
-          - know-your-customer:AgeVerify
+          - kyc-ageverify:ageVerify
 
 
       parameters:
@@ -172,8 +170,8 @@ paths:
               examples:
                 KYC_200Example:
                   value:
-                    ageVerified: true
                     ageCheck: true
+                    verifiedStatus: true
                     identityMatchScore: 90
         "400":
           $ref: '#/components/responses/Generic400'
@@ -274,10 +272,6 @@ components:
         
       properties:
 
-        ageVerified:
-         type: "boolean"
-         description: Indicates if the information provided was checked against another form of official identification held by the MNO.
-
         ageCheck:
          type: "string"
          description: Indicates if the age has been verified (true) or not (false). If age information is not available not_available is returned, else unverified indicates that MNO has not verified the validity of the information it holds.
@@ -286,6 +280,10 @@ components:
                 - 'false'
                 - 'unverified'
                 - 'not_available'
+
+        verifiedStatus:
+         type: "boolean"
+         description: Indicates if the information provided was checked against another form of official identification held by the MNO.
 
         identityMatchScore:
           type: "integer"
