@@ -40,22 +40,6 @@ info:
     - `verifiedStatus`: true if the information provided was checked against another form of official identification, otherwise false.
     - `identityMatchScore`: the overall match score of identity information provided in the request compared to what MNO holds.
     
-    An example of a JSON response object is as follows:
-    ```
-    {
-      "phoneNumber": '+34629255833',
-      "ageThreshold": 18,
-      "idDocument": '66666666q',
-      "name": 'Federica Sanchez Arjona',
-      "givenName": 'Federica',
-      "familyName": 'Sanchez Arjona',
-      "middleNames": 'Sanchez',
-      "familyNameAtBirth": 'YYYY',
-      "birthdate": '1978-08-22',      
-      "email": 'edericaSanchez.Arjona@gmail.com'
-    }
-    ```
-
     ## Errors
 
     If the authentication token is not valid, a `401 UNAUTHENTICATED` error is returned
