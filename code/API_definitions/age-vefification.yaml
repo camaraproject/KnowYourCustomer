@@ -28,7 +28,7 @@ info:
     ## Inputs
 
     The endpoint request body is a JSON object with the following parameters:
-    - `phoneNumber`: The network subscription identifier (i.e. the phone number of the subscriber). [Only required in case a 2-legged flow has been agreed between API Provider and API Consumer; otherwise, none]
+    - `phoneNumber`: The network subscription identifier (i.e. the phone number of the subscriber). [Required only in case a 2-legged flow has been agreed between API Provider and API Consumer; otherwise, none]
     - `ageThreshold`: The date's threshold from which the age of the user must be compared. [Required]
     - any of `idDocument`, `name`, `givenName`, `familyName`, `middieNames`, `familyNameAtBirth`, `birthdate`, `email`; user's information to be checked in order to confirm that the user is the contract's owner [Optional]
     
@@ -36,7 +36,7 @@ info:
     ## Outputs
 
     If successful, a JSON object is returned containing the following data:
-    - `ageCheck`: true when the age of the user is older than the age threshold, otherwise false if not. unverified if the MNO has never verified whether this is valid or not.
+    - `ageCheck`: Indicate 'true' when the age of the user is the same age or older than the age threshold (age >= age threshold), and 'false' if not (age < age threshold).  Otherwise, 'not_available'.
     - `verifiedStatus`: true if the information provided was checked against another form of official identification, otherwise false.
     - `identityMatchScore`: the overall match score of identity information provided in the request compared to what MNO holds.
     
@@ -60,17 +60,12 @@ info:
 
     ### Optional phoneNumber for 3-legged tokens:
 
-    - When using a 3-legged access token, the device associated with the access token must be considered as the device for the API request. This means that the phoneNumber is not required in the request, and if included it must identify the same device, therefore **it is recommended NOT to include it in these scenarios** to simplify the API usage and avoid additional validations.
+    - When using a 3-legged access token, the device associated with the access token must be considered as the device for the API request. This means that the phoneNumber is not required in the request, and if included it must be neglected to simplify the API usage and avoid additional validations.
 
-    ### Validation mechanism:
-
-    - The server will extract the device identification from the access token, if available.
-    - If the API request additionally includes a `phoneNumber` parameter when using a 3-legged access token, the API will validate that the device identifier provided matches the one associated with the access token.
-    - If there is a mismatch, the API will respond with a `403 INVALID_TOKEN_CONTEXT` error, indicating that the device information in the request does not match the token.
 
     ### Error handling for unidentifiable devices:
 
-    - If the `phoneNumber` parameter is not included in the request and the device information cannot be derived from the 3-legged access token, the server will return a `422 UNIDENTIFIABLE_DEVICE` error.
+    - If the `phoneNumber` cannot be derived from the 3-legged access token, the server will return a `422 UNIDENTIFIABLE_DEVICE` error.
 
     ### Restrictions for tokens without an associated authenticated identifier:
 
@@ -128,7 +123,8 @@ paths:
             examples:
               RequestExample:
                 value:
-                  phoneNumber: '+34629255833'
+                  ageThreshold: 18
+                  phoneNumber: '+34629255833' # Note: Only required in case a 2-legged flow has been agreed between API Provider and API Consumer; otherwise, do not include phoneNumber
                   idDocument: 66666666q
                   name: Federica Sanchez Arjona
                   givenName: Federica
@@ -137,7 +133,6 @@ paths:
                   familyNameAtBirth: YYYY
                   birthdate: '1978-08-22'                     
                   email: "FedericaSanchez.Arjona@gmail.com" 
-                  ageThreshold: 18
 
       responses:
         '200':
@@ -209,6 +204,13 @@ components:
         - ageThreshold
   
       properties:
+
+        ageThreshold:
+         type: "integer"
+         minimum: 0
+         maximum: 120
+         description: age to be verified.
+
         phoneNumber:
           type: "string"
           description: A public identifier addressing a telephone subscription. In mobile networks it corresponds to the MSISDN (Mobile Station International Subscriber Directory Number). In order to be globally unique it has to be formatted in international format, according to E.164 standard, optionally prefixed with '+'.
@@ -245,9 +247,6 @@ components:
           type: string
           description: Email address of the customer in the RFC specified format (local-part@domain).
 
-        ageThreshold:
-         type: "integer"
-         description: age to be verified.
 
     KYC_ResponseBody:
       type: "object"
@@ -258,12 +257,11 @@ components:
 
         ageCheck:
          type: "string"
-         description: Indicates if the age has been verified (true) or not (false). If age information is not available not_available is returned, else unverified indicates that MNO has not verified the validity of the information it holds.
+         description: Indicate 'true' when the age of the user is the same age or older than the age threshold (age >= age threshold), and 'false' if not (age < age threshold).  Otherwise, 'not_available'.
          enum:
                 - 'true'
                 - 'false'
                 - 'unverified'
-                - 'not_available'
 
         verifiedStatus:
          type: "boolean"
