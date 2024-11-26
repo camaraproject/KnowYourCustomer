@@ -261,7 +261,7 @@ components:
          enum:
                 - 'true'
                 - 'false'
-                - 'unverified'
+                - 'not_available'
 
         verifiedStatus:
          type: "boolean"
