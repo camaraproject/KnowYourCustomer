@@ -441,18 +441,19 @@ components:
           schema:
             $ref: "#/components/schemas/ErrorInfo"
           examples:
-            GENERIC_422_NOT_SUPPORTED:
-              description: Not Supported
+           GENERIC_422_UNSUPPORTED_IDENTIFIER:
+              description: None of the provided identifiers is supported by the implementation
               value:
                 status: 422
-                code: NOT_SUPPORTED
-                message: Service not supported for this phoneNumber
-            UNIDENTIFIABLE_PHONE_NUMBER:
-              description: The phone number is not included in the request and the phone number information cannot be derived from the 3-legged access token
+                code: UNSUPPORTED_IDENTIFIER
+                message: The identifier provided is not supported.
+           GENERIC_422_MISSING_IDENTIFIER:
+              description: The identifier is not included in the request and the identifier information cannot be derived from the 3-legged access token
               value:
                 status: 422
-                code: UNIDENTIFIABLE_PHONE_NUMBER
-                message: The phone number cannot be identified
+                code: MISSING_IDENTIFIER
+                message: The phone number cannot be identified.
+
 
     Generic429:
       description: Too Many Requests
