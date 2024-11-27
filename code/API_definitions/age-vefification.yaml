@@ -363,16 +363,19 @@ components:
           schema:
             $ref: '#/components/schemas/ErrorInfo'
           examples:
-            PermissionDenied:
+            GENERIC_403_PERMISSION_DENIED:
+              description: Permission denied. OAuth2 token access does not have the required scope or when the user fails operational security
               value:
                 status: 403
                 code: PERMISSION_DENIED
-                message: Client does not have sufficient permissions to perform this action
-            InvalidTokenContext:
+                message: Client does not have sufficient permissions to perform this action.
+            GENERIC_403_INVALID_TOKEN_CONTEXT:
+              description: Reflect some inconsistency between information in some field of the API and the related OAuth2 Token
               value:
                 status: 403
-                code: KNOW_YOUR_CUSTOMER.INVALID_TOKEN_CONTEXT
-                message: Phone number mismatch with access token context
+                code: INVALID_TOKEN_CONTEXT
+                message: "phoneNumber is not consistent with access token."
+
 
     Generic404:
       description: |
