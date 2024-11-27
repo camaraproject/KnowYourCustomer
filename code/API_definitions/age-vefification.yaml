@@ -386,12 +386,13 @@ components:
           schema:
             $ref: '#/components/schemas/ErrorInfo'
           examples:
-            NotFound:
+            GENERIC_404_NOT_FOUND:
+              description: Resource is not found
               value:
                 status: 404
-
                 code: NOT_FOUND
-                message: not_found_contractor/not_found
+                message: The specified resource is not found.
+
 
     Generic406:
       description: Not Acceptable
