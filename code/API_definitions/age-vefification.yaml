@@ -308,11 +308,13 @@ components:
           schema:
             $ref: '#/components/schemas/ErrorInfo'
           examples:
-            InvalidArgument:
+            GENERIC_400_INVALID_ARGUMENT:
+              description: Invalid Argument. Generic Syntax Exception
               value:
                 status: 400
                 code: INVALID_ARGUMENT
-                message: Client specified an invalid argument, request body or query param
+                message: Client specified an invalid argument, request body or query param.
+
             InvalidParamCombination:
               value:
                 status: 400
