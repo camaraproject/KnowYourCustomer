@@ -260,7 +260,7 @@ components:
 
         ageCheck:
          type: "string"
-         description: Indicate 'true' when the age of the user is the same age or older than the age threshold (age >= age threshold), and 'false' if not (age < age threshold).  Otherwise, 'not_available'.
+         description: Indicate `true` when the age of the user is the same age or older than the age threshold (age >= age threshold), and `false` if not (age < age threshold). If the Operator doesn't have enough information to perform the validation, a `not_available` can be returned. 
          enum:
                 - 'true'
                 - 'false'
