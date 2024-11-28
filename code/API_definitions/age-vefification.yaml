@@ -46,7 +46,7 @@ info:
 
     If the API call contain a formatting or other error, a `400 INVALID_ARGUMENT` error is returned.
 
-    If the network subscription cannot be identified from the provided parameters (e.g. the subscription identifier is not associated with any customer of the CSP), a `404 DEVICE_NOT_FOUND` error is returned.
+    If the network subscription cannot be identified from the provided parameters (e.g. the subscription identifier is not associated with any customer of the CSP), a `404 IDENTIFIER_NOT_FOUND` error is returned.
 
     If the API consumer has a valid access token but is not authorised to obtain tenure information for the specified network subscription, then a `403 PERMISSION_DENIED` error is returned.
 
@@ -65,7 +65,7 @@ info:
 
     ### Error handling for unidentifiable devices:
 
-    - If the `phoneNumber` cannot be derived from the 3-legged access token, the server will return a `422 UNIDENTIFIABLE_DEVICE` error.
+    - If the `phoneNumber` cannot be derived from the 3-legged access token, the server will return a `422 MISSING_IDENTIFIER` error.
 
     ### Restrictions for tokens without an associated authenticated identifier:
 
@@ -160,8 +160,6 @@ paths:
           $ref: '#/components/responses/Generic403'
         "404":
           $ref: '#/components/responses/Generic404'
-        "406":
-          $ref: '#/components/responses/Generic406'
         "415":
           $ref: '#/components/responses/Generic415'
         "422":
@@ -295,9 +293,7 @@ components:
     Generic400:
       description: |-
         Problem with the client request.
-        In addition to regular scenario of `INVALID_ARGUMENT`, another scenario may exist.
 
-        - Indicated param combination is invalid (`"code": "KNOW_YOUR_CUSTOMER.INVALID_PARAM_COMBINATION","message": "Indicated parameter combination is invalid"`)
       headers:
         x-correlator:
           $ref: '#/components/headers/x-correlator'
@@ -314,12 +310,6 @@ components:
                 status: 400
                 code: INVALID_ARGUMENT
                 message: Client specified an invalid argument, request body or query param.
-
-            InvalidParamCombination:
-              value:
-                status: 400
-                code: KNOW_YOUR_CUSTOMER.INVALID_PARAM_COMBINATION
-                message: Indicated parameter combination is invalid
 
     Generic401:
       description: Authentication problem with the client request. Unauthorized error.  Access Token related errors.
@@ -345,13 +335,9 @@ components:
                 code: AUTHENTICATION_REQUIRED
                 message: New authentication is required.
 
-
     Generic403:
       description: |
         Client does not have sufficient permission.
-        In addition to regular scenario of `PERMISSION_DENIED`, another scenarios may exist:
-      
-        - Phone number cannot be deducted from access token context.(`{"code": "KNOW_YOUR_CUSTOMER.INVALID_TOKEN_CONTEXT","message": "Phone number mismatch with access token context"}`)
 
       headers:
         x-correlator:
@@ -369,13 +355,6 @@ components:
                 status: 403
                 code: PERMISSION_DENIED
                 message: Client does not have sufficient permissions to perform this action.
-            GENERIC_403_INVALID_TOKEN_CONTEXT:
-              description: Reflect some inconsistency between information in some field of the API and the related OAuth2 Token
-              value:
-                status: 403
-                code: INVALID_TOKEN_CONTEXT
-                message: "phoneNumber is not consistent with access token."
-
 
     Generic404:
       description: |
@@ -395,25 +374,13 @@ components:
                 status: 404
                 code: NOT_FOUND
                 message: The specified resource is not found.
-
-
-    Generic406:
-      description: Not Acceptable
-      headers:
-        x-correlator:
-          $ref: '#/components/headers/x-correlator'
-      content:
-        application/json:
-          schema:
-            $ref: "#/components/schemas/ErrorInfo"
-          examples:
-            GENERIC_406_NOT_ACCEPTABLE:
-              description: API Server does not accept the media type (`Accept-*` header) indicated by API client
+            GENERIC_404_IDENTIFIER_NOT_FOUND:
+              description: Device identifier not found
               value:
-                status: 406
-                code: NOT_ACCEPTABLE
-                message: The server cannot produce a response matching the content requested by the client through `Accept-*` headers.
-
+                status: 404
+                code: IDENTIFIER_NOT_FOUND
+                message: Device identifier not found.
+                
     Generic415:
       description: Unsupported Media Type
       headers:
@@ -447,14 +414,18 @@ components:
                 status: 422
                 code: SERVICE_NOT_APPLICABLE
                 message: The service is not available for the provided identifier.
-
            GENERIC_422_MISSING_IDENTIFIER:
               description: The identifier is not included in the request and the identifier information cannot be derived from the 3-legged access token
               value:
                 status: 422
                 code: MISSING_IDENTIFIER
                 message: The phone number cannot be identified.
-
+           GENERIC_422_UNNECESSARY_IDENTIFIER:
+              description: An explicit identifier is provided when an API subject has already been identified from the access token
+              value:
+                status: 422
+                code: UNNECESSARY_IDENTIFIER
+                message: The device is already identified by the access token.
 
     Generic429:
       description: Too Many Requests
