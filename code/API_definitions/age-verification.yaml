@@ -237,6 +237,8 @@ components:
 
         birthdate:
           type: string
+          format: date
+
           description: The birthdate of the customer, in ISO 8601 calendar date format (YYYY-MM-DD).
 
         email:
