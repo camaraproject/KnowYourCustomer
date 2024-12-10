@@ -40,6 +40,7 @@ The API definition(s) are based on
 
 **Main changes**
 - Update test plan and remove unneeded scenario
+- There are no changes to the API definitions and API version numbers compared to r1.3
 
 ### Changed
 
