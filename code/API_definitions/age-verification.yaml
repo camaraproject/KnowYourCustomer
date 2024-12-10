@@ -271,7 +271,10 @@ components:
 
         identityMatchScore:
           type: "integer"
+          minimum: 0
+          maximum: 100
           description: An aggregate match score of user's identity when available in the request body.
+
 
     ErrorInfo:
       type: "object"
