@@ -103,7 +103,8 @@ paths:
 
       security:
         - openId:
-          - kyc-ageverify:ageVerify
+          - kyc-ageverify:ageverify
+
 
 
       parameters:
