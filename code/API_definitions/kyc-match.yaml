@@ -115,8 +115,8 @@ paths:
                   familyNameAtBirth: YYYY
                   address: Tokyo-to Chiyoda-ku Iidabashi 3-10-10
                   streetName: Nicolas Salmeron
-                  streetNumber: 4
-                  postalCode: 1028460
+                  streetNumber: '4'
+                  postalCode: '1028460'
                   region: Tokyo
                   locality: ZZZZ
                   country: JP
