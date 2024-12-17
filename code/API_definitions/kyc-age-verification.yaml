@@ -11,7 +11,7 @@ info:
 
     The API defines one service endpoint:
 
-    - `POST /ageverify`
+    - `POST /verify`
 
       Takes the network subscription identifier (e.g. the mobile phone number for a mobile network subscriber) and checks if the age of the subscriber is older than the age threshold in the request.
       Additionally, as optional function, provides (1) if age check is done against another form of official identification or not (verifiedStatus), (2) an overall score of how certain is the response using both information provided in the request and information that the Operator holds(identityMatchScore), (3) an indicator on whether the subscription has any kind of content lock (contentLock) and (4) an indicator on whether the subscription has any kind of parental control activated (parentalControl).
@@ -77,21 +77,21 @@ info:
     url: https://www.apache.org/licenses/LICENSE-2.0.html
 
 servers:
-  - url: "{apiRoot}/kyc-ageverify/vwip"
+  - url: "{apiRoot}/kyc-age-verification/vwip"
     variables:
       apiRoot:
         default: http://localhost:9091
         description: API root
 
 tags:
-  - name: Ageverify
+  - name: Age Verification
     description: Operations to verify the age of a user.
 
 paths:
-  /ageverify:
+  /verify:
     post:
       tags:
-        - Ageverify
+        - Age Verification
       summary: Verify Age Threshold
       description: |
         Verify that the age of the subscriber associated with a phone number is equal to or greater than the specified age threshold value.
@@ -99,10 +99,10 @@ paths:
         As it is possible that the person holding the contract and the person using the line may not be the same, the endpoint also admits a list of optional properties to be included in the request to improve the identification. The response may optionally include the `identityMatchScore` property with a value that indicates how certain it is that the information returned relates to the person that the API Client is requesting. To increase the reliability of the information returned, the operator may include in the response the `verifiedStatus` property, indicating whether the identity information in its possession has been verified against an official source.
 
         The response may also include `contentLock` and `parentalControl` properties to indicate if the line has any kind of content filtering enabled.
-      operationId: KYC_AgeVerify
+      operationId: verifyAge
       security:
         - openId:
-          - kyc-ageverify:ageverify
+          - kyc-age-verification:verify
       parameters:
         - $ref: '#/components/parameters/x-correlator'
       requestBody:
