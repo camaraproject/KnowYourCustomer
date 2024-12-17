@@ -1,0 +1,594 @@
+openapi: 3.0.3
+info:
+  title: Know Your Customer Age Verification
+
+  description: |
+
+    # Summary
+    This API provides the customer with the ability to check if the user of the line is older than a provided age, in order to provide API customer's age-restricted services, access to its age-restricted website etc..
+
+    # Authorization and authentication
+
+    The "Camara Security and Interoperability Profile" provides details on how a client requests an access token. Please refer to Identify and Consent Management (https://github.com/camaraproject/IdentityAndConsentManagement/) for the released version of the Profile.
+
+    Which specific authorization flows are to be used will be determined during onboarding process, happening between the API Client and the Telco Operator exposing the API, taking into account the declared purpose for accessing the API, while also being subject to the prevailing legal framework dictated by local legislation.
+
+    It is important to remark that in cases where personal user data is processed by the API, and users can exercise their rights through mechanisms such as opt-in and/or opt-out, the use of 3-legged access tokens becomes mandatory. This measure ensures that the API remains in strict compliance with user privacy preferences and regulatory obligations, upholding the principles of transparency and user-centric data control.
+
+    # API functionality
+
+    The API defines one service endpoint:
+
+    - `POST /ageverify`
+
+      Takes the network subscription identifier (e.g. the mobile phone number for a mobile network subscriber) and checks if the age of the subscriber is older than the age threshold in the request.
+      Additionally, as optional function, provides (1) if age check is done against another form of official identification or not (verifiedStatus), (2) an overall score of how certain is the response using both information provided in the request and information that the Operator holds(identityMatchScore), (3) an indicator on whether the subscription has any kind of content lock (contentLock) and (4) an indicator on whether the subscription has any kind of parental control activated (parentalControl).
+
+
+    ## Inputs
+
+    The endpoint request body is a JSON object with the following parameters:
+    - `phoneNumber`: The network subscription identifier (i.e. the phone number of the subscriber). [Required only in case a 2-legged flow has been agreed between API Provider and API Consumer following CAMARA directives; otherwise, phoneNumber must not be included]
+    - `ageThreshold`: The date's threshold from which the age of the user must be compared. [Required]
+    - any of `idDocument`, `name`, `givenName`, `familyName`, `middleNames`, `familyNameAtBirth`, `birthdate`, `email`; additional subscriber's information to be checked in order to confirm that the subscriber is the contract's owner [Optional]
+
+
+    ## Outputs
+
+    If successful, a JSON object is returned containing the following data:
+    - `ageCheck`: Indicate 'true' when the age of the user is the same age or older than the age threshold (age >= age threshold), and 'false' if not (age < age threshold).  Otherwise, 'not_available'.
+    - `verifiedStatus`: true if the information provided was checked against another form of official identification, otherwise false.
+    - `identityMatchScore`: The overall score of identity information available in the Operator, information either provided in the request body comparing it to the one that the MNO holds or directly using internal MNO's information. It is optional for the Operator to return the Identity match score.
+    - `contentLock`: Indicates if the subscription associated with the phone number has any kind of content lock (i.e certain web content blocked).
+    - `parentalControl`: Indicates if the subscription associated with the phone number has any kind of parental control activated.
+    
+    ## Errors
+
+    - If the authentication token is not valid, a `401 UNAUTHENTICATED` error is returned
+    - If the API call contains a formatting or other any other syntactic error, a `400 INVALID_ARGUMENT` error is returned.
+    - If the network subscription cannot be identified from the provided parameters (e.g. the subscription identifier is not associated with any customer of the CSP), a `404 IDENTIFIER_NOT_FOUND` error is returned.
+    - If the API consumer has a valid access token but is not authorised to request an age verification for the specified network subscription, then a `403 PERMISSION_DENIED` error is returned.
+    - Other errors may be returned as specified below.
+
+    # Identifying the phone number from the access token
+
+    This API requires the API consumer to identify a phone number as the subject of the API as follows:
+    - When the API is invoked using a two-legged access token, the subject will be identified from the optional `phoneNumber` field, which therefore MUST be provided.
+    - When a three-legged access token is used however, this optional identifier MUST NOT be provided, as the subject will be uniquely identified from the access token.
+
+    This approach simplifies API usage for API consumers using a three-legged access token to invoke the API by relying on the information that is associated with the access token and was identified during the authentication process.
+
+    ## Error handling:
+
+    - If the subject cannot be identified from the access token and the optional `phoneNumber` field is not included in the request, then the server will return an error with the `422 MISSING_IDENTIFIER` error code.
+
+    - If the subject can be identified from the access token and the optional `phoneNumber` field is also included in the request, then the server will return an error with the `422 UNNECESSARY_IDENTIFIER` error code. This will be the case even if the same phone number is identified by these two methods, as the server is unable to make this comparison.
+
+    # Authorization and authentication
+
+    The "Camara Security and Interoperability Profile" provides details of how an API consumer requests an access token. Please refer to Identity and Consent Management (https://github.com/camaraproject/IdentityAndConsentManagement/) for the released version of the profile.
+
+    The specific authorization flows to be used will be agreed upon during the onboarding process, happening between the provider of the application consuming the API and the operator's API exposure platform, taking into account the declared purpose for accessing the API, whilst also being subject to the prevailing legal framework dictated by local legislation.
+
+    In cases where personal data is processed by the API and users can exercise their rights through mechanisms such as opt-in and/or opt-out, the use of three-legged access tokens is mandatory. This ensures that the API remains in compliance with privacy regulations, upholding the principles of transparency and user-centric privacy-by-design.
+
+    # Further info and support
+
+    (FAQs will be added in a later version of the documentation)
+
+
+  version: wip
+  contact:
+    email: sp-kyc@lists.camaraproject.org
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+
+servers:
+  - url: "{apiRoot}/kyc-ageverify/vwip"
+    variables:
+      apiRoot:
+        default: http://localhost:9091
+        description: API root
+
+tags:
+  - name: Ageverify
+    description: Operations to verify the age of a user.
+
+paths:
+  /ageverify:
+    post:
+      tags:
+        - Ageverify
+      summary: Verify Age Threshold
+      description: |
+        Verify that the age of the subscriber associated with a phone number is equal to or greater than the specified age threshold value.
+
+        As it is possible that the person holding the contract and the person using the line may not be the same, the endpoint also admits a list of optional properties to be included in the request to improve the identification. The response may optionally include the `identityMatchScore` property with a value that indicates how certain it is that the information returned relates to the person that the API Client is requesting. To increase the reliability of the information returned, the operator may include in the response the `verifiedStatus` property, indicating whether the identity information in its possession has been verified against an official source.
+
+        The response may also include `contentLock` and `parentalControl` properties to indicate if the line has any kind of content filtering enabled.
+      operationId: KYC_AgeVerify
+      security:
+        - openId:
+          - kyc-ageverify:ageverify
+      parameters:
+        - $ref: '#/components/parameters/x-correlator'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/KYC_RequestBody'
+            examples:
+              RequestExample:
+                value:
+                  ageThreshold: 18
+                  phoneNumber: '+34629255833' # Note: Only required in case a 2-legged flow has been agreed between API Provider and API Consumer; otherwise, do not include phoneNumber
+                  idDocument: 66666666q
+                  name: Federica Sanchez Arjona
+                  givenName: Federica
+                  familyName: Sanchez Arjona
+                  middleNames: Sanchez
+                  familyNameAtBirth: YYYY
+                  birthdate: '1978-08-22'                     
+                  email: "federicaSanchez.Arjona@gmail.com" 
+
+      responses:
+        '200':
+          description: OK
+          headers:
+            x-correlator:
+              $ref: '#/components/headers/x-correlator'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/KYC_ResponseBody'
+              examples:
+                KYC_200Example:
+                  value:
+                    ageCheck: true
+                    verifiedStatus: true
+                    identityMatchScore: 90
+                    contentLock: false
+                    parentalControl: true
+        "400":
+          $ref: '#/components/responses/Generic400'
+        "401":
+          $ref: '#/components/responses/Generic401'
+        "403":
+          $ref: '#/components/responses/Generic403'
+        "404":
+          $ref: '#/components/responses/Generic404'
+        "415":
+          $ref: '#/components/responses/Generic415'
+        "422":
+          $ref: '#/components/responses/Generic422'
+        "429":
+          $ref: '#/components/responses/Generic429'
+        "500":
+          $ref: '#/components/responses/Generic500'
+        "503":
+          $ref: '#/components/responses/Generic503'
+        "504":
+          $ref: '#/components/responses/Generic504'
+
+components:
+  securitySchemes:
+    openId:
+      type: openIdConnect
+      openIdConnectUrl: https://example.com/.well-known/openid-configuration
+
+  headers:
+    x-correlator:
+      description: Correlation id for the different services
+      schema:
+        type: "string"
+
+  parameters:
+    x-correlator:
+      name: x-correlator
+      in: header
+      description: Correlation id for the different services
+      schema:
+        type: "string"
+        
+  schemas:
+    KYC_RequestBody:
+      description: "Requested information to be compare with customer personal information"
+      type: "object"
+      required:
+        - ageThreshold
+      properties:
+        ageThreshold:
+          type: "integer"
+          minimum: 0
+          maximum: 120
+          description: The age to be verified. The indicated range is a global definition of maximum and minimum values allowed to be requested. It is important to note that this range might be more restrictive in some implementations due to local regulations of a country i.e. A country does not allow to request for an age under 18. This limitation must be informed during the onboarding process.
+        phoneNumber:
+          description: A public identifier addressing a telephone subscription. In mobile networks it corresponds to the MSISDN (Mobile Station International Subscriber Directory Number). In order to be globally unique it has to be formatted in international format, according to E.164 standard, prefixed with '+'.
+          type: string
+          pattern: '^\+[1-9][0-9]{4,14}$'
+          example: "+123456789"
+        idDocument:
+          type: "string"
+          description: Id number associated to the official identity document in the country. It may contain alphanumeric characters.
+        name:
+          type: "string"
+          description: Complete name of the customer, usually composed of first/given name and last/family/sur- name in a country.  Depending on the country, the order of first/give name and last/family/sur- name varies, and middle name could be included.  It can use givenName, middleNames, familyName and/or familyNameAtBirth. For example, in ESP, name+familyName; in NLD, it can be name+middleNames+familyName or name+middleNames+familyNameAtBirth, etc.
+        givenName:
+          type: "string"
+          description: First/given name or compound first/given name of the customer.
+        familyName:
+          type: "string"
+          description: Last name, family name, or surname of the customer.
+        middleNames:
+          type: "string"
+          description: Middle name/s of the customer.
+        familyNameAtBirth:
+          type: "string"
+          description: Last/family/sur- name at birth of the customer.
+        birthdate:
+          type: string
+          format: date
+          description: The birthdate of the customer, in ISO 8601 calendar date format (YYYY-MM-DD).
+        email:
+          type: string
+          format: email
+          description: Email address of the customer in the RFC specified format (local-part@domain).
+
+
+    KYC_ResponseBody:
+      type: "object"
+      required:
+        - ageCheck
+      properties:
+        ageCheck:
+          $ref: "#/components/schemas/AgeCheck"
+        verifiedStatus:
+          $ref: "#/components/schemas/VerifiedStatus"
+        identityMatchScore:
+          $ref: "#/components/schemas/IdentityMatchScore"
+        contentLock:
+          $ref: "#/components/schemas/ContentLock"
+        parentalControl:
+          $ref: "#/components/schemas/ParentalControl"
+
+    AgeCheck:
+      type: "string"
+      description: Indicate `"true"` when the age of the user is the same age or older than the age threshold (age >= age threshold), and `"false"` if not (age < age threshold). If the Operator doesn't have enough information to perform the validation, a `not_available` can be returned. 
+      enum:
+        - 'true'
+        - 'false'
+        - 'not_available'
+
+    VerifiedStatus:
+      type: "boolean"
+      description: Indicates if the information provided was checked against another form of official identification held by the Operator.
+
+    IdentityMatchScore:
+      type: "integer"
+      minimum: 0
+      maximum: 100
+      description: The overall score of identity information available in the Operator, information either provided in the request body comparing it to the one that the Operator holds or directly using internal Operator's information. It is optional for the Operator to return the Identity match score.
+
+    ContentLock:
+      type: "boolean"
+      description: Indicates if the subscription associated with the phone number has any kind of content lock (i.e certain web content blocked).
+    
+    ParentalControl:
+      type: "boolean"
+      description: Indicates if the subscription associated with the phone number has any kind of parental control activated.
+
+    ErrorInfo:
+      type: "object"
+      required:
+        - status
+        - code
+        - message
+      properties:
+        status:
+          type: "integer"
+          description: HTTP response status code
+        code:
+          type: "string"
+          description: Code given to this error
+        message:
+          type: "string"
+          description: Detailed error description
+
+  responses:
+    Generic400:
+      description: Bad Request
+      headers:
+        x-correlator:
+          $ref: "#/components/headers/x-correlator"
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: "#/components/schemas/ErrorInfo"
+              - type: object
+                properties:
+                  status:
+                    enum:
+                      - 400
+                  code:
+                    enum:
+                      - INVALID_ARGUMENT
+                      - OUT_OF_RANGE
+          examples:
+            GENERIC_400_INVALID_ARGUMENT:
+              description: Invalid Argument. Generic Syntax Exception
+              value:
+                status: 400
+                code: INVALID_ARGUMENT
+                message: Client specified an invalid argument, request body or query param.
+            GENERIC_400_OUT_OF_RANGE:
+              description: Out of Range. Specific Syntax Exception used when a given field has a pre-defined range or a invalid filter criteria combination is requested
+              value:
+                status: 400
+                code: OUT_OF_RANGE
+                message: Client specified an invalid range.
+
+    Generic401:
+      description: Unauthorized
+      headers:
+        x-correlator:
+          $ref: "#/components/headers/x-correlator"
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: "#/components/schemas/ErrorInfo"
+              - type: object
+                properties:
+                  status:
+                    enum:
+                      - 401
+                  code:
+                    enum:
+                      - UNAUTHENTICATED
+                      - AUTHENTICATION_REQUIRED
+          examples:
+            GENERIC_401_UNAUTHENTICATED:
+              description: Request cannot be authenticated
+              value:
+                status: 401
+                code: UNAUTHENTICATED
+                message: Request not authenticated due to missing, invalid, or expired credentials.
+            GENERIC_401_AUTHENTICATION_REQUIRED:
+              description: New authentication is needed, authentication is no longer valid
+              value:
+                status: 401
+                code: AUTHENTICATION_REQUIRED
+                message: New authentication is required.
+
+    Generic403:
+      description: Forbidden
+      headers:
+        x-correlator:
+          $ref: "#/components/headers/x-correlator"
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: "#/components/schemas/ErrorInfo"
+              - type: object
+                properties:
+                  status:
+                    enum:
+                      - 403
+                  code:
+                    enum:
+                      - PERMISSION_DENIED
+          examples:
+            GENERIC_403_PERMISSION_DENIED:
+              description: Permission denied. OAuth2 token access does not have the required scope or when the user fails operational security
+              value:
+                status: 403
+                code: PERMISSION_DENIED
+                message: Client does not have sufficient permissions to perform this action.
+
+    Generic404:
+      description: Not found
+      headers:
+        x-correlator:
+          $ref: "#/components/headers/x-correlator"
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: "#/components/schemas/ErrorInfo"
+              - type: object
+                properties:
+                  status:
+                    enum:
+                      - 404
+                  code:
+                    enum:
+                      - IDENTIFIER_NOT_FOUND
+          examples:
+            GENERIC_404_IDENTIFIER_NOT_FOUND:
+              description: The phone number is not associated with a CSP customer account
+              value:
+                status: 404
+                code: IDENTIFIER_NOT_FOUND
+                message: The phone number provided is not associated with a customer account
+                
+    Generic415:
+      description: Unsupported Media Type
+      headers:
+        x-correlator:
+          $ref: '#/components/headers/x-correlator'
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: "#/components/schemas/ErrorInfo"
+              - type: object
+                properties:
+                  status:
+                    enum:
+                      - 415
+                  code:
+                    enum:
+                      - UNSUPPORTED_MEDIA_TYPE
+          examples:
+            GENERIC_415_UNSUPPORTED_MEDIA_TYPE:
+              description: Payload format of the request is in an unsupported format by the Server. Should not happen
+              value:
+                status: 415
+                code: UNSUPPORTED_MEDIA_TYPE
+                message: The server refuses to accept the request because the payload format is in an unsupported format.
+
+    Generic422:
+      description: Unprocessable Content
+      headers:
+        x-correlator:
+          $ref: "#/components/headers/x-correlator"
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: "#/components/schemas/ErrorInfo"
+              - type: object
+                properties:
+                  status:
+                    enum:
+                      - 422
+                  code:
+                    enum:
+                      - SERVICE_NOT_APPLICABLE
+                      - MISSING_IDENTIFIER
+                      - UNNECESSARY_IDENTIFIER
+          examples:
+            GENERIC_422_SERVICE_NOT_APPLICABLE:
+              description: Service is not applicable for the provided phone number
+              value:
+                status: 422
+                code: SERVICE_NOT_APPLICABLE
+                message: The service is not applicable for the provided phone number
+            GENERIC_422_MISSING_IDENTIFIER:
+              description: No phone number has been provided either explicitly or associated with the access token
+              value:
+                status: 422
+                code: MISSING_IDENTIFIER
+                message: No phone number has been provided
+            GENERIC_422_UNNECESSARY_IDENTIFIER:
+              description: An explicit phone number has been provided when one is already associated with the access token
+              value:
+                status: 422
+                code: UNNECESSARY_IDENTIFIER
+                message: An explicit phone number has been provided when one is already associated with the access token
+
+    Generic429:
+      description: Too Many Requests
+      headers:
+        x-correlator:
+          $ref: "#/components/headers/x-correlator"
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: "#/components/schemas/ErrorInfo"
+              - type: object
+                properties:
+                  status:
+                    enum:
+                      - 429
+                  code:
+                    enum:
+                      - QUOTA_EXCEEDED
+                      - TOO_MANY_REQUESTS
+          examples:
+            GENERIC_429_QUOTA_EXCEEDED:
+              description: Request is rejected due to exceeding a business quota limit
+              value:
+                status: 429
+                code: QUOTA_EXCEEDED
+                message: Either out of resource quota or reaching rate limiting.
+            GENERIC_429_TOO_MANY_REQUESTS:
+              description: API Server request limit is overpassed
+              value:
+                status: 429
+                code: TOO_MANY_REQUESTS
+                message: Either out of resource quota or reaching rate limiting.
+
+
+    Generic500:
+      description: Internal Server Error
+      headers:
+        x-correlator:
+          $ref: "#/components/headers/x-correlator"
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: "#/components/schemas/ErrorInfo"
+              - type: object
+                properties:
+                  status:
+                    enum:
+                      - 500
+                  code:
+                    enum:
+                      - INTERNAL
+          examples:
+            GENERIC_500_INTERNAL:
+              description: Problem in Server side. Regular Server Exception
+              value:
+                status: 500
+                code: INTERNAL
+                message: Unknown server error. Typically a server bug.
+
+    Generic503:
+      description: Service Unavailable
+      headers:
+        x-correlator:
+          $ref: "#/components/headers/x-correlator"
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: "#/components/schemas/ErrorInfo"
+              - type: object
+                properties:
+                  status:
+                    enum:
+                      - 503
+                  code:
+                    enum:
+                      - SERVICE_UNAVAILABLE
+          examples:
+            GENERIC_503_UNAVAILABLE:
+              description: Service is not available. Temporary situation usually related to maintenance process in the server side
+              value:
+                status: 503
+                code: SERVICE_UNAVAILABLE
+                message: Service Unavailable.
+
+    Generic504:
+      description: Gateway Timeout
+      headers:
+        x-correlator:
+          $ref: "#/components/headers/x-correlator"
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: "#/components/schemas/ErrorInfo"
+              - type: object
+                properties:
+                  status:
+                    enum:
+                      - 504
+                  code:
+                    enum:
+                      - TIMEOUT
+          examples:
+            GENERIC_504_TIMEOUT:
+              description: API Server Timeout
+              value:
+                status: 504
+                code: TIMEOUT
+                message: Request timeout exceeded.
