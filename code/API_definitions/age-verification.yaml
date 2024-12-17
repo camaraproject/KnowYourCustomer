@@ -112,7 +112,7 @@ paths:
             schema:
               $ref: '#/components/schemas/KYC_RequestBody'
             examples:
-              RequestExample:
+              Two-Legged Access Token Example:
                 value:
                   ageThreshold: 18
                   phoneNumber: '+34629255833' # Note: Only required in case a 2-legged flow has been agreed between API Provider and API Consumer; otherwise, do not include phoneNumber
@@ -122,8 +122,19 @@ paths:
                   familyName: Sanchez Arjona
                   middleNames: Sanchez
                   familyNameAtBirth: YYYY
-                  birthdate: '1978-08-22'                     
-                  email: "federicaSanchez.Arjona@gmail.com" 
+                  birthdate: '1978-08-22'
+                  email: "federicaSanchez.Arjona@gmail.com"
+              Three-Legged Access Token Example:
+                value:
+                  ageThreshold: 18
+                  idDocument: 66666666q
+                  name: Federica Sanchez Arjona
+                  givenName: Federica
+                  familyName: Sanchez Arjona
+                  middleNames: Sanchez
+                  familyNameAtBirth: YYYY
+                  birthdate: '1978-08-22'
+                  email: "federicaSanchez.Arjona@gmail.com"
 
       responses:
         '200':
