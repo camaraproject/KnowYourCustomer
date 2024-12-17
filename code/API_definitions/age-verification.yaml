@@ -49,7 +49,8 @@ info:
 
     If the network subscription cannot be identified from the provided parameters (e.g. the subscription identifier is not associated with any customer of the CSP), a `404 IDENTIFIER_NOT_FOUND` error is returned.
 
-    If the API consumer has a valid access token but is not authorised to obtain tenure information for the specified network subscription, then a `403 PERMISSION_DENIED` error is returned.
+    If the API consumer has a valid access token but is not authorised to request an age verification for the specified network subscription, then a `403 PERMISSION_DENIED` error is returned.
+
 
     Other errors may be returned as specified below.
 
