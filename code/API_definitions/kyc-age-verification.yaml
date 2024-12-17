@@ -110,7 +110,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/KYC_RequestBody'
+              $ref: '#/components/schemas/VerifyRequestBody'
             examples:
               Two-Legged Access Token Example:
                 value:
@@ -145,11 +145,11 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/KYC_ResponseBody'
+                $ref: '#/components/schemas/VerifyResponseBody'
               examples:
                 KYC_200Example:
                   value:
-                    ageCheck: true
+                    ageCheck: "true"
                     verifiedStatus: true
                     identityMatchScore: 90
                     contentLock: false
@@ -196,9 +196,9 @@ components:
         type: "string"
         
   schemas:
-    KYC_RequestBody:
-      description: "Requested information to be compare with customer personal information"
+    VerifyRequestBody:
       type: "object"
+      description: Request to verify the age threshold provided.
       required:
         - ageThreshold
       properties:
@@ -240,8 +240,9 @@ components:
           description: Email address of the customer in the RFC specified format (local-part@domain).
 
 
-    KYC_ResponseBody:
+    VerifyResponseBody:
       type: "object"
+      description: Response to an age verification request
       required:
         - ageCheck
       properties:
