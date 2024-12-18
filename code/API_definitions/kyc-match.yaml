@@ -39,24 +39,38 @@ info:
 
     * An endpoint to verify the matching of a number of attributes related to a mobile phone user identity against the account data bound to their phone number.
 
-    ## Authorization and authentication
+    # Identifying the phoneNumber from the access token
 
-    The "Camara Security and Interoperability Profile" provides details on how a client requests an access token. Please refer to Identify and Consent Management (https://github.com/camaraproject/IdentityAndConsentManagement/) for the released version of the Profile.
+    This API requires the API consumer to identify a phoneNumber as the subject of the API as follows:
+    - When the API is invoked using a two-legged access token, the subject will be identified from the optional phoneNumber field, which therefore MUST be provided.
+    - When a three-legged access token is used however, this optional identifier MUST NOT be provided, as the subject will be uniquely identified from the access token.
 
-    Which specific authorization flows are to be used will be determined during onboarding process, happening between the API Client and the Telco Operator exposing the API, taking into account the declared purpose for accessing the API, while also being subject to the prevailing legal framework dictated by local legislation.
+    This approach simplifies API usage for API consumers using a three-legged access token to invoke the API by relying on the information that is associated with the access token and was identified during the authentication process.
 
-    It is important to remark that in cases where personal user data is processed by the API, and users can exercise their rights through mechanisms such as opt-in and/or opt-out, the use of 3-legged access tokens becomes mandatory. This measure ensures that the API remains in strict compliance with user privacy preferences and regulatory obligations, upholding the principles of transparency and user-centric data control.
+    ## Error handling:
+
+    - If the subject cannot be identified from the access token and the optional phoneNumber field is not included in the request, then the server will return an error with the `422 MISSING_IDENTIFIER` error code.
+
+    - If the subject can be identified from the access token and the optional phoneNumber field is also included in the request, then the server will return an error with the `422 UNNECESSARY_IDENTIFIER` error code. This will be the case even if the same phoneNumber is identified by these two methods, as the server is unable to make this comparison.
+
+    # Authorization and authentication
+
+    The "Camara Security and Interoperability Profile" provides details of how an API consumer requests an access token. Please refer to Identity and Consent Management (https://github.com/camaraproject/IdentityAndConsentManagement/) for the released version of the profile.
+
+    The specific authorization flows to be used will be agreed upon during the onboarding process, happening between the provider of the application consuming the API and the operator's API exposure platform, taking into account the declared purpose for accessing the API, whilst also being subject to the prevailing legal framework dictated by local legislation.
+
+    In cases where personal data is processed by the API and users can exercise their rights through mechanisms such as opt-in and/or opt-out, the use of three-legged access tokens is mandatory. This ensures that the API remains in compliance with privacy regulations, upholding the principles of transparency and user-centric privacy-by-design.
 
 
   license:
     name: Apache 2.0
     url: https://www.apache.org/licenses/LICENSE-2.0.html
-  version: 0.2.1
+  version: wip
 
   x-camara-commonalities: 0.4.0
 
 servers:
-  - url: '{apiRoot}/kyc-match/v0.2'
+  - url: '{apiRoot}/kyc-match/vwip'
     variables:
       apiRoot:
         default: http://localhost:9091
@@ -78,7 +92,6 @@ paths:
         In order to proceed with the match check, some Operators may have the requirement to perform an additional level of validation based on the `idDocument` property. This means that, in those cases, the `idDocument` is required and the provided value needs to match the one stored in the Operator system associated with the indicated `phoneNumber`. This validation will be done before proceeding with the match check of the rest of the properties. The following two rules apply only in the cases where the Operator have the requirement to validate the `idDocument`:
         - If no `idDocument` is provided, then a `HTTP 403 - KNOW_YOUR_CUSTOMER.ID_DOCUMENT_REQUIRED` error will be returned.
         - If the provided `idDocument` does not match the one stored in the Operator systems, then a `HTTP 403 - KNOW_YOUR_CUSTOMER.ID_DOCUMENT_MISMATCH` error will be returned.
-        - There is a corner case where the Operator requires the `idDocument` to perform the match validation for the rest of the properties, but it also needs to be able to perform the validation only for the `idDocument` itself. In this case, if only the `idDocument` is provided along with the phoneNumber (either in the request body or extracted from the access token) then the match will be performed as with any other attribute and the response will contain the result of the match operation.
 
         The API will return the result of the matching process for each requested attribute. This means that the response will **only** contain the attributes for which validation has been requested. Possible values are:
           - **true**: the attribute provided matches with the one in the Operator systems.
@@ -102,7 +115,7 @@ paths:
             schema:
               $ref: '#/components/schemas/KYC_MatchRequestBody'
             examples:
-              KYC_MatchRequestBodyExample:
+              Two-Legged Access Token Example:
                 value:
                   phoneNumber: '+34629255833'
                   idDocument: 66666666q
@@ -123,7 +136,28 @@ paths:
                   houseNumberExtension: VVVV
                   birthdate: '1978-08-22'
                   email: abc@example.com
-                  gender: MALE
+                  gender: OTHER
+              Three-Legged Access Token Example:
+                value:
+                  idDocument: 66666666q
+                  name: Federica Sanchez Arjona
+                  givenName: Federica
+                  familyName: Sanchez Arjona
+                  nameKanaHankaku: federica
+                  nameKanaZenkaku: Ｆｅｄｅｒｉｃａ
+                  middleNames: Sanchez
+                  familyNameAtBirth: YYYY
+                  address: Tokyo-to Chiyoda-ku Iidabashi 3-10-10
+                  streetName: Nicolas Salmeron
+                  streetNumber: '4'
+                  postalCode: '1028460'
+                  region: Tokyo
+                  locality: ZZZZ
+                  country: JP
+                  houseNumberExtension: VVVV
+                  birthdate: '1978-08-22'
+                  email: abc@example.com
+                  gender: OTHER
 
       responses:
         '200':
@@ -282,10 +316,12 @@ components:
 
         birthdate:
           type: string
-          description: The birthdate of the customer, in ISO 8601 calendar date format (YYYY-MM-DD).
+          format: date
+          description: The birthdate of the customer, in RFC 3339 / ISO 8601 calendar date format (YYYY-MM-DD).
 
         email:
           type: string
+          format: email
           description: Email address of the customer in the RFC specified format (local-part@domain).
 
         gender:
@@ -434,153 +470,290 @@ components:
 
   responses:
     Generic400:
-      description: |-
-        Problem with the client request.
-        In addition to regular scenario of `INVALID_ARGUMENT`, another scenario may exist.
-
-        - Indicated param combination is invalid (`"code": "KNOW_YOUR_CUSTOMER.INVALID_PARAM_COMBINATION","message": "Indicated parameter combination is invalid"`)
+      description: Bad Request
       headers:
         x-correlator:
-          $ref: '#/components/headers/x-correlator'
+          $ref: "#/components/headers/x-correlator"
       content:
-
         application/json:
-
           schema:
-            $ref: '#/components/schemas/ErrorInfo'
+            allOf:
+              - $ref: "#/components/schemas/ErrorInfo"
+              - type: object
+                properties:
+                  status:
+                    enum:
+                      - 400
+                  code:
+                    enum:
+                      - INVALID_ARGUMENT
+                      - KNOW_YOUR_CUSTOMER.INVALID_PARAM_COMBINATION
           examples:
-            InvalidArgument:
+            GENERIC_400_INVALID_ARGUMENT:
+              description: Invalid Argument. Generic Syntax Exception
               value:
                 status: 400
                 code: INVALID_ARGUMENT
-                message: Client specified an invalid argument, request body or query param
-            InvalidParamCombination:
+                message: Client specified an invalid argument, request body or query param.
+            KNOW_YOUR_CUSTOMER.INVALID_PARAM_COMBINATION:
+              description: Indicated param combination is invalid
               value:
                 status: 400
                 code: KNOW_YOUR_CUSTOMER.INVALID_PARAM_COMBINATION
                 message: Indicated parameter combination is invalid
 
     Generic401:
-      description: Authentication problem with the client request. Unauthorized error.  Access Token related errors.
+      description: Unauthorized
       headers:
         x-correlator:
-          $ref: '#/components/headers/x-correlator'
+          $ref: "#/components/headers/x-correlator"
       content:
         application/json:
-
           schema:
-            $ref: '#/components/schemas/ErrorInfo'
+            allOf:
+              - $ref: "#/components/schemas/ErrorInfo"
+              - type: object
+                properties:
+                  status:
+                    enum:
+                      - 401
+                  code:
+                    enum:
+                      - UNAUTHENTICATED
+                      - AUTHENTICATION_REQUIRED
           examples:
-            Unauthenticated:
+            GENERIC_401_UNAUTHENTICATED:
+              description: Request cannot be authenticated
               value:
                 status: 401
                 code: UNAUTHENTICATED
-                message: Request not authenticated due to missing, invalid, or expired credentials
+                message: Request not authenticated due to missing, invalid, or expired credentials.
+            GENERIC_401_AUTHENTICATION_REQUIRED:
+              description: New authentication is needed, authentication is no longer valid
+              value:
+                status: 401
+                code: AUTHENTICATION_REQUIRED
+                message: New authentication is required.
 
     Generic403:
-      description: |
-        Client does not have sufficient permission.
-        In addition to regular scenario of `PERMISSION_DENIED`, another scenarios may exist:
-      
-        - Phone number cannot be deducted from access token context.(`{"code": "INVALID_TOKEN_CONTEXT","message": "Phone number mismatch with access token context"}`)
-        - The idDocument property is missing.(`{"code": "KNOW_YOUR_CUSTOMER.ID_DOCUMENT_REQUIRED","message": "The idDocument is required to perform the properties validation"}`)
-        - The idDocument does not match the one associated to the provided phoneNumber in the Operator's system.(`{"code": "KNOW_YOUR_CUSTOMER.ID_DOCUMENT_MISMATCH","message": "The idDocument needs to match the one associated with the provided phoneNumber"}`)
+      description: Forbidden
       headers:
         x-correlator:
-          $ref: '#/components/headers/x-correlator'
+          $ref: "#/components/headers/x-correlator"
       content:
-
         application/json:
-
           schema:
-            $ref: '#/components/schemas/ErrorInfo'
+            allOf:
+              - $ref: "#/components/schemas/ErrorInfo"
+              - type: object
+                properties:
+                  status:
+                    enum:
+                      - 403
+                  code:
+                    enum:
+                      - PERMISSION_DENIED
+                      - KNOW_YOUR_CUSTOMER.ID_DOCUMENT_REQUIRED
+                      - KNOW_YOUR_CUSTOMER.ID_DOCUMENT_MISMATCH
           examples:
-            PermissionDenied:
+            GENERIC_403_PERMISSION_DENIED:
+              description: Permission denied. OAuth2 token access does not have the required scope or when the user fails operational security
               value:
                 status: 403
                 code: PERMISSION_DENIED
-                message: Client does not have sufficient permissions to perform this action
-            InvalidTokenContext:
-              value:
-                status: 403
-                code: INVALID_TOKEN_CONTEXT
-                message: Phone number mismatch with access token context
-            IdDocumentRequired:
+                message: Client does not have sufficient permissions to perform this action.
+            KNOW_YOUR_CUSTOMER.ID_DOCUMENT_REQUIRED:
+              description: The idDocument is required by the implementation
               value:
                 status: 403
                 code: KNOW_YOUR_CUSTOMER.ID_DOCUMENT_REQUIRED
                 message: The idDocument is required to perform the properties validation
-            IdDocumentMismatch:
+            KNOW_YOUR_CUSTOMER.ID_DOCUMENT_MISMATCH:
+              description: idDocument mismatch
               value:
                 status: 403
                 code: KNOW_YOUR_CUSTOMER.ID_DOCUMENT_MISMATCH
                 message: The idDocument needs to match the one associated with the provided phoneNumber
 
     Generic404:
-      description: |
-        Not Found error. Error if URL is wrong / user is not found.
+      description: Not found
       headers:
         x-correlator:
-          $ref: '#/components/headers/x-correlator'
+          $ref: "#/components/headers/x-correlator"
       content:
         application/json:
-
           schema:
-            $ref: '#/components/schemas/ErrorInfo'
+            allOf:
+              - $ref: "#/components/schemas/ErrorInfo"
+              - type: object
+                properties:
+                  status:
+                    enum:
+                      - 404
+                  code:
+                    enum:
+                      - NOT_FOUND
+                      - IDENTIFIER_NOT_FOUND
           examples:
-            NotFound:
+            GENERIC_404_NOT_FOUND:
+              description: Resource is not found
               value:
                 status: 404
-
                 code: NOT_FOUND
-                message: not_found_contractor/not_found
+            GENERIC_404_IDENTIFIER_NOT_FOUND:
+              description: The phone number is not associated with a CSP customer account
+              value:
+                status: 404
+                code: IDENTIFIER_NOT_FOUND
+                message: The phone number provided is not associated with a customer account
 
-    Generic500:
-      description: Server error.  Problem with MNO's server side.  Some processing error within MNO's servers.
+    Generic422:
+      description: Unprocessable Content
       headers:
         x-correlator:
-          $ref: '#/components/headers/x-correlator'
+          $ref: "#/components/headers/x-correlator"
       content:
         application/json:
-
           schema:
-            $ref: '#/components/schemas/ErrorInfo'
+            allOf:
+              - $ref: "#/components/schemas/ErrorInfo"
+              - type: object
+                properties:
+                  status:
+                    enum:
+                      - 422
+                  code:
+                    enum:
+                      - SERVICE_NOT_APPLICABLE
+                      - MISSING_IDENTIFIER
+                      - UNNECESSARY_IDENTIFIER
           examples:
-            ServerError:
+            GENERIC_422_SERVICE_NOT_APPLICABLE:
+              description: Service is not applicable for the provided phone number
+              value:
+                status: 422
+                code: SERVICE_NOT_APPLICABLE
+                message: The service is not applicable for the provided phone number
+            GENERIC_422_MISSING_IDENTIFIER:
+              description: No phone number has been provided either explicitly or associated with the access token
+              value:
+                status: 422
+                code: MISSING_IDENTIFIER
+                message: No phone number has been provided
+            GENERIC_422_UNNECESSARY_IDENTIFIER:
+              description: An explicit phone number has been provided when one is already associated with the access token
+              value:
+                status: 422
+                code: UNNECESSARY_IDENTIFIER
+                message: An explicit phone number has been provided when one is already associated with the access token
+
+    Generic429:
+      description: Too Many Requests
+      headers:
+        x-correlator:
+          $ref: "#/components/headers/x-correlator"
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: "#/components/schemas/ErrorInfo"
+              - type: object
+                properties:
+                  status:
+                    enum:
+                      - 429
+                  code:
+                    enum:
+                      - QUOTA_EXCEEDED
+                      - TOO_MANY_REQUESTS
+          examples:
+            GENERIC_429_QUOTA_EXCEEDED:
+              description: Request is rejected due to exceeding a business quota limit
+              value:
+                status: 429
+                code: QUOTA_EXCEEDED
+                message: Either out of resource quota or reaching rate limiting.
+            GENERIC_429_TOO_MANY_REQUESTS:
+              description: API Server request limit is overpassed
+              value:
+                status: 429
+                code: TOO_MANY_REQUESTS
+                message: Either out of resource quota or reaching rate limiting.
+
+    Generic500:
+      description: Internal Server Error
+      headers:
+        x-correlator:
+          $ref: "#/components/headers/x-correlator"
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: "#/components/schemas/ErrorInfo"
+              - type: object
+                properties:
+                  status:
+                    enum:
+                      - 500
+                  code:
+                    enum:
+                      - INTERNAL
+          examples:
+            GENERIC_500_INTERNAL:
+              description: Problem in Server side. Regular Server Exception
               value:
                 status: 500
                 code: INTERNAL
-                message: Server error
+                message: Unknown server error. Typically a server bug.
 
     Generic503:
-      description: Service unavailable. Typically the server is down.  Problem with MNO's server side.  Any unexpected error within MNO's servers.
+      description: Service Unavailable
       headers:
         x-correlator:
-          $ref: '#/components/headers/x-correlator'
+          $ref: "#/components/headers/x-correlator"
       content:
         application/json:
-
           schema:
-            $ref: '#/components/schemas/ErrorInfo'
+            allOf:
+              - $ref: "#/components/schemas/ErrorInfo"
+              - type: object
+                properties:
+                  status:
+                    enum:
+                      - 503
+                  code:
+                    enum:
+                      - UNAVAILABLE
           examples:
-            ServiceUnavailable:
+            GENERIC_503_UNAVAILABLE:
+              description: Service is not available. Temporary situation usually related to maintenance process in the server side
               value:
                 status: 503
                 code: UNAVAILABLE
-                message: Service unavailable
+                message: Service Unavailable.
 
     Generic504:
-      description: Request time exceeded. If it happens repeatedly, consider reducing the request complexity
+      description: Gateway Timeout
       headers:
         x-correlator:
-          $ref: '#/components/headers/x-correlator'
+          $ref: "#/components/headers/x-correlator"
       content:
         application/json:
-
           schema:
-            $ref: '#/components/schemas/ErrorInfo'
-          example:
-            status: 504
-            code: TIMEOUT
-            message: Request timeout exceeded. Try later.
-
+            allOf:
+              - $ref: "#/components/schemas/ErrorInfo"
+              - type: object
+                properties:
+                  status:
+                    enum:
+                      - 504
+                  code:
+                    enum:
+                      - TIMEOUT
+          examples:
+            GENERIC_504_TIMEOUT:
+              description: API Server Timeout
+              value:
+                status: 504
+                code: TIMEOUT
+                message: Request timeout exceeded.
