@@ -84,6 +84,17 @@ paths:
       parameters:
         - $ref: '#/components/parameters/x-correlator'
 
+      requestBody:
+        content:
+          application/json:
+
+            schema:
+              $ref: '#/components/schemas/KYC_FillinRequest'
+            examples:
+              KYC_FillInBodyExample:
+                value:
+                  phoneNumber: '+34629255833'
+      
       responses:
         '200':
           description: OK
@@ -156,7 +167,15 @@ components:
         type: string
         
   schemas:
-
+    KYC_FillinRequest:
+      type: object
+      properties:
+        phoneNumber:
+          type: string
+          description: A public identifier addressing a telephone subscription. In mobile networks it corresponds to the MSISDN (Mobile Station International Subscriber Directory Number). In order to be globally unique it has to be formatted in international format, according to E.164 standard, prefixed with '+'.
+          pattern: '^\+[1-9][0-9]{4,14}$'
+          example: "+123456789"
+          
     KYC_FillinResponse:
       type: object
       properties:
