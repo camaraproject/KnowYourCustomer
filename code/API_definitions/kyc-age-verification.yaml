@@ -11,7 +11,7 @@ info:
 
     The API defines one service endpoint:
 
-    - `POST /verify`
+    - `POST /ageverify`
 
       Takes the network subscription identifier (e.g. the mobile phone number for a mobile network subscriber) and checks if the age of the subscriber is older than the age threshold in the request.
       Additionally, as optional function, provides (1) if age check is done against another form of official identification or not (verifiedStatus), (2) an overall score of how certain is the response using both information provided in the request and information that the Operator holds(identityMatchScore), (3) an indicator on whether the subscription has any kind of content lock (contentLock) and (4) an indicator on whether the subscription has any kind of parental control activated (parentalControl).
@@ -77,21 +77,21 @@ info:
     url: https://www.apache.org/licenses/LICENSE-2.0.html
 
 servers:
-  - url: "{apiRoot}/kyc-age-verification/vwip"
+  - url: "{apiRoot}/kyc-ageverify/vwip"
     variables:
       apiRoot:
         default: http://localhost:9091
         description: API root
 
 tags:
-  - name: Age Verification
+  - name: Age Verify
     description: Operations to verify the age of a user.
 
 paths:
   /verify:
     post:
       tags:
-        - Age Verification
+        - Age Verify
       summary: Verify Age Threshold
       description: |
         Verify that the age of the subscriber associated with a phone number is equal to or greater than the specified age threshold value.
@@ -102,7 +102,7 @@ paths:
       operationId: verifyAge
       security:
         - openId:
-          - kyc-age-verification:verify
+          - kyc-ageverify:ageverify
       parameters:
         - $ref: '#/components/parameters/x-correlator'
       requestBody:
