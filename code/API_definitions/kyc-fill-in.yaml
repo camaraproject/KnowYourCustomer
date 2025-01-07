@@ -33,6 +33,10 @@ info:
       * when calling this API, the client of a 3rd party / enterprise customer put its 3rd party identity (only) in the request body
       * then, API provider / MNO will provide information (attributes) which the 3rd party / enterprise customer is allowed to receive by the contract.
 
+    ### Special Scopes
+
+    This API uses the following special scope kyc-fill-in:set-all which means that the API provider returns an API response as if all these scopes were specified in the scope value in the request:
+    `kyc-fill-in:phoneNumber kyc-fill-in:idDocument kyc-fill-in:name kyc-fill-in:givenName kyc-fill-in:familyName kyc-fill-in:nameKanaHankaku kyc-fill-in:nameKanaZenkaku kyc-fill-in:middleNames kyc-fill-in:familyNameAtBirth kyc-fill-in:address kyc-fill-in:streetName kyc-fill-in:streetNumber kyc-fill-in:postalCode kyc-fill-in:region kyc-fill-in:locality kyc-fill-in:country kyc-fill-in:houseNumberExtension kyc-fill-in:birthdate kyc-fill-in:email kyc-fill-in:gender`
 
     ## Resources and Operations overview
 
