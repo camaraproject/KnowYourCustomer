@@ -79,6 +79,8 @@ paths:
 
       security:
         - openId:
+          - kyc-fill-in:all
+        - openId:
           - kyc-fill-in:phoneNumber
         - openId:
           - kyc-fill-in:idDocument
