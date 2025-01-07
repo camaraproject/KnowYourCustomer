@@ -79,7 +79,7 @@ paths:
 
       security:
         - openId:
-          - kyc-fill-in:all
+          - kyc-fill-in:set-all
         - openId:
           - kyc-fill-in:phoneNumber
         - openId:
