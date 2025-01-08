@@ -123,7 +123,7 @@ paths:
                   middleNames: Sanchez
                   familyNameAtBirth: YYYY
                   birthdate: '1978-08-22'
-                  email: "federicaSanchez.Arjona@gmail.com"
+                  email: "federicaSanchez.Arjona@example.com"
               Three-Legged Access Token Example:
                 value:
                   ageThreshold: 18
