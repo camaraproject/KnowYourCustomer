@@ -23,6 +23,7 @@ info:
     - `phoneNumber`: The network subscription identifier (i.e. the phone number of the subscriber). [Required only in case a 2-legged flow has been agreed between API Provider and API Consumer following CAMARA directives; otherwise, phoneNumber must not be included]
     - `ageThreshold`: The age threshold from which the age of the user must be compared. [Required]
     - any of `idDocument`, `name`, `givenName`, `familyName`, `middleNames`, `familyNameAtBirth`, `birthdate`, `email`; additional subscriber's information to be checked in order to confirm that the subscriber is the contract's owner [Optional]
+    - `contentLock` and `parentLock`: These two flags allow the API Client to indicate that the correspondent response properties should be returned. [Optional]
 
 
     ## Outputs
@@ -77,21 +78,21 @@ info:
     url: https://www.apache.org/licenses/LICENSE-2.0.html
 
 servers:
-  - url: "{apiRoot}/kyc-ageverify/vwip"
+  - url: "{apiRoot}/kyc-age-verification/vwip"
     variables:
       apiRoot:
         default: http://localhost:9091
         description: API root
 
 tags:
-  - name: Age Verify
+  - name: Age Verification
     description: Operations to verify the age of a user.
 
 paths:
   /verify:
     post:
       tags:
-        - Age Verify
+        - Age Verification
       summary: Verify Age Threshold
       description: |
         Verify that the age of the subscriber associated with a phone number is equal to or greater than the specified age threshold value.
@@ -102,7 +103,7 @@ paths:
       operationId: verifyAge
       security:
         - openId:
-          - kyc-ageverify:ageverify
+          - kyc-age-verification:verify
       parameters:
         - $ref: '#/components/parameters/x-correlator'
       requestBody:
@@ -124,6 +125,8 @@ paths:
                   familyNameAtBirth: YYYY
                   birthdate: '1978-08-22'
                   email: "federicaSanchez.Arjona@example.com"
+                  contentLock: true
+                  parentalControl: true
               Three-Legged Access Token Example:
                 value:
                   ageThreshold: 18
@@ -135,6 +138,8 @@ paths:
                   familyNameAtBirth: YYYY
                   birthdate: '1978-08-22'
                   email: "federicaSanchez.Arjona@gmail.com"
+                  contentLock: true
+                  parentalControl: true
 
       responses:
         '200':
@@ -152,8 +157,8 @@ paths:
                     ageCheck: "true"
                     verifiedStatus: true
                     identityMatchScore: 90
-                    contentLock: false
-                    parentalControl: true
+                    contentLock: "false"
+                    parentalControl: "true"
         "400":
           $ref: '#/components/responses/Generic400'
         "401":
@@ -238,6 +243,14 @@ components:
           type: string
           format: email
           description: Email address of the customer in the RFC specified format (local-part@domain).
+        contentLock:
+          type: boolean
+          default: false
+          description: If this parameter is included in the request with value `true`, the response property `contentLock` will be returned. If it is not included or its value is `false`, the response property will not be returned.
+        parentalControl:
+          type: boolean
+          default: false
+          description: If this parameter is included in the request with value `true`, the response property `parentalControl` will be returned. If it is not included or its value is `false`, the response property will not be returned.
 
 
     VerifyResponseBody:
@@ -276,12 +289,20 @@ components:
       description: The overall score of identity information available in the Operator, information either provided in the request body comparing it to the one that the Operator holds or directly using internal Operator's information. It is optional for the Operator to return the Identity match score.
 
     ContentLock:
-      type: "boolean"
-      description: Indicates if the subscription associated with the phone number has any kind of content lock (i.e certain web content blocked).
+      type: "string"
+      description: Indicate `"true"` if the subscription associated with the phone number has any kind of content lock (i.e certain web content blocked) and `"false"` if not. If the information is not available the value `not_available` can be returned.
+      enum:
+        - 'true'
+        - 'false'
+        - 'not_available'
     
     ParentalControl:
-      type: "boolean"
-      description: Indicates if the subscription associated with the phone number has any kind of parental control activated.
+      type: "string"
+      description: Indicate `"true"` if the subscription associated with the phone number has any kind of parental control activated. and `"false"` if not. If the information is not available the value `not_available` can be returned.
+      enum:
+        - 'true'
+        - 'false'
+        - 'not_available'
 
     ErrorInfo:
       type: "object"
