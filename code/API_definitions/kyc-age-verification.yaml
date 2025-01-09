@@ -23,7 +23,7 @@ info:
     - `phoneNumber`: The network subscription identifier (i.e. the phone number of the subscriber). [Required only in case a 2-legged flow has been agreed between API Provider and API Consumer following CAMARA directives; otherwise, phoneNumber must not be included]
     - `ageThreshold`: The age threshold from which the age of the user must be compared. [Required]
     - any of `idDocument`, `name`, `givenName`, `familyName`, `middleNames`, `familyNameAtBirth`, `birthdate`, `email`; additional subscriber's information to be checked in order to confirm that the subscriber is the contract's owner [Optional]
-    - `contentLock` and `parentLock`: These two flags allow the API Client to indicate that the correspondent response properties should be returned. [Optional]
+    - `contentLock` and `parentLock`: These two flags allow the API Client to indicate that the corresponding response properties should be returned. [Optional]
 
 
     ## Outputs
