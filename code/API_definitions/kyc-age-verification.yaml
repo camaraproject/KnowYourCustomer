@@ -69,8 +69,8 @@ info:
 
     (FAQs will be added in a later version of the documentation)
 
-
-  version: wip
+  version: 0.1.0-rc.1
+  x-camara-commonalities: 0.4.0
   contact:
     email: sp-kyc@lists.camaraproject.org
   license:
@@ -78,7 +78,7 @@ info:
     url: https://www.apache.org/licenses/LICENSE-2.0.html
 
 servers:
-  - url: "{apiRoot}/kyc-age-verification/vwip"
+  - url: "{apiRoot}/kyc-age-verification/0.1rc1"
     variables:
       apiRoot:
         default: http://localhost:9091
