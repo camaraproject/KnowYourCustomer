@@ -93,7 +93,8 @@ paths:
             examples:
               KYC_FillInBodyExample:
                 value:
-                  phoneNumber: '+34629255833'
+                  { "phoneNumber": "+34629255833" }
+
       
       responses:
         '200':
