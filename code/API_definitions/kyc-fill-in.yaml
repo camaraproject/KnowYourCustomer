@@ -33,6 +33,10 @@ info:
       * when calling this API, the client of a 3rd party / enterprise customer put its 3rd party identity (only) in the request body
       * then, API provider / MNO will provide information (attributes) which the 3rd party / enterprise customer is allowed to receive by the contract.
 
+    ### Special Scopes
+
+    This API uses the following special scope kyc-fill-in:set-all which means that the API provider returns an API response as if all these scopes were specified in the scope value in the request:
+    `kyc-fill-in:phoneNumber kyc-fill-in:idDocument kyc-fill-in:name kyc-fill-in:givenName kyc-fill-in:familyName kyc-fill-in:nameKanaHankaku kyc-fill-in:nameKanaZenkaku kyc-fill-in:middleNames kyc-fill-in:familyNameAtBirth kyc-fill-in:address kyc-fill-in:streetName kyc-fill-in:streetNumber kyc-fill-in:postalCode kyc-fill-in:region kyc-fill-in:locality kyc-fill-in:country kyc-fill-in:houseNumberExtension kyc-fill-in:birthdate kyc-fill-in:email kyc-fill-in:gender`
 
     ## Resources and Operations overview
 
@@ -79,8 +83,48 @@ paths:
 
       security:
         - openId:
-          - kyc-fill-in:fill-in
-
+          - kyc-fill-in:set-all
+        - openId:
+          - kyc-fill-in:phoneNumber
+        - openId:
+          - kyc-fill-in:idDocument
+        - openId:
+          - kyc-fill-in:name
+        - openId:
+          - kyc-fill-in:givenName
+        - openId:
+          - kyc-fill-in:familyName
+        - openId:
+          - kyc-fill-in:nameKanaHankaku
+        - openId:
+          - kyc-fill-in:nameKanaZenkaku
+        - openId:
+          - kyc-fill-in:middleNames
+        - openId:
+          - kyc-fill-in:familyNameAtBirth
+        - openId:
+          - kyc-fill-in:address
+        - openId:
+          - kyc-fill-in:streetName
+        - openId:
+          - kyc-fill-in:streetNumber
+        - openId:
+          - kyc-fill-in:postalCode
+        - openId:
+          - kyc-fill-in:region
+        - openId:
+          - kyc-fill-in:locality
+        - openId:
+          - kyc-fill-in:country
+        - openId:
+          - kyc-fill-in:houseNumberExtension
+        - openId:
+          - kyc-fill-in:birthdate
+        - openId:
+          - kyc-fill-in:email
+        - openId:
+          - kyc-fill-in:gender
+        
       parameters:
         - $ref: '#/components/parameters/x-correlator'
 
