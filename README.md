@@ -15,7 +15,8 @@ Repository to describe, develop, document and test the KnowYourCustomer API fami
 * Service APIs for “KnowYourCustomer” (see APIBacklog.md)  
 * It provides the customer with the ability to:  
   * compare the information it (Service Provider, SP) has for a particular user with that on file (and verified) by the user's Operator in their own KYC records, in order for the SP to confirm the accuracy of the information and provide a specific service to the user. (KYC Match)
-  * request and receive the information for a particular user, which on file (and verified) by the user's Operator in their own KYC records, in order for the SP to confirm the accuracy of the information and provide a specific service to the user. (KYC Fill-in)  
+  * request and receive the information for a particular user, which on file (and verified) by the user's Operator in their own KYC records, in order for the SP to confirm the accuracy of the information and provide a specific service to the user. (KYC Fill-in)
+  * check if the user of the line is older than a provided age, in order to provide API customer's age-restricted services, access to its age-restricted website etc..
 * Describe, develop, document and test the APIs (with 1-2 Telcos)  
 * Started: September 2023
 
@@ -23,10 +24,11 @@ Repository to describe, develop, document and test the KnowYourCustomer API fami
 
 * Note: Please be aware that the project will have updates to the main branch. There are no compatibility guarantees associated with code in any branch, including main, until a new release is created. For example, changes may be reverted before a release is created. For best results, use the latest available release
 
-* `NEW`:**The latest release of CAMARA Know Your customer is [r1.4](https://github.com/camaraproject/KnowYourCustomer/tree/r1.4)**. The Release Tag is [r1.4](https://github.com/camaraproject/KnowYourCustomer/releases/tag/r1.4).
+* `NEW`:**The latest release of CAMARA Know Your customer is [r2.1](https://github.com/camaraproject/KnowYourCustomer/tree/r2.1)**. The Release Tag is [r2.1](https://github.com/camaraproject/KnowYourCustomer/releases/tag/r2.1).
   - Contains the following API definitions **with inline documentation**:
-    - kyc-match: [YAML spec file](https://github.com/camaraproject/KnowYourCustomer/blob/r1.4/code/API_definitions/kyc-match.yaml) | [View it on ReDoc](https://redocly.github.io/redoc/?url=https://raw.githubusercontent.com/camaraproject/KnowYourCustomer/r1.4/code/API_definitions/kyc-match.yaml&nocors) | [View it on Swagger Editor](https://editor.swagger.io/?url=https://raw.githubusercontent.com/camaraproject/KnowYourCustomer/r1.4/code/API_definitions/kyc-match.yaml&nocors)
-    - kyc-fill-in: [YAML spec file](https://github.com/camaraproject/KnowYourCustomer/blob/r1.4/code/API_definitions/kyc-fill-in.yaml) | [View it on ReDoc](https://redocly.github.io/redoc/?url=https://raw.githubusercontent.com/camaraproject/KnowYourCustomer/r1.4/code/API_definitions/kyc-fill-in.yaml&nocors) | [View it on Swagger Editor](https://editor.swagger.io/?url=https://raw.githubusercontent.com/camaraproject/KnowYourCustomer/r1.4/code/API_definitions/kyc-fill-in.yaml&nocors)
+    - kyc-match: [YAML spec file](https://github.com/camaraproject/KnowYourCustomer/blob/r2.1/code/API_definitions/kyc-match.yaml) | [View it on ReDoc](https://redocly.github.io/redoc/?url=https://raw.githubusercontent.com/camaraproject/KnowYourCustomer/r2.1/code/API_definitions/kyc-match.yaml&nocors) | [View it on Swagger Editor](https://editor.swagger.io/?url=https://raw.githubusercontent.com/camaraproject/KnowYourCustomer/r2.1/code/API_definitions/kyc-match.yaml&nocors)
+    - kyc-fill-in: [YAML spec file](https://github.com/camaraproject/KnowYourCustomer/blob/r2.1/code/API_definitions/kyc-fill-in.yaml) | [View it on ReDoc](https://redocly.github.io/redoc/?url=https://raw.githubusercontent.com/camaraproject/KnowYourCustomer/r2.1/code/API_definitions/kyc-fill-in.yaml&nocors) | [View it on Swagger Editor](https://editor.swagger.io/?url=https://raw.githubusercontent.com/camaraproject/KnowYourCustomer/r2.1/code/API_definitions/kyc-fill-in.yaml&nocors)
+    - kyc-age-verification: [YAML spec file](https://github.com/camaraproject/KnowYourCustomer/blob/r2.1/code/API_definitions/kyc-age-verification.yaml) | [View it on ReDoc](https://redocly.github.io/redoc/?url=https://raw.githubusercontent.com/camaraproject/KnowYourCustomer/r2.1/code/API_definitions/kyc-age-verification.yaml&nocors) | [View it on Swagger Editor](https://editor.swagger.io/?url=https://raw.githubusercontent.com/camaraproject/KnowYourCustomer/r2.1/code/API_definitions/kyc-age-verification.yaml&nocors)
 
 ## Contributing
 
