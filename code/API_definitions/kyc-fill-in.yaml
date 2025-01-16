@@ -99,27 +99,25 @@ paths:
               examples:
                 KYC_Fillin200Example:
                   value:
-                    phoneNumber: '+34629255833'
-                    idDocument: 66666666q
-                    name: Federica Sanchez Arjona
-                    givenName: Federica
-                    familyName: Sanchez Arjona
-                    nameKanaHankaku: federica
-                    nameKanaZenkaku: Ｆｅｄｅｒｉｃａ
-                    middleNames: Sanchez
-                    familyNameAtBirth: YYYY
-                    address: Tokyo-to Chiyoda-ku Iidabashi 3-10-10
-                    streetName: Nicolas Salmeron
-                    streetNumber: 4
-                    postalCode: 1028460
-                    region: Tokyo
-                    locality: ZZZZ
-                    country: JP
-                    houseNumberExtension: 36
-                    birthdate: '1978-08-22'
-                    email: abc@example.com
-                    gender: male
-
+                    {
+                        "phoneNumber": "+34629255833",
+                        "idDocument": "66666666q",
+                        "name": "Federica Sanchez Arjona",
+                        "givenName": "Federica",
+                        "familyName": "Sanchez Arjona",
+                        "nameKanaHankaku": "federica",
+                        "nameKanaZenkaku": "Ｆｅｄｅｒｉｃａ",
+                        "middleNames": "Sanchez",
+                        "familyNameAtBirth": "YYYY",
+                        "address": "Tokyo-to Chiyoda-ku Iidabashi 3-10-10",
+                        "streetName": "Nicolas Salmeron",
+                        "streetNumber": "4",
+                        "postalCode": "1028460",
+                        "region": "Tokyo",
+                        "locality": "ZZZZ",
+                        "country": "JP",
+                        "houseNumberExtension": "36"
+                     }
         '400':
           $ref: '#/components/responses/Generic400'
 
