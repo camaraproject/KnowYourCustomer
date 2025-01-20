@@ -16,7 +16,7 @@ Repository to describe, develop, document and test the KnowYourCustomer API fami
 * It provides the customer with the ability to:  
   * compare the information it (Service Provider, SP) has for a particular user with that on file (and verified) by the user's Operator in their own KYC records, in order for the SP to confirm the accuracy of the information and provide a specific service to the user. (KYC Match)
   * request and receive the information for a particular user, which on file (and verified) by the user's Operator in their own KYC records, in order for the SP to confirm the accuracy of the information and provide a specific service to the user. (KYC Fill-in)
-  * check if the user of the line is older than a provided age, in order to provide API customer's age-restricted services, access to its age-restricted website etc..
+  * check if the user of the line is older than a provided age, in order to provide API customer's age-restricted services, access to its age-restricted website etc. (KYC Age Verification)
 * Describe, develop, document and test the APIs (with 1-2 Telcos)  
 * Started: September 2023
 
