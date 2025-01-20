@@ -144,7 +144,7 @@ Feature: CAMARA KYC Age Verification API, v0.1.0-rc.1 - Operation verifyAge
         And the response property "$.code" is "INVALID_ARGUMENT"
         And the response property "$.message" contains a user friendly text
 
-    @check_device_swap_400.3_out_of_range
+    @verifyAge_400.3_out_of_range
     Scenario: Error when ageThreshold is out of range
         Given the request body property "$.ageThreshold" is set to a value that is not withing the range defined in OAS schema "#/components/schemas/AgeThreshold"
         When the HTTP "POST" request is sent
