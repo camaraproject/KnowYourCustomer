@@ -63,7 +63,8 @@ info:
     url: https://www.apache.org/licenses/LICENSE-2.0.html
 
   version: wip
-  x-camara-commonalities: 0.4.0
+  x-camara-commonalities: 0.5.0
+
 
 servers:
   - url: '{apiRoot}/kyc-fill-in/vwip'
