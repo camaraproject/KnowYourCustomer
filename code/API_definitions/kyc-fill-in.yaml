@@ -428,7 +428,6 @@ components:
                     enum:
                       - SERVICE_NOT_APPLICABLE
                       - MISSING_IDENTIFIER
-                      - UNNECESSARY_IDENTIFIER
           examples:
             GENERIC_422_SERVICE_NOT_APPLICABLE:
               description: Service is not applicable for the provided phone number
@@ -442,12 +441,6 @@ components:
                 status: 422
                 code: MISSING_IDENTIFIER
                 message: No phone number has been provided
-            GENERIC_422_UNNECESSARY_IDENTIFIER:
-              description: An explicit phone number has been provided when one is already associated with the access token
-              value:
-                status: 422
-                code: UNNECESSARY_IDENTIFIER
-                message: An explicit phone number has been provided when one is already associated with the access token
 
     Generic429:
       description: Too Many Requests
