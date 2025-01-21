@@ -47,16 +47,20 @@ info:
 
     It is important to remark that in cases where personal user data is processed by the API, and users can exercise their rights through mechanisms such as opt-in and/or opt-out, the use of 3-legged access tokens becomes mandatory. This measure ensures that the API remains in strict compliance with user privacy preferences and regulatory obligations, upholding the principles of transparency and user-centric data control.
 
-    # Identifying the phoneNumber from the access token
 
-    This API requires the API consumer to identify a phoneNumber as the subject of the API as follows:
-    - When the API is invoked using a two-legged access token, the subject will be identified from the optional phoneNumber field, which therefore MUST be provided.
-    - When a three-legged access token is used, the subject will be uniquely identified from the access token. So, the optional phoneNumber is not used for identifying the subject, but, if it is provided in the API request body, it needs to match with the one associated with the access token.
+    # Identifying the phone number from the access token
+
+    This API requires the API consumer to identify a phone number as the subject of the API as follows:
+    - When the API is invoked using a two-legged access token, the subject will be identified from the optional `phoneNumber` field, which therefore MUST be provided.
+
+    - When a three-legged access token is used however, this optional identifier MUST NOT be provided, as the subject will be uniquely identified from the access token.
+
+    This approach simplifies API usage for API consumers using a three-legged access token to invoke the API by relying on the information that is associated with the access token and was identified during the authentication process.
 
     ## Error handling:
+    - If the subject cannot be identified from the access token and the optional `phoneNumber` field is not included in the request, then the server will return an error with the `422 MISSING_IDENTIFIER` error code.
 
-    - If the subject cannot be identified from the access token and the optional phoneNumber field is not included in the request, then the server will return an error with the `422 MISSING_IDENTIFIER` error code. This is an error typically, but not uniquely, returned in 2-legged scenarios when the access token doesn't identify a single subscription.
-    - If there is a mismatch between the provided phone number in the request body and the phone number associated with the access token, the server will return an error with the `403 INVALID_TOKEN_CONTEXT` error code.
+    - If the subject can be identified from the access token and the optional `phoneNumber` field is also included in the request, then the server will return an error with the `422 UNNECESSARY_IDENTIFIER` error code. This will be the case even if the same phone number is identified by these two methods, as the server is unable to make this comparison.
 
   license:
     name: Apache 2.0
@@ -375,20 +379,14 @@ components:
                   code:
                     enum:
                       - PERMISSION_DENIED
-                      - INVALID_TOKEN_CONTEXT
+
           examples:
             GENERIC_403_PERMISSION_DENIED:
               description: Permission denied. OAuth2 token access does not have the required scope or when the user fails operational security
               value:
                 status: 403
                 code: PERMISSION_DENIED
-                message: Client does not have sufficient permissions to perform this action.
-            GENERIC_403_INVALID_TOKEN_CONTEXT:
-              description: Reflect some inconsistency between information in some field of the API and the related OAuth2 Token
-              value:
-                status: 403
-                code: INVALID_TOKEN_CONTEXT
-                message: "phoneNumber is not consistent with access token."          
+                message: Client does not have sufficient permissions to perform this action.    
 
     Generic404:
       description: Not found
@@ -435,6 +433,7 @@ components:
                     enum:
                       - SERVICE_NOT_APPLICABLE
                       - MISSING_IDENTIFIER
+                      - UNNECESSARY_IDENTIFIER
           examples:
             GENERIC_422_SERVICE_NOT_APPLICABLE:
               description: Service is not applicable for the provided phone number
@@ -448,6 +447,12 @@ components:
                 status: 422
                 code: MISSING_IDENTIFIER
                 message: No phone number has been provided
+            GENERIC_422_UNNECESSARY_IDENTIFIER:
+              description: An explicit phone number has been provided when one is already associated with the access token
+              value:
+                status: 422
+                code: UNNECESSARY_IDENTIFIER
+                message: An explicit phone number has been provided when one is already associated with the access token                
 
     Generic429:
       description: Too Many Requests
