@@ -24,11 +24,10 @@ Note:
 
 * When calling this API, at the beginning, there should be required processes for Authentication / Authorisation / End User Consent capturing.  As those processes are to be defined as CAMARA commonality standards, they are out of scope of this API definition, however, use of the OpenID Connect (OIDC) is stated as security scheme.  **As an important note**, capturing end user consent is necessary, because this API provides end user information (PII).
 
-* For this version of the KYC Fill-in API, the request body of the Fill-in Request does not include any parameters/attributes.  The above mentioned AuthN/AuthZ/End User consent capturing processes can give the API provider/ MNO the 3rd party identity (with the Access Token) and the end user identity (with the ID Token), so the API provider/ MNO can identify the 3rd party / enterprise customer and the end user.  Then, it is up to API provider/ MNO to decide which information the 3rd party will receive by calling the API, and also the API provider / MNO is responsible for security and privacy issues.
+* The above mentioned AuthN/AuthZ/End User consent capturing processes can give the API provider/ MNO the 3rd party identity (with the Access Token) and the end user identity (with the ID Token), so the API provider/ MNO can identify the 3rd party / enterprise customer and the end user.  Then, it is up to API provider/ MNO to decide which information the 3rd party will receive by calling the API, and also the API provider / MNO is responsible for security and privacy issues.
 
 * For example, below is a potential operation:
   * when making contract with API provider/ MNO, a 3rd party / enterprise customer receives its 3rd party identity and also decide which information (attributes) it will receive for its API call
-  * when calling this API, the client of a 3rd party / enterprise customer put its 3rd party identity (only) in the request body
   * then, API provider / MNO will provide information (attributes) which the 3rd party / enterprise customer is allowed to receive by the contract.
 
 
