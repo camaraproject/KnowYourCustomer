@@ -47,7 +47,7 @@ The API definition(s) are based on
 ### Changed
 - Fix example for postalCode and streetNumber by @GillesInnov35 in https://github.com/camaraproject/KnowYourCustomer/pull/169
 - KYC-Match: Clarification of "the specification" by @Masa8106 in https://github.com/camaraproject/KnowYourCustomer/pull/165
-- Align kyc-match with commonalities for meta spring25 by @fernandopradocabrillo in https://github.com/camaraproject/KnowYourCustomer/pull/176
+- Align kyc-match with commonalities for meta-release Spring25 by @fernandopradocabrillo in https://github.com/camaraproject/KnowYourCustomer/pull/176 and https://github.com/camaraproject/KnowYourCustomer/pull/181
 
 ## kyc-fill-in v0.3.0-alpha.1
 
