@@ -79,7 +79,7 @@ The API definition(s) are based on
 - First API proposal
 
 ### Added
-- Updated Age Verification proposal aligned with Spring25 by @fernandopradocabrillo in https://github.com/camaraproject/KnowYourCustomer/pull/175
+- Updated Age Verification proposal aligned with Spring25 by @fernandopradocabrillo in https://github.com/camaraproject/KnowYourCustomer/pull/175 and https://github.com/camaraproject/KnowYourCustomer/pull/184
 - Initial test plan Age Verification by @fernandopradocabrillo in https://github.com/camaraproject/KnowYourCustomer/pull/180
 
 ## New Contributors
