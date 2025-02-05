@@ -64,6 +64,7 @@ The API definition(s) are based on
 ### Changed
 - KYC-Fill-In: Customer:User is a person not an "it" by @AxelNennker in https://github.com/camaraproject/KnowYourCustomer/pull/152
 - KYC-Fill-In: Use the same values in the description and example - lowercase by @AxelNennker in https://github.com/camaraproject/KnowYourCustomer/pull/153
+- Align kyc-fill-in with Commonalities for meta-release Spring25 by @fernandopradocabrillo in https://github.com/camaraproject/KnowYourCustomer/pull/184 and https://github.com/camaraproject/KnowYourCustomer/pull/181
 
 ### Fixed
 
