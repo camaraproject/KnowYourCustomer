@@ -66,7 +66,6 @@ The API definition(s) are based on
 - KYC-Fill-In: Use the same values in the description and example - lowercase by @AxelNennker in https://github.com/camaraproject/KnowYourCustomer/pull/153
 
 ### Fixed
-- Correct URL for kyc-fill-in User stories and Basic API test cases links by @GillesInnov35 in https://github.com/camaraproject/KnowYourCustomer/pull/173
 
 ## kyc-age-verification v0.1.0-rc.1
 
