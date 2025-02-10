@@ -231,7 +231,7 @@ Feature: CAMARA KYC Age Verification API, v0.1.0-rc.1 - Operation verifyAge
 
     @verifyAge_C02.04_missing_phone_number
     Scenario: Phone number not included and cannot be deducted from the access token
-        Given the header "Authorization" is set to a valid access which does not identify a single phone number
+        Given the header "Authorization" is set to a valid access token which does not identify a single phone number
         And the request body property "$.phoneNumber" is not included
         When the HTTP "POST" request is sent
         Then the response status code is 422
@@ -241,7 +241,7 @@ Feature: CAMARA KYC Age Verification API, v0.1.0-rc.1 - Operation verifyAge
 
     @verifyAge_C02.05_phone_number_not_supported
     Scenario: Service not available for the phone number
-        Given the header "Authorization" is set to a valid access token which does not identify a single phone number
+        Given that the service is not available for all phone numbers commercialized by the operator
         And a valid phone number, identified by the token or provided in the request body, for which the service is not applicable
         When the HTTP "POST" request is sent
         Then the response status code is 422

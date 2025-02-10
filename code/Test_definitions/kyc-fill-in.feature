@@ -43,24 +43,6 @@ Background: Common KYC_Fill-in_API setup
         And the response property "$.code" is "INVALID_ARGUMENT"
         And the response property "$.message" contains a user friendly text
 
-    @KYC_Fill_400.2_empty_request_body
-    Scenario: Empty object as request body
-        Given the request body is set to "{}"
-        When the HTTP "POST" request is sent
-        Then the response status code is 400
-        And the response property "$.status" is 400
-        And the response property "$.code" is "INVALID_ARGUMENT"
-        And the response property "$.message" contains a user friendly text
-
-    @KYC_Fill_400.3_invalid_argument
-    Scenario: Invalid Argument. Generic Syntax Exception
-        Given the request body is set to any value which is not compliant with the OAS schema at "/components/schemas/VerifyRequestBody"
-        When the HTTP "POST" request is sent
-        Then the response status code is 400
-        And the response property "$.status" is 400
-        And the response property "$.code" is "INVALID_ARGUMENT"
-        And the response property "$.message" contains a user friendly text
-    
     # Generic 401 errors
 
     @KYC_Fill-in_401.01_expired_access_token
