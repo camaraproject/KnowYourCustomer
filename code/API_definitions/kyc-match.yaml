@@ -386,7 +386,7 @@ components:
           allOf:
             - $ref: '#/components/schemas/MatchResult'
             - description: Indicates whether the middle names of the customer matches with the one on the Operator's system.
-        middleNamesScore:
+        middleNamesMatchScore:
           $ref: '#/components/schemas/MatchScoreResult'
         familyNameAtBirthMatch:
           allOf:
