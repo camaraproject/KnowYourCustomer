@@ -10,7 +10,7 @@ Feature: CAMARA KYC Age Verification API, v0.1.0-rc.1 - Operation verifyAge
 
     Background: Common verifyAge setup
         Given an environment at "apiRoot"
-        And the resource "/kyc-age-verification/v0.1-rc1/verify"
+        And the resource "/kyc-age-verification/v0.1rc1/verify"
         And the header "Content-Type" is set to "application/json"
         And the header "Authorization" is set to a valid access token
         And the header "x-correlator" is set to a UUID value
@@ -199,7 +199,7 @@ Feature: CAMARA KYC Age Verification API, v0.1.0-rc.1 - Operation verifyAge
 
     @verifyAge_C02.01_phone_number_not_schema_compliant
     Scenario: Phone number value does not comply with the schema
-        Given the header "Authorization" is set to a valid access which does not identify a single phone number
+        Given the header "Authorization" is set to a valid access token which does not identify a single phone number
         And the request body property "$.phoneNumber" does not comply with the OAS schema at "/components/schemas/PhoneNumber"
         When the HTTP "POST" request is sent
         Then the response status code is 400
@@ -210,8 +210,8 @@ Feature: CAMARA KYC Age Verification API, v0.1.0-rc.1 - Operation verifyAge
     # Typically with a 2-legged access token
     @verifyAge_C02.02_phone_number_not_found
     Scenario: Phone number not found
-        Given the header "Authorization" is set to a valid access which does not identify a single phone number
-        And the request body property "$.phoneNumber" is compliant with the schema but does not identify a valid subscription managed by the API provider
+        Given the header "Authorization" is set to a valid access token which does not identify a single phone number
+        And the request body property "$.phoneNumber" is compliant with the schema but does not identify a valid phone number
         When the HTTP "POST" request is sent
         Then the response status code is 404
         And the response property "$.status" is 404
@@ -220,7 +220,7 @@ Feature: CAMARA KYC Age Verification API, v0.1.0-rc.1 - Operation verifyAge
 
     # Only with a 3-legged access token
     @verifyAge_C02.03_unnecessary_phone_number
-    Scenario: Phone number should not be included when it can be deducted from the access token
+    Scenario: Phone number not to be included when it can be deduced from the access token
         Given the header "Authorization" is set to a valid access token identifying a phone number
         And  the request body property "$.phoneNumber" is set to a valid phone number
         When the HTTP "POST" request is sent
@@ -231,7 +231,7 @@ Feature: CAMARA KYC Age Verification API, v0.1.0-rc.1 - Operation verifyAge
 
     @verifyAge_C02.04_missing_phone_number
     Scenario: Phone number not included and cannot be deducted from the access token
-        Given the header "Authorization" is set to a valid access which does not identify a single phone number
+        Given the header "Authorization" is set to a valid access token which does not identify a single phone number
         And the request body property "$.phoneNumber" is not included
         When the HTTP "POST" request is sent
         Then the response status code is 422
