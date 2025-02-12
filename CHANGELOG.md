@@ -49,9 +49,9 @@ The API definition(s) are based on
 - KYC-Match: Clarification of "the specification" by @Masa8106 in https://github.com/camaraproject/KnowYourCustomer/pull/165
 - Align kyc-match with commonalities for meta-release Spring25 by @fernandopradocabrillo in https://github.com/camaraproject/KnowYourCustomer/pull/176 and https://github.com/camaraproject/KnowYourCustomer/pull/181
 
-## kyc-fill-in v0.3.0-alpha.1
+## kyc-fill-in v0.3.0-rc.1
 
-**kyc-match v0.3.0-alpha.1 is an alpha version for the CAMARA KnowYourCustomer Fill-in API**
+**kyc-match v0.3.0-rc.1 is a release candidate version for the CAMARA KnowYourCustomer Fill-in API**
 
 - API definition **with inline documentation**:
     - OpenAPI [YAML spec file](https://github.com/camaraproject/KnowYourCustomer/blob/r2.1/code/API_definitions/kyc-fill-in.yaml)
