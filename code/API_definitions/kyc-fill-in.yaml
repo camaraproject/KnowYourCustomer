@@ -70,12 +70,12 @@ info:
     name: Apache 2.0
     url: https://www.apache.org/licenses/LICENSE-2.0.html
 
-  version: 0.3.0-alpha.1
+  version: 0.3.0-rc.1
   x-camara-commonalities: 0.5
 
 
 servers:
-  - url: '{apiRoot}/kyc-fill-in/v0.3alpha1'
+  - url: '{apiRoot}/kyc-fill-in/v0.3rc1'
 
     variables:
       apiRoot:
@@ -245,9 +245,9 @@ components:
           example: "+123456789"
 
         idDocument:
-         type: string
-         description: Id number associated to the id_document of the customer stored on the Operator's system.
-         
+          type: string
+          description: Id number associated to the id_document of the customer stored on the Operator's system.
+
         name:
           type: string
           description: Complete name of the customer stored on the Operator's system.  It is usually composed of first/given name and last/family/sur- name in a country.  Depending on the country, the order of first/give name and last/family/sur- name varies, and middle name could be included.  It can use givenName, middleNames, familyName and/or familyNameAtBirth. For example, in ESP, name+familyName; in NLD, it can be name+middleNames+familyName or name+middleNames+familyNameAtBirth, etc.
@@ -310,15 +310,21 @@ components:
           
         birthdate:
           type: string
+          format: date
           description: Birthdate of the customer, in ISO 8601 calendar date format (YYYY-MM-DD), stored on the Operator's system.
           
         email:
           type: string
+          format: email
           description: Email address of the customer in the RFC specified format (local-part@domain), stored on the Operator's system.
           
         gender:
           type: string
           description: Gender of the customer stored on the Operator's system (male/female/other).
+          enum:
+            - MALE
+            - FEMALE
+            - OTHER
           
     ErrorInfo:
       type: object
