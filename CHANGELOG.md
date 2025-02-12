@@ -24,8 +24,8 @@ The below sections record the changes for each API version in each release as fo
 ## Release Notes
 
 This release contains the definition and documentation of
-* kyc-match v0.3.0-alpha.1
-* kyc-fill-in v0.3.0-alpha.1
+* kyc-match v0.3.0-rc.1
+* kyc-fill-in v0.3.0-rc.1
 * kyc-age-verification v0.1.0-rc.1
 
 The API definition(s) are based on
