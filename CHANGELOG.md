@@ -32,9 +32,9 @@ The API definition(s) are based on
 * Commonalities v0.5.0-rc.1
 * Identity and Consent Management v0.3.0-rc.1
 
-## kyc-match v0.3.0-alpha.1
+## kyc-match v0.3.0-rc.1
 
-**kyc-match v0.3.0-alpha.1 is an alpha version for the CAMARA KnowYourCustomer Match API**
+**kyc-match v0.3.0-rc.1 is a release candidate version for the CAMARA KnowYourCustomer Match API**
 
 - API definition **with inline documentation**:
     - OpenAPI [YAML spec file](https://github.com/camaraproject/KnowYourCustomer/blob/r2.1/code/API_definitions/kyc-match.yaml)
