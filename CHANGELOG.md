@@ -2,6 +2,7 @@
 
 ## Table of Contents
 
+- [r2.1](#r21)
 - [r1.4](#r14)
 - [r1.3](#r13)
 - [r1.2](#r12)
@@ -13,9 +14,84 @@
 
 The below sections record the changes for each API version in each release as follows:
 
-* for each first alpha or release-candidate API version, all changes since the release of the previous public API version
-* for subsequent alpha or release-candidate API versions, the delta with respect to the previous pre-release
-* for a public API version, the consolidated changes since the release of the previous public API version
+* for an alpha release, the delta with respect to the previous release
+* for the first release-candidate, all changes since the last public release
+* for subsequent release-candidate(s), only the delta to the previous release-candidate
+* for a public release, the consolidated changes since the previous public release
+
+# r2.1
+
+## Release Notes
+
+This release contains the definition and documentation of
+* kyc-match v0.3.0-rc.1
+* kyc-fill-in v0.3.0-rc.1
+* kyc-age-verification v0.1.0-rc.1
+
+The API definition(s) are based on
+* Commonalities v0.5.0-rc.1
+* Identity and Consent Management v0.3.0-rc.1
+
+## kyc-match v0.3.0-rc.1
+
+**kyc-match v0.3.0-rc.1 is a release candidate version for the CAMARA KnowYourCustomer Match API**
+
+- API definition **with inline documentation**:
+    - OpenAPI [YAML spec file](https://github.com/camaraproject/KnowYourCustomer/blob/r2.1/code/API_definitions/kyc-match.yaml)
+    - [View it on ReDoc](https://redocly.github.io/redoc/?url=https://raw.githubusercontent.com/camaraproject/KnowYourCustomer/r2.1/code/API_definitions/kyc-match.yaml&nocors)
+    - [View it on Swagger Editor](https://editor.swagger.io/?url=https://raw.githubusercontent.com/camaraproject/KnowYourCustomer/r2.1/code/API_definitions/kyc-match.yaml&nocors)
+
+### Added
+- Define a phoneNumber pattern in kyc-match yaml file by @GillesInnov35 in https://github.com/camaraproject/KnowYourCustomer/pull/170
+
+### Changed
+- Fix example for postalCode and streetNumber by @GillesInnov35 in https://github.com/camaraproject/KnowYourCustomer/pull/169
+- KYC-Match: Clarification of "the specification" by @Masa8106 in https://github.com/camaraproject/KnowYourCustomer/pull/165
+- Align kyc-match with commonalities for meta-release Spring25 by @fernandopradocabrillo in https://github.com/camaraproject/KnowYourCustomer/pull/176 and https://github.com/camaraproject/KnowYourCustomer/pull/181
+- Update test plans according to commonalities guidelines by @fernandopradocabrillo https://github.com/camaraproject/KnowYourCustomer/pull/185
+- Remove non-mandatory errors by @fernandopradocabrillo https://github.com/camaraproject/KnowYourCustomer/pull/186
+
+## kyc-fill-in v0.3.0-rc.1
+
+**kyc-match v0.3.0-rc.1 is a release candidate version for the CAMARA KnowYourCustomer Fill-in API**
+
+- API definition **with inline documentation**:
+    - OpenAPI [YAML spec file](https://github.com/camaraproject/KnowYourCustomer/blob/r2.1/code/API_definitions/kyc-fill-in.yaml)
+    - [View it on ReDoc](https://redocly.github.io/redoc/?url=https://raw.githubusercontent.com/camaraproject/KnowYourCustomer/r2.1/code/API_definitions/kyc-fill-in.yaml&nocors)
+    - [View it on Swagger Editor](https://editor.swagger.io/?url=https://raw.githubusercontent.com/camaraproject/KnowYourCustomer/r2.1/code/API_definitions/kyc-fill-in.yaml&nocors)
+
+### Added
+* n/a
+
+### Changed
+- KYC-Fill-In: Customer:User is a person not an "it" by @AxelNennker in https://github.com/camaraproject/KnowYourCustomer/pull/152
+- KYC-Fill-In: Use the same values in the description and example - lowercase by @AxelNennker in https://github.com/camaraproject/KnowYourCustomer/pull/153
+- Align kyc-fill-in with Commonalities for meta-release Spring25 by @fernandopradocabrillo in https://github.com/camaraproject/KnowYourCustomer/pull/184 and https://github.com/camaraproject/KnowYourCustomer/pull/181
+- Remove non-mandatory errors by @fernandopradocabrillo https://github.com/camaraproject/KnowYourCustomer/pull/186
+
+### Fixed
+
+## kyc-age-verification v0.1.0-rc.1
+
+- API definition **with inline documentation**:
+    - OpenAPI [YAML spec file](https://github.com/camaraproject/KnowYourCustomer/blob/r2.1/code/API_definitions/kyc-age-verification.yaml)
+    - [View it on ReDoc](https://redocly.github.io/redoc/?url=https://raw.githubusercontent.com/camaraproject/KnowYourCustomer/r2.1/code/API_definitions/kyc-age-verification.yaml&nocors)
+    - [View it on Swagger Editor](https://editor.swagger.io/?url=https://raw.githubusercontent.com/camaraproject/KnowYourCustomer/r2.1/code/API_definitions/kyc-age-verification.yaml&nocors)
+
+**Main Changes**
+- First API proposal
+
+### Added
+- Updated Age Verification proposal aligned with Spring25 by @fernandopradocabrillo in https://github.com/camaraproject/KnowYourCustomer/pull/175 and https://github.com/camaraproject/KnowYourCustomer/pull/184
+- Initial test plan Age Verification by @fernandopradocabrillo in https://github.com/camaraproject/KnowYourCustomer/pull/180
+- Update test plans according to commonalities guidelines by @fernandopradocabrillo https://github.com/camaraproject/KnowYourCustomer/pull/185
+
+## New Contributors
+* @Masa8106 made their first contribution in https://github.com/camaraproject/KnowYourCustomer/pull/165
+* @AxelNennker made their first contribution in https://github.com/camaraproject/KnowYourCustomer/pull/152
+
+
+**Full Changelog**: https://github.com/camaraproject/KnowYourCustomer/compare/r1.4...r2.1
 
 # r1.4
 

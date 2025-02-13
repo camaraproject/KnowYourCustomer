@@ -61,7 +61,7 @@ info:
 
     The "Camara Security and Interoperability Profile" provides details of how an API consumer requests an access token. Please refer to Identity and Consent Management (https://github.com/camaraproject/IdentityAndConsentManagement/) for the released version of the profile.
 
-    The specific authorization flows to be used will be agreed upon during the onboarding process, happening between the provider of the application consuming the API and the operator's API exposure platform, taking into account the declared purpose for accessing the API, whilst also being subject to the prevailing legal framework dictated by local legislation.
+    The specific authorization flows to be used will be agreed upon during the onboarding process, happening between the API consumer and the API provider, taking into account the declared purpose for accessing the API, whilst also being subject to the prevailing legal framework dictated by local legislation.
 
     In cases where personal data is processed by the API and users can exercise their rights through mechanisms such as opt-in and/or opt-out, the use of three-legged access tokens is mandatory. This ensures that the API remains in compliance with privacy regulations, upholding the principles of transparency and user-centric privacy-by-design.
 
@@ -69,16 +69,14 @@ info:
 
     (FAQs will be added in a later version of the documentation)
 
-
-  version: wip
-  contact:
-    email: sp-kyc@lists.camaraproject.org
+  version: 0.1.0-rc.1
+  x-camara-commonalities: 0.5
   license:
     name: Apache 2.0
     url: https://www.apache.org/licenses/LICENSE-2.0.html
 
 servers:
-  - url: "{apiRoot}/kyc-age-verification/vwip"
+  - url: "{apiRoot}/kyc-age-verification/0.1rc1"
     variables:
       apiRoot:
         default: http://localhost:9091
@@ -167,18 +165,8 @@ paths:
           $ref: '#/components/responses/Generic403'
         "404":
           $ref: '#/components/responses/Generic404'
-        "415":
-          $ref: '#/components/responses/Generic415'
         "422":
           $ref: '#/components/responses/Generic422'
-        "429":
-          $ref: '#/components/responses/Generic429'
-        "500":
-          $ref: '#/components/responses/Generic500'
-        "503":
-          $ref: '#/components/responses/Generic503'
-        "504":
-          $ref: '#/components/responses/Generic504'
 
 components:
   securitySchemes:
@@ -190,7 +178,8 @@ components:
     x-correlator:
       description: Correlation id for the different services
       schema:
-        type: "string"
+        type: string
+        pattern: ^[a-zA-Z0-9-]{0,55}$
 
   parameters:
     x-correlator:
@@ -198,7 +187,9 @@ components:
       in: header
       description: Correlation id for the different services
       schema:
-        type: "string"
+        type: string
+        pattern: ^[a-zA-Z0-9-]{0,55}$
+        example: "b4333c46-49c0-4f62-80d7-f0ef930f1c46"
         
   schemas:
     VerifyRequestBody:
@@ -475,32 +466,6 @@ components:
                 code: IDENTIFIER_NOT_FOUND
                 message: The phone number provided is not associated with a customer account
                 
-    Generic415:
-      description: Unsupported Media Type
-      headers:
-        x-correlator:
-          $ref: '#/components/headers/x-correlator'
-      content:
-        application/json:
-          schema:
-            allOf:
-              - $ref: "#/components/schemas/ErrorInfo"
-              - type: object
-                properties:
-                  status:
-                    enum:
-                      - 415
-                  code:
-                    enum:
-                      - UNSUPPORTED_MEDIA_TYPE
-          examples:
-            GENERIC_415_UNSUPPORTED_MEDIA_TYPE:
-              description: Payload format of the request is in an unsupported format by the Server. Should not happen
-              value:
-                status: 415
-                code: UNSUPPORTED_MEDIA_TYPE
-                message: The server refuses to accept the request because the payload format is in an unsupported format.
-
     Generic422:
       description: Unprocessable Content
       headers:
@@ -540,115 +505,3 @@ components:
                 status: 422
                 code: UNNECESSARY_IDENTIFIER
                 message: An explicit phone number has been provided when one is already associated with the access token
-
-    Generic429:
-      description: Too Many Requests
-      headers:
-        x-correlator:
-          $ref: "#/components/headers/x-correlator"
-      content:
-        application/json:
-          schema:
-            allOf:
-              - $ref: "#/components/schemas/ErrorInfo"
-              - type: object
-                properties:
-                  status:
-                    enum:
-                      - 429
-                  code:
-                    enum:
-                      - QUOTA_EXCEEDED
-                      - TOO_MANY_REQUESTS
-          examples:
-            GENERIC_429_QUOTA_EXCEEDED:
-              description: Request is rejected due to exceeding a business quota limit
-              value:
-                status: 429
-                code: QUOTA_EXCEEDED
-                message: Either out of resource quota or reaching rate limiting.
-            GENERIC_429_TOO_MANY_REQUESTS:
-              description: API Server request limit is overpassed
-              value:
-                status: 429
-                code: TOO_MANY_REQUESTS
-                message: Either out of resource quota or reaching rate limiting.
-
-
-    Generic500:
-      description: Internal Server Error
-      headers:
-        x-correlator:
-          $ref: "#/components/headers/x-correlator"
-      content:
-        application/json:
-          schema:
-            allOf:
-              - $ref: "#/components/schemas/ErrorInfo"
-              - type: object
-                properties:
-                  status:
-                    enum:
-                      - 500
-                  code:
-                    enum:
-                      - INTERNAL
-          examples:
-            GENERIC_500_INTERNAL:
-              description: Problem in Server side. Regular Server Exception
-              value:
-                status: 500
-                code: INTERNAL
-                message: Unknown server error. Typically a server bug.
-
-    Generic503:
-      description: Service Unavailable
-      headers:
-        x-correlator:
-          $ref: "#/components/headers/x-correlator"
-      content:
-        application/json:
-          schema:
-            allOf:
-              - $ref: "#/components/schemas/ErrorInfo"
-              - type: object
-                properties:
-                  status:
-                    enum:
-                      - 503
-                  code:
-                    enum:
-                      - UNAVAILABLE
-          examples:
-            GENERIC_503_UNAVAILABLE:
-              description: Service is not available. Temporary situation usually related to maintenance process in the server side
-              value:
-                status: 503
-                code: UNAVAILABLE
-                message: Service Unavailable.
-
-    Generic504:
-      description: Gateway Timeout
-      headers:
-        x-correlator:
-          $ref: "#/components/headers/x-correlator"
-      content:
-        application/json:
-          schema:
-            allOf:
-              - $ref: "#/components/schemas/ErrorInfo"
-              - type: object
-                properties:
-                  status:
-                    enum:
-                      - 504
-                  code:
-                    enum:
-                      - TIMEOUT
-          examples:
-            GENERIC_504_TIMEOUT:
-              description: API Server Timeout
-              value:
-                status: 504
-                code: TIMEOUT
-                message: Request timeout exceeded.
