@@ -48,6 +48,8 @@ The API definition(s) are based on
 - Fix example for postalCode and streetNumber by @GillesInnov35 in https://github.com/camaraproject/KnowYourCustomer/pull/169
 - KYC-Match: Clarification of "the specification" by @Masa8106 in https://github.com/camaraproject/KnowYourCustomer/pull/165
 - Align kyc-match with commonalities for meta-release Spring25 by @fernandopradocabrillo in https://github.com/camaraproject/KnowYourCustomer/pull/176 and https://github.com/camaraproject/KnowYourCustomer/pull/181
+- Update test plans according to commonalities guidelines by @fernandopradocabrillo https://github.com/camaraproject/KnowYourCustomer/pull/185
+- Remove non-mandatory errors by @fernandopradocabrillo https://github.com/camaraproject/KnowYourCustomer/pull/186
 
 ## kyc-fill-in v0.3.0-rc.1
 
@@ -65,6 +67,7 @@ The API definition(s) are based on
 - KYC-Fill-In: Customer:User is a person not an "it" by @AxelNennker in https://github.com/camaraproject/KnowYourCustomer/pull/152
 - KYC-Fill-In: Use the same values in the description and example - lowercase by @AxelNennker in https://github.com/camaraproject/KnowYourCustomer/pull/153
 - Align kyc-fill-in with Commonalities for meta-release Spring25 by @fernandopradocabrillo in https://github.com/camaraproject/KnowYourCustomer/pull/184 and https://github.com/camaraproject/KnowYourCustomer/pull/181
+- Remove non-mandatory errors by @fernandopradocabrillo https://github.com/camaraproject/KnowYourCustomer/pull/186
 
 ### Fixed
 
@@ -81,6 +84,7 @@ The API definition(s) are based on
 ### Added
 - Updated Age Verification proposal aligned with Spring25 by @fernandopradocabrillo in https://github.com/camaraproject/KnowYourCustomer/pull/175 and https://github.com/camaraproject/KnowYourCustomer/pull/184
 - Initial test plan Age Verification by @fernandopradocabrillo in https://github.com/camaraproject/KnowYourCustomer/pull/180
+- Update test plans according to commonalities guidelines by @fernandopradocabrillo https://github.com/camaraproject/KnowYourCustomer/pull/185
 
 ## New Contributors
 * @Masa8106 made their first contribution in https://github.com/camaraproject/KnowYourCustomer/pull/165
