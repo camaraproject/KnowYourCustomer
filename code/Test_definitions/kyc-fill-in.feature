@@ -1,16 +1,16 @@
-Feature: CAMARA Know Your Customer Fill-in API, v0.3.0-rc.1 - Operation KYC_Fill-in
+Feature: CAMARA Know Your Customer Fill-in API, v0.3.0 - Operation KYC_Fill-in
 
 # Input to be provided by the implementation to the tester
 #
 # Testing assets:
 # * A mobile line identified by its phone number "phoneNumber"
 #
-# References to OAS spec schemas refer to schemas specifies in kyc-fill-in.yaml, version v0.3.0-rc.1
+# References to OAS spec schemas refer to schemas specifies in kyc-fill-in.yaml, version v0.3.0
 
 
 Background: Common KYC_Fill-in_API setup
     Given an environment at "apiRoot"
-    And the resource "/kyc-fill-in/v0.3rc1/fill-in"
+    And the resource "/kyc-fill-in/v0.3/fill-in"
     And the header "Content-Type" is set to "application/json"
     And the header "Authorization" is set to a valid access token
     And the header "x-correlator" is set to a UUID value
