@@ -62,12 +62,12 @@ info:
   license:
     name: Apache 2.0
     url: https://www.apache.org/licenses/LICENSE-2.0.html
-  version: 0.3.0-rc.1
+  version: 0.3.0
 
   x-camara-commonalities: 0.5
 
 servers:
-  - url: '{apiRoot}/kyc-match/v0.3rc1'
+  - url: '{apiRoot}/kyc-match/v0.3'
     variables:
       apiRoot:
         default: http://localhost:9091

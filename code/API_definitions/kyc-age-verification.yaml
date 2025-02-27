@@ -40,7 +40,7 @@ info:
     - If the authentication access token is not valid, a `401 UNAUTHENTICATED` error is returned
     - If the API call contains a formatting or other any other syntactic error, a `400 INVALID_ARGUMENT` error is returned.
     - If the network subscription cannot be identified from the provided parameters (e.g. the subscription identifier is not associated with any customer of the CSP), a `404 IDENTIFIER_NOT_FOUND` error is returned.
-    - If the API consumer has a valid access token but is not authorised to request an age verification for the specified network subscription, then a `403 PERMISSION_DENIED` error is returned.
+    - If the API consumer has a valid access token that does not have the required scope to obtain tenure information for the specified network subscription, then a `403 PERMISSION_DENIED` error is returned.
     - Other errors may be returned as specified below.
 
     # Identifying the phone number from the access token
@@ -69,14 +69,14 @@ info:
 
     (FAQs will be added in a later version of the documentation)
 
-  version: 0.1.0-rc.1
+  version: 0.1.0
   x-camara-commonalities: 0.5
   license:
     name: Apache 2.0
     url: https://www.apache.org/licenses/LICENSE-2.0.html
 
 servers:
-  - url: "{apiRoot}/kyc-age-verification/0.1rc1"
+  - url: "{apiRoot}/kyc-age-verification/0.1"
     variables:
       apiRoot:
         default: http://localhost:9091
