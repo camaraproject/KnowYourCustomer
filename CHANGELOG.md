@@ -35,7 +35,7 @@ The API definition(s) are based on
 
 ## kyc-match v0.3.0
 
-**kyc-match v0.3.0 is a release candidate version for the CAMARA KnowYourCustomer Match API**
+**kyc-match v0.3.0 is the public release of the version for the CAMARA KnowYourCustomer Match API**
 
 - API definition **with inline documentation**:
     - OpenAPI [YAML spec file](https://github.com/camaraproject/KnowYourCustomer/blob/r2.2/code/API_definitions/kyc-match.yaml)
@@ -54,7 +54,7 @@ The API definition(s) are based on
 
 ## kyc-fill-in v0.3.0
 
-**kyc-match v0.3.0 is a release candidate version for the CAMARA KnowYourCustomer Fill-in API**
+**kyc-match v0.3.0 is the public release of the version for the CAMARA KnowYourCustomer Fill-in API**
 
 - API definition **with inline documentation**:
     - OpenAPI [YAML spec file](https://github.com/camaraproject/KnowYourCustomer/blob/r2.2/code/API_definitions/kyc-fill-in.yaml)
@@ -68,6 +68,8 @@ The API definition(s) are based on
 - Remove non-mandatory errors by @fernandopradocabrillo https://github.com/camaraproject/KnowYourCustomer/pull/186
 
 ## kyc-age-verification v0.1.0
+
+**kyc-age-verification v0.1.0 is the public release of the version for the CAMARA KnowYourCustomer Age Verification API**
 
 - API definition **with inline documentation**:
     - OpenAPI [YAML spec file](https://github.com/camaraproject/KnowYourCustomer/blob/r2.2/code/API_definitions/kyc-age-verification.yaml)
