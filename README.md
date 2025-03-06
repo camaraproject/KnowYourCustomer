@@ -9,7 +9,7 @@
 
 # KnowYourCustomer
 
-Repository to describe, develop, document and test the KnowYourCustomer API family
+Incubating API Repository to evolve and maintain the definitions and documentation of KnowYourCustomer Service API(s)
 * API wiki page: [Know Your Customer](https://lf-camaraproject.atlassian.net/wiki/spaces/CAM/pages/80117795/Know+Your+Customer)
 
 ## Scope
