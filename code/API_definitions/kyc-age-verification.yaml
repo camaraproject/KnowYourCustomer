@@ -76,7 +76,7 @@ info:
     url: https://www.apache.org/licenses/LICENSE-2.0.html
 
 servers:
-  - url: "{apiRoot}/kyc-age-verification/0.1"
+  - url: "{apiRoot}/kyc-age-verification/v0.1"
     variables:
       apiRoot:
         default: http://localhost:9091
