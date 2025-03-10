@@ -1,4 +1,4 @@
-Feature: CAMARA KYC Age Verification API, v0.1.0-rc.1 - Operation verifyAge
+Feature: CAMARA KYC Age Verification API, v0.1.0 - Operation verifyAge
     # Input to be provided by the implementation to the tester
     #
     # Implementation indications:
@@ -6,11 +6,11 @@ Feature: CAMARA KYC Age Verification API, v0.1.0-rc.1 - Operation verifyAge
     # Testing assets:
     # * A mobile line identified by its phone number "phoneNumber"
     #
-    # References to OAS spec schemas refer to schemas specifies in kyc-age-verification.yaml, version 0.1.0-rc.1
+    # References to OAS spec schemas refer to schemas specifies in kyc-age-verification.yaml, version 0.1.0
 
     Background: Common verifyAge setup
         Given an environment at "apiRoot"
-        And the resource "/kyc-age-verification/v0.1rc1/verify"
+        And the resource "/kyc-age-verification/v0.1/verify"
         And the header "Content-Type" is set to "application/json"
         And the header "Authorization" is set to a valid access token
         And the header "x-correlator" is set to a UUID value
