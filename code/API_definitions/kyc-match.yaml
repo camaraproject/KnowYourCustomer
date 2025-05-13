@@ -134,6 +134,8 @@ paths:
                   birthdate: '1978-08-22'
                   email: abc@example.com
                   gender: OTHER
+                  placeOfBirth: Madrid
+                  nationality: ES
               Three-Legged Without Phone Number Example:
                 value:
                   idDocument: 66666666q
@@ -155,6 +157,8 @@ paths:
                   birthdate: '1978-08-22'
                   email: abc@example.com
                   gender: OTHER
+                  placeOfBirth: Madrid
+                  nationality: ES
 
       responses:
         '200':
@@ -325,7 +329,14 @@ components:
             - MALE
             - FEMALE
             - OTHER
-
+            
+        placeOfBirth:
+          type: string
+          description: City and country where the customer was born.
+        
+        nationality:
+          type: string
+          description: ISO 3166-1 alpha-2 code of the customer’s nationality. In the case a customers has more than one nationality, it is supposed to be the nationality related to the ID documenent provided in the match request.
     MatchResult:
       type: string
       enum:
@@ -443,7 +454,17 @@ components:
         genderMatch:
           allOf:
             - $ref: '#/components/schemas/MatchResult'
-            - description: Indicates whether the gender of the customer matches with the one on the Operator's system.
+            - description: Indicates whether the gender of the customer matches with the one on the Operator's system.'
+        placeOfBirthMatch:
+          allOf:
+            - $ref: '#/components/schemas/MatchResult'
+            - description: Indicates whether the place of birth of the customer matches with the one on the Operator's system
+        placeOfBirthScore:
+          $ref: '#/components/schemas/MatchScoreResult'
+        nationalityMatch:
+          allOf:
+            - $ref: '#/components/schemas/MatchResult'
+            - description: Indicates whether the nationality of the customer matches with the one on the Operator's system
 
     ErrorInfo:
       type: object
