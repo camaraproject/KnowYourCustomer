@@ -134,6 +134,8 @@ paths:
                   birthdate: '1978-08-22'
                   email: abc@example.com
                   gender: OTHER
+                  placeOfBirth: Madrid
+                  nationality: ES
               Three-Legged Without Phone Number Example:
                 value:
                   idDocument: 66666666q
@@ -155,6 +157,8 @@ paths:
                   birthdate: '1978-08-22'
                   email: abc@example.com
                   gender: OTHER
+                  placeOfBirth: Madrid
+                  nationality: ES
 
       responses:
         '200':
@@ -461,8 +465,6 @@ components:
           allOf:
             - $ref: '#/components/schemas/MatchResult'
             - description: Indicates whether the nationality of the customer matches with the one on the Operator's system
-        nationalityScore:
-          $ref: '#/components/schemas/MatchScoreResult'
 
     ErrorInfo:
       type: object
