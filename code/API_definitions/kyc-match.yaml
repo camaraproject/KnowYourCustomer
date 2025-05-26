@@ -196,6 +196,9 @@ paths:
                     emailMatch: 'false'
                     emailMatchScore: 87
                     genderMatch: 'false'
+                    placeOfBirthMatch: 'true'
+                    placeOfBirthScore: 91
+                    nationalityMatch: 'true'
 
         '400':
           $ref: '#/components/responses/Generic400'
@@ -336,7 +339,7 @@ components:
         
         nationality:
           type: string
-          description: ISO 3166-1 alpha-2 code of the customer’s nationality. In the case a customers has more than one nationality, it is supposed to be the nationality related to the ID documenent provided in the match request.
+          description: ISO 3166-1 alpha-2 code of the customer’s nationality. In the case a customers has more than one nationality, it is supposed to be the nationality related to the ID document provided in the match request.
     MatchResult:
       type: string
       enum:
@@ -454,7 +457,7 @@ components:
         genderMatch:
           allOf:
             - $ref: '#/components/schemas/MatchResult'
-            - description: Indicates whether the gender of the customer matches with the one on the Operator's system.'
+            - description: Indicates whether the gender of the customer matches with the one on the Operator's system.
         placeOfBirthMatch:
           allOf:
             - $ref: '#/components/schemas/MatchResult'
