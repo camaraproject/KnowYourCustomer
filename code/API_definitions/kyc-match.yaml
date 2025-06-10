@@ -134,7 +134,7 @@ paths:
                   birthdate: '1978-08-22'
                   email: abc@example.com
                   gender: OTHER
-                  placeOfBirth: Madrid
+                  cityOfBirth: Madrid
                   nationality: ES
               Three-Legged Without Phone Number Example:
                 value:
@@ -157,7 +157,7 @@ paths:
                   birthdate: '1978-08-22'
                   email: abc@example.com
                   gender: OTHER
-                  placeOfBirth: Madrid
+                  cityOfBirth: Madrid
                   nationality: ES
 
       responses:
@@ -196,8 +196,8 @@ paths:
                     emailMatch: 'false'
                     emailMatchScore: 87
                     genderMatch: 'false'
-                    placeOfBirthMatch: 'true'
-                    placeOfBirthScore: 91
+                    cityOfBirthMatch: 'true'
+                    cityOfBirthScore: 91
                     nationalityMatch: 'true'
 
         '400':
@@ -333,9 +333,9 @@ components:
             - FEMALE
             - OTHER
             
-        placeOfBirth:
+        cityOfBirth:
           type: string
-          description: City and country where the customer was born.
+          description: City where the customer was born.
         
         nationality:
           type: string
@@ -458,11 +458,11 @@ components:
           allOf:
             - $ref: '#/components/schemas/MatchResult'
             - description: Indicates whether the gender of the customer matches with the one on the Operator's system.
-        placeOfBirthMatch:
+        cityOfBirthMatch:
           allOf:
             - $ref: '#/components/schemas/MatchResult'
             - description: Indicates whether the place of birth of the customer matches with the one on the Operator's system
-        placeOfBirthMatchScore:
+        cityOfBirthMatchScore:
 
           $ref: '#/components/schemas/MatchScoreResult'
         nationalityMatch:
