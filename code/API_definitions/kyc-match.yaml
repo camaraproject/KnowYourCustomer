@@ -462,7 +462,8 @@ components:
           allOf:
             - $ref: '#/components/schemas/MatchResult'
             - description: Indicates whether the place of birth of the customer matches with the one on the Operator's system
-        placeOfBirthScore:
+        placeOfBirthMatchScore:
+
           $ref: '#/components/schemas/MatchScoreResult'
         nationalityMatch:
           allOf:
