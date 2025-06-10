@@ -91,19 +91,19 @@ paths:
         - If the provided `idDocument` does not match the one stored in the Operator systems, then a `HTTP 403 - KNOW_YOUR_CUSTOMER.ID_DOCUMENT_MISMATCH` error will be returned.
 
         The API will return the result of the matching process for each requested attribute. This means that the response will **only** contain the attributes for which validation has been requested. Possible values are:
-          - **true**: the attribute provided matches with the one in the Operator systems.
+          - **true**: the attribute provided matches with the one in the Operator systems, which is equal to a `match_score` of 100.
           - **false**: the attribute provided does not match with the one in the Operator systems.
           - **not_available**: the attribute is not available to validate.
       operationId: KYC_Match
 
       security:
         - openId:
-          - kyc-match:match
+            - kyc-match:match
 
 
       parameters:
         - $ref: '#/components/parameters/x-correlator'
-        
+
       requestBody:
         required: true
         content:
@@ -231,7 +231,7 @@ components:
         type: string
         pattern: ^[a-zA-Z0-9-]{0,55}$
         example: "b4333c46-49c0-4f62-80d7-f0ef930f1c46"
-        
+
   schemas:
     KYC_MatchRequestBody:
       type: object
@@ -255,11 +255,11 @@ components:
         givenName:
           type: string
           description: First/given name or compound first/given name of the customer.
-          
+
         familyName:
           type: string
           description: Last name, family name, or surname of the customer.
-          
+
         nameKanaHankaku:
           type: string
           description: Complete name of the customer in Hankaku-Kana format (reading of name) for Japan.
@@ -279,7 +279,7 @@ components:
         address:
           type: string
           description: Complete address of the customer.  For some countries, it is built following the usual concatenation of parameters in a country, but for other countries, this is not the case.  For some countries, it can use streetName, streetNumber and/or houseNumberExtension. For example, in ESP, streetName+streetNumber; in NLD, it can be streetName+streetNumber or streetName+streetNumber+houseNumberExtension.
-          
+
         streetName:
           type: string
           description: Name of the street of the customer's address. It should not include the type of the street.
@@ -328,16 +328,23 @@ components:
 
     MatchResult:
       type: string
+      description: |
+        true -  the attribute provided matches with the one in the Operator systems, which is equal to a `match_score` of 100.
+        false - the attribute provided does not match with the one in the Operator systems.
+        not_available - the attribute is not available to validate.
       enum:
-          - 'true'
-          - 'false'
-          - 'not_available'
+        - 'true'
+        - 'false'
+        - 'not_available'
 
     MatchScoreResult:
       type: integer
-      description: Indicates the similarity score assigned to the input value when it does not exactly match the value stored in the operator's system. This property shall only be returned when the value of the corresponding match field is `false`.
+      description: |
+        Indicates the similarity score assigned to the input value when it does not exactly match the value stored in the operator's system. 
+        This property shall only be returned when the value of the corresponding match field is `false`.
+        A perfect match with a score of 100 is indicated by `match` being 'true' and no `matchScore` is returned in this case.
       minimum: 0
-      maximum: 100
+      maximum: 99
 
     KYC_MatchResponse:
       type: object
