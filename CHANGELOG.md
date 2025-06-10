@@ -40,7 +40,7 @@ The API definition(s) are based on
 - API definition **with inline documentation**:
     - OpenAPI [YAML spec file](https://github.com/camaraproject/KnowYourCustomer/blob/r2.2/code/API_definitions/kyc-match.yaml)
     - [View it on ReDoc](https://redocly.github.io/redoc/?url=https://raw.githubusercontent.com/camaraproject/KnowYourCustomer/r2.2/code/API_definitions/kyc-match.yaml&nocors)
-    - [View it on Swagger Editor](https://editor.swagger.io/?url=https://raw.githubusercontent.com/camaraproject/KnowYourCustomer/r2.2/code/API_definitions/kyc-match.yaml&nocors)
+    - [View it on Swagger Editor](https://camaraproject.github.io/swagger-ui/?url=https://raw.githubusercontent.com/camaraproject/KnowYourCustomer/r2.2/code/API_definitions/kyc-match.yaml&nocors)
 
 ### Added
 - Define a phoneNumber pattern in kyc-match yaml file by @GillesInnov35 in https://github.com/camaraproject/KnowYourCustomer/pull/170
@@ -59,7 +59,7 @@ The API definition(s) are based on
 - API definition **with inline documentation**:
     - OpenAPI [YAML spec file](https://github.com/camaraproject/KnowYourCustomer/blob/r2.2/code/API_definitions/kyc-fill-in.yaml)
     - [View it on ReDoc](https://redocly.github.io/redoc/?url=https://raw.githubusercontent.com/camaraproject/KnowYourCustomer/r2.2/code/API_definitions/kyc-fill-in.yaml&nocors)
-    - [View it on Swagger Editor](https://editor.swagger.io/?url=https://raw.githubusercontent.com/camaraproject/KnowYourCustomer/r2.2/code/API_definitions/kyc-fill-in.yaml&nocors)
+    - [View it on Swagger Editor](https://camaraproject.github.io/swagger-ui/?url=https://raw.githubusercontent.com/camaraproject/KnowYourCustomer/r2.2/code/API_definitions/kyc-fill-in.yaml&nocors)
 
 ### Changed
 - KYC-Fill-In: Customer:User is a person not an "it" by @AxelNennker in https://github.com/camaraproject/KnowYourCustomer/pull/152
@@ -74,7 +74,7 @@ The API definition(s) are based on
 - API definition **with inline documentation**:
     - OpenAPI [YAML spec file](https://github.com/camaraproject/KnowYourCustomer/blob/r2.2/code/API_definitions/kyc-age-verification.yaml)
     - [View it on ReDoc](https://redocly.github.io/redoc/?url=https://raw.githubusercontent.com/camaraproject/KnowYourCustomer/r2.2/code/API_definitions/kyc-age-verification.yaml&nocors)
-    - [View it on Swagger Editor](https://editor.swagger.io/?url=https://raw.githubusercontent.com/camaraproject/KnowYourCustomer/r2.2/code/API_definitions/kyc-age-verification.yaml&nocors)
+    - [View it on Swagger Editor](https://camaraproject.github.io/swagger-ui/?url=https://raw.githubusercontent.com/camaraproject/KnowYourCustomer/r2.2/code/API_definitions/kyc-age-verification.yaml&nocors)
 
 **Main Changes**
 - First API proposal
@@ -111,7 +111,7 @@ The API definition(s) are based on
 - API definition **with inline documentation**:
     - OpenAPI [YAML spec file](https://github.com/camaraproject/KnowYourCustomer/blob/r2.1/code/API_definitions/kyc-match.yaml)
     - [View it on ReDoc](https://redocly.github.io/redoc/?url=https://raw.githubusercontent.com/camaraproject/KnowYourCustomer/r2.1/code/API_definitions/kyc-match.yaml&nocors)
-    - [View it on Swagger Editor](https://editor.swagger.io/?url=https://raw.githubusercontent.com/camaraproject/KnowYourCustomer/r2.1/code/API_definitions/kyc-match.yaml&nocors)
+    - [View it on Swagger Editor](https://camaraproject.github.io/swagger-ui/?url=https://raw.githubusercontent.com/camaraproject/KnowYourCustomer/r2.1/code/API_definitions/kyc-match.yaml&nocors)
 
 ### Added
 - Define a phoneNumber pattern in kyc-match yaml file by @GillesInnov35 in https://github.com/camaraproject/KnowYourCustomer/pull/170
@@ -130,7 +130,7 @@ The API definition(s) are based on
 - API definition **with inline documentation**:
     - OpenAPI [YAML spec file](https://github.com/camaraproject/KnowYourCustomer/blob/r2.1/code/API_definitions/kyc-fill-in.yaml)
     - [View it on ReDoc](https://redocly.github.io/redoc/?url=https://raw.githubusercontent.com/camaraproject/KnowYourCustomer/r2.1/code/API_definitions/kyc-fill-in.yaml&nocors)
-    - [View it on Swagger Editor](https://editor.swagger.io/?url=https://raw.githubusercontent.com/camaraproject/KnowYourCustomer/r2.1/code/API_definitions/kyc-fill-in.yaml&nocors)
+    - [View it on Swagger Editor](https://camaraproject.github.io/swagger-ui/?url=https://raw.githubusercontent.com/camaraproject/KnowYourCustomer/r2.1/code/API_definitions/kyc-fill-in.yaml&nocors)
 
 ### Added
 * n/a
@@ -148,7 +148,7 @@ The API definition(s) are based on
 - API definition **with inline documentation**:
     - OpenAPI [YAML spec file](https://github.com/camaraproject/KnowYourCustomer/blob/r2.1/code/API_definitions/kyc-age-verification.yaml)
     - [View it on ReDoc](https://redocly.github.io/redoc/?url=https://raw.githubusercontent.com/camaraproject/KnowYourCustomer/r2.1/code/API_definitions/kyc-age-verification.yaml&nocors)
-    - [View it on Swagger Editor](https://editor.swagger.io/?url=https://raw.githubusercontent.com/camaraproject/KnowYourCustomer/r2.1/code/API_definitions/kyc-age-verification.yaml&nocors)
+    - [View it on Swagger Editor](https://camaraproject.github.io/swagger-ui/?url=https://raw.githubusercontent.com/camaraproject/KnowYourCustomer/r2.1/code/API_definitions/kyc-age-verification.yaml&nocors)
 
 **Main Changes**
 - First API proposal
@@ -184,7 +184,7 @@ The API definition(s) are based on
 - API definition **with inline documentation**:
     - OpenAPI [YAML spec file](https://github.com/camaraproject/KnowYourCustomer/blob/r1.4/code/API_definitions/kyc-match.yaml)
     - [View it on ReDoc](https://redocly.github.io/redoc/?url=https://raw.githubusercontent.com/camaraproject/KnowYourCustomer/r1.4/code/API_definitions/kyc-match.yaml&nocors)
-    - [View it on Swagger Editor](https://editor.swagger.io/?url=https://raw.githubusercontent.com/camaraproject/KnowYourCustomer/r1.4/code/API_definitions/kyc-match.yaml&nocors)
+    - [View it on Swagger Editor](https://camaraproject.github.io/swagger-ui/?url=https://raw.githubusercontent.com/camaraproject/KnowYourCustomer/r1.4/code/API_definitions/kyc-match.yaml&nocors)
 
 **Main changes**
 - Update test plan and remove unneeded scenario
@@ -201,7 +201,7 @@ The API definition(s) are based on
 - API definition **with inline documentation**:
     - OpenAPI [YAML spec file](https://github.com/camaraproject/KnowYourCustomer/blob/r1.4/code/API_definitions/kyc-fill-in.yaml)
     - [View it on ReDoc](https://redocly.github.io/redoc/?url=https://raw.githubusercontent.com/camaraproject/KnowYourCustomer/r1.4/code/API_definitions/kyc-fill-in.yaml&nocors)
-    - [View it on Swagger Editor](https://editor.swagger.io/?url=https://raw.githubusercontent.com/camaraproject/KnowYourCustomer/r1.4/code/API_definitions/kyc-fill-in.yaml&nocors)
+    - [View it on Swagger Editor](https://camaraproject.github.io/swagger-ui/?url=https://raw.githubusercontent.com/camaraproject/KnowYourCustomer/r1.4/code/API_definitions/kyc-fill-in.yaml&nocors)
 
 **Main Changes**
 
@@ -230,7 +230,7 @@ The API definition(s) are based on
 - API definition **with inline documentation**:
     - OpenAPI [YAML spec file](https://github.com/camaraproject/KnowYourCustomer/blob/r1.3/code/API_definitions/kyc-match.yaml)
     - [View it on ReDoc](https://redocly.github.io/redoc/?url=https://raw.githubusercontent.com/camaraproject/KnowYourCustomer/r1.3/code/API_definitions/kyc-match.yaml&nocors)
-    - [View it on Swagger Editor](https://editor.swagger.io/?url=https://raw.githubusercontent.com/camaraproject/KnowYourCustomer/r1.3/code/API_definitions/kyc-match.yaml&nocors)
+    - [View it on Swagger Editor](https://camaraproject.github.io/swagger-ui/?url=https://raw.githubusercontent.com/camaraproject/KnowYourCustomer/r1.3/code/API_definitions/kyc-match.yaml&nocors)
 
 **Main changes**
 - Includes Score functionality
@@ -261,7 +261,7 @@ The API definition(s) are based on
 - API definition **with inline documentation**:
     - OpenAPI [YAML spec file](https://github.com/camaraproject/KnowYourCustomer/blob/r1.3/code/API_definitions/kyc-fill-in.yaml)
     - [View it on ReDoc](https://redocly.github.io/redoc/?url=https://raw.githubusercontent.com/camaraproject/KnowYourCustomer/r1.3/code/API_definitions/kyc-fill-in.yaml&nocors)
-    - [View it on Swagger Editor](https://editor.swagger.io/?url=https://raw.githubusercontent.com/camaraproject/KnowYourCustomer/r1.3/code/API_definitions/kyc-fill-in.yaml&nocors)
+    - [View it on Swagger Editor](https://camaraproject.github.io/swagger-ui/?url=https://raw.githubusercontent.com/camaraproject/KnowYourCustomer/r1.3/code/API_definitions/kyc-fill-in.yaml&nocors)
 
 **Main Changes**
 
