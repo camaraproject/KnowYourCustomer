@@ -134,7 +134,8 @@ paths:
                   birthdate: '1978-08-22'
                   email: abc@example.com
                   gender: OTHER
-                  cityOfBirth: Madrid
+                  cityAtBirth: Madrid
+                  countryAtBirth: ES
                   nationality: ES
               Three-Legged Without Phone Number Example:
                 value:
@@ -157,7 +158,8 @@ paths:
                   birthdate: '1978-08-22'
                   email: abc@example.com
                   gender: OTHER
-                  cityOfBirth: Madrid
+                  cityAtBirth: Madrid
+                  countryAtBirth: ES
                   nationality: ES
 
       responses:
@@ -196,8 +198,9 @@ paths:
                     emailMatch: 'false'
                     emailMatchScore: 87
                     genderMatch: 'false'
-                    cityOfBirthMatch: 'true'
-                    cityOfBirthScore: 91
+                    cityAtBirthMatch: 'false'
+                    cityAtBirthScore: 86
+                    countryAtBirthMatch: 'true'
                     nationalityMatch: 'true'
 
         '400':
@@ -333,9 +336,13 @@ components:
             - FEMALE
             - OTHER
             
-        cityOfBirth:
+        cityAtBirth:
           type: string
           description: City where the customer was born.
+          
+        countryAtBirth:
+          type: string
+          description: Country where the customer was born.
         
         nationality:
           type: string
@@ -458,13 +465,16 @@ components:
           allOf:
             - $ref: '#/components/schemas/MatchResult'
             - description: Indicates whether the gender of the customer matches with the one on the Operator's system.
-        cityOfBirthMatch:
+        cityAtBirthMatch:
           allOf:
             - $ref: '#/components/schemas/MatchResult'
-            - description: Indicates whether the place of birth of the customer matches with the one on the Operator's system
-        cityOfBirthMatchScore:
-
+            - description: Indicates whether the city at birth of the customer matches with the one on the Operator's system
+        cityAtBirthMatchScore:
           $ref: '#/components/schemas/MatchScoreResult'
+        countryAtBirthMatch:
+          allOf:
+            - $ref: '#/components/schemas/MatchResult'
+            - description: Indicates whether the country at birth of the customer matches with the one on the Operator's system
         nationalityMatch:
           allOf:
             - $ref: '#/components/schemas/MatchResult'
