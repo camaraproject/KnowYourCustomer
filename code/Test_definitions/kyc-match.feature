@@ -63,7 +63,9 @@ Feature: CAMARA Know Your Customer Match API, v0.3.0 - Operation KYC_Match
             | $.birthdate               | $.birthdateMatch              |
             | $.email                   | $.emailMatch                  |
             | $.gender                  | $.genderMatch                 |
-
+            | $.placeOfBirth            | $.placeOfBirthMatch           |
+            | $.countryOfBirth          | $.countryOfBirthMatch         |
+            | $.nationality             | $.nationalityMatch            |
 
     @KYC_Match_3_success_specific_property_score
     # Note: This test scenario is optional, as implementation of 'score' feature is optional to network operators/ API providers.
@@ -95,7 +97,7 @@ Feature: CAMARA Know Your Customer Match API, v0.3.0 - Operation KYC_Match
             | $.locality                | $.localityMatch               | $.localityMatchScore          |
             | $.birthdate               | $.birthdateMatch              | $.birthdateMatchScore         |
             | $.email                   | $.emailMatch                  | $.emailMatchScore             |
-
+            | $.placeOfBirth            | $.placeOfBirthMatch           | $.placeOfBirthMatchScore      |
 
     @KYC_Match_4_success_multiple_optional_parameter_combinations
     Scenario: Validate success response when providing different optional parameter combinations
@@ -119,6 +121,7 @@ Feature: CAMARA Know Your Customer Match API, v0.3.0 - Operation KYC_Match
         And the request body property "$.birthdate" is set to a birthdate value that complies with the ISO 8601 calendar date format "YYYY-MM-DD"
         And the request body property "$.email" is set to a email value that complies with the RFC format "{local-part}@{domain}"
         And the request body property "$.gender" is set to a valid gender value that belongs to the enumeration ("MALE", "FEMALE", "OTHER")
+        And the request body property "$.nationality" is set to the country for the nationality and complies with the ISO 3166-1 alpha-2 format
         And the given request body is populated with any random combination of afore mention optional parameters
         When the request "KYC_Match" is sent
         Then the response status code is 200
