@@ -45,6 +45,8 @@ Feature: CAMARA Know Your Customer Match API, v0.3.0 - Operation KYC_Match
         Examples:
             | request_property_path     | response_property_path        |
             | $.idDocument              | $.idDocumentMatch             |
+            | $.idDocumentType          | $.idDocumentTypeMatch         |
+            | $.idDocumentExpiryDate    | $.idDocumentExpiryDateMatch   |
             | $.name                    | $.nameMatch                   |
             | $.givenName               | $.givenNameMatch              |
             | $.familyName              | $.familyNameMatch             |
