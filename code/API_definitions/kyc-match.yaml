@@ -252,7 +252,7 @@ components:
 
         idDocument:
           type: string
-          description: Number associated to the official identity document in the country. It may contain alphanumeric characters. It        typically changes when the document is renewed.
+          description: Number associated to the official identity document in the country. It may contain alphanumeric characters. It typically changes when the document is renewed.
         
         idDocumentType:
           type: string
