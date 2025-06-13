@@ -116,6 +116,8 @@ paths:
                 value:
                   phoneNumber: '+34629255833'
                   idDocument: 66666666q
+                  idDocumentType: passport
+                  idDocumentExpiryDate: '2027-07-12'
                   name: Federica Sanchez Arjona
                   givenName: Federica
                   familyName: Sanchez Arjona
@@ -137,6 +139,8 @@ paths:
               Three-Legged Without Phone Number Example:
                 value:
                   idDocument: 66666666q
+                  idDocumentType: passport
+                  idDocumentExpiryDate: '2027-07-12'
                   name: Federica Sanchez Arjona
                   givenName: Federica
                   familyName: Sanchez Arjona
@@ -172,6 +176,8 @@ paths:
                 KYC_Match200Example:
                   value:
                     idDocumentMatch: 'true'
+                    idDocumentTypeMatch: 'true'
+                    idDocumentExpiryDateMatch: 'true'
                     nameMatch: 'true'
                     givenNameMatch: 'not_available'
                     familyNameMatch: 'not_available'
@@ -246,7 +252,17 @@ components:
 
         idDocument:
           type: string
-          description: Id number associated to the official identity document in the country. It may contain alphanumeric characters.
+          description: Number associated to the official identity document in the country. It may contain alphanumeric characters. It typically changes when the document is renewed.
+        
+        idDocumentType:
+          type: string
+          enum: [passport, national_id_card, residence_permit, diplomatic_id, driver_licence, social_security_id, other]
+          description: Type of the official identity document provided.
+        
+        idDocumentExpiryDate:
+          type: string
+          format: date
+          description: Expiration date of the identity document (ISO 8601).
 
         name:
           type: string
@@ -346,6 +362,14 @@ components:
           allOf:
             - $ref: '#/components/schemas/MatchResult'
             - description: Indicates whether Id number associated to the ID document of the customer matches with the one on the Operator's system.
+        idDocumentTypeMatch:
+          allOf:
+            - $ref: '#/components/schemas/MatchResult'
+            - description: Indicates whether document type associated to the ID document of the customer matches with the one on the Operator's system.
+        idDocumentExpiryDateMatch:
+          allOf:
+            - $ref: '#/components/schemas/MatchResult'
+            - description: Indicates whether document expiration date associated to the ID document of the customer matches with the one on the Operator's system.
         nameMatch:
           allOf:
             - $ref: '#/components/schemas/MatchResult'
