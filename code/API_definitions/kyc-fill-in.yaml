@@ -16,10 +16,6 @@ info:
 
     * To fill-in the user personal data during the digital registration of an account to a 3rd party service.
 
-    The following figure is the generic high-level flows of this API.  
-
-    <img width="848" alt="KYC_Match_flow" src="https://raw.githubusercontent.com/camaraproject/KnowYourCustomer/main/documentation/API_documentation/assets/kyc-fill-in_flow.png">
-
     Note:
 
     * Before calling this API, 3rd parties / enterprise customers who want to use this API should make contract with API provider/ Operator for use of this API.  As that will depend on each API provider / MNO's business processes as well as GSMA Open Gateway standard process, it is out of scope of this API definition.
