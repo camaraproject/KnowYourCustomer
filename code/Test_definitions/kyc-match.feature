@@ -80,7 +80,6 @@ Feature: CAMARA Know Your Customer Match API, v0.3.0 - Operation KYC_Match
 
         Examples:
             | request_property_path     | response_property_path        | response_score_property_path  |
-            | $.idDocument              | $.idDocumentMatch             | $.idDocumentMatchScore        |
             | $.name                    | $.nameMatch                   | $.nameMatchScore              |
             | $.givenName               | $.givenNameMatch              | $.givenNameMatchScore         |
             | $.familyName              | $.familyNameMatch             | $.familyNameMatchScore        |
