@@ -13,6 +13,16 @@ Incubating API Repository to evolve and maintain the definitions and documentati
 
 * API wiki page: [Know Your Customer](https://lf-camaraproject.atlassian.net/wiki/x/BjPe)
 
+
+> [!WARNING]  
+> After the CAMARA Spring25 meta release this repository has been separated into 3 individual repositories:
+> - [KnowYourCustomerMatch](https://github.com/camaraproject/KnowYourCustomerMatch)
+> - [KnowYourCustomerFill-in](https://github.com/camaraproject/KnowYourCustomerFill-in)
+> - [KnowYourCustomerAgeVerification](https://github.com/camaraproject/KnowYourCustomerAgeVerification)
+> 
+> This repository should be only used for maintenance of previous releases. For contributions to the API development please use exclusively the new repositories. Thanks!
+
+
 ## Scope
 
 * Service APIs for “KnowYourCustomer” (see APIBacklog.md)  
